@@ -1,0 +1,2637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#1f1f21">
+    <title>Talos TE Toolbox</title>
+<link rel='stylesheet' href = "{{ url_for('static', filename='css/main.css') }}">
+<h1 class='logo'>WBRS FEEDS</h1>
+</head>
+<body>
+{% include "partials/navigation.html" %}
+<style>
+table, th, td {
+border: 1px solid black;
+border-collapse: collapse;
+}
+</style>
+<table style='width:100%'>
+<p><a href="/layout">Home | </a><a href="/assigned">Assigned</a> <a href="/unassigned"> | Unassigned</a><a href="/getacetix"> | ACE Tix</a><a href="/last7"> | Last 7 Days</a></p>
+<p><a href="/ajx"> | Scripting</a></p>  <tr>
+    <th>﻿wbrs_description</th>
+    <th>score</th>
+    <th>threat_mnemonic</th>
+    <th>threat_description</th>
+  </tr>
+  <tr>
+    <td>Response IP</td>
+    <td>-9.6</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>Suspicious host</td>
+    <td>-9.6</td>
+    <td>mali</td>
+    <td>Malicious Sites</td>
+  </tr>
+  <tr>
+    <td>Response</td>
+    <td>-9.5</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>Known Phishing host</td>
+    <td>-9.5</td>
+    <td>phsh</td>
+    <td>Phishing</td>
+  </tr>
+  <tr>
+    <td>CryptoLocker DGA</td>
+    <td>-9.5</td>
+    <td>dga</td>
+    <td>Domain Generated Algorithm</td>
+  </tr>
+  <tr>
+    <td>Kyle and Stan Malvertising Network</td>
+    <td>-9.5</td>
+    <td>dga</td>
+    <td>Domain Generated Algorithm</td>
+  </tr>
+  <tr>
+    <td>Talos Internal Malicious Feed-Domain/URL</td>
+    <td>-9.5</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>Talos Internal Malicious Feed-IP</td>
+    <td>-9.5</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>Talos Research Malicious Feed-Domain/URL</td>
+    <td>-9.5</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Talos Research Malicious Feed-IP</td>
+    <td>-9.5</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Active attacking hosts</td>
+    <td>-9.5</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>Hosts that run Open Web Proxies</td>
+    <td>-9.5</td>
+    <td>hprx</td>
+    <td>Open HTTP Proxy</td>
+  </tr>
+  <tr>
+    <td>Open Mail Relay</td>
+    <td>-9.5</td>
+    <td>mrly</td>
+    <td>Open Mail Relay</td>
+  </tr>
+  <tr>
+    <td>Tor Exit Node</td>
+    <td>-9.5</td>
+    <td>tor</td>
+    <td>TOR exit Nodes</td>
+  </tr>
+  <tr>
+    <td>Heavy-weight manual blacklist</td>
+    <td>-9.5</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>Zeus DGA</td>
+    <td>-9.5</td>
+    <td>dga</td>
+    <td>Domain Generated Algorithm</td>
+  </tr>
+  <tr>
+    <td>ExploitKit Domains</td>
+    <td>-9.5</td>
+    <td>expl</td>
+    <td>Exploits</td>
+  </tr>
+  <tr>
+    <td>DGA Domains</td>
+    <td>-9.5</td>
+    <td>dga</td>
+    <td>Domain Generated Algorithm</td>
+  </tr>
+  <tr>
+    <td>Botnet Command and Control servers</td>
+    <td>-9.4</td>
+    <td>bots</td>
+    <td>Botnets</td>
+  </tr>
+  <tr>
+    <td>Hosts that are part of a botnet</td>
+    <td>-9.4</td>
+    <td>bots</td>
+    <td>Botnets</td>
+  </tr>
+  <tr>
+    <td>Malware and Exploit hosts</td>
+    <td>-9.4</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>Manual CIDR BL</td>
+    <td>-8</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>Spamhaus DROP</td>
+    <td>-7.2</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>Malicious AV verdicts from CWS telemetry</td>
+    <td>-7</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>Spamhaus Drop IPv6</td>
+    <td>-7</td>
+    <td>spam</td>
+    <td>Spam</td>
+  </tr>
+  <tr>
+    <td>Spam URI Realtime Block List AB</td>
+    <td>-6.8</td>
+    <td>spam</td>
+    <td>Spam</td>
+  </tr>
+  <tr>
+    <td>Mute Phish</td>
+    <td>-6.8</td>
+    <td>phsh</td>
+    <td>Phishing</td>
+  </tr>
+  <tr>
+    <td>Spam URI Realtime Block List OB</td>
+    <td>-6.8</td>
+    <td>spam</td>
+    <td>Spam</td>
+  </tr>
+  <tr>
+    <td>Spam URI Realtime Block List PH</td>
+    <td>-6.6</td>
+    <td>spam</td>
+    <td>Spam</td>
+  </tr>
+  <tr>
+    <td>ExploitKit IPs</td>
+    <td>-6.5</td>
+    <td>expl</td>
+    <td>Exploits</td>
+  </tr>
+  <tr>
+    <td>VIRBL</td>
+    <td>-6.5</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Spam URI Realtime Block List JP</td>
+    <td>-6.5</td>
+    <td>spam</td>
+    <td>Spam</td>
+  </tr>
+  <tr>
+    <td>CBL</td>
+    <td>-6.4</td>
+    <td>bots</td>
+    <td>Botnets</td>
+  </tr>
+  <tr>
+    <td>WBNP Patterns Malware 1</td>
+    <td>-6.4</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>MalwareURL.com URLs</td>
+    <td>-6.3</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>Sunbelt Cool Web search</td>
+    <td>-6.3</td>
+    <td>spy</td>
+    <td>Spyware and Adware</td>
+  </tr>
+  <tr>
+    <td>Umbrella IntelDB phishing</td>
+    <td>-6.3</td>
+    <td>phsh</td>
+    <td>Phishing</td>
+  </tr>
+  <tr>
+    <td>Umbrella IntelDB malware</td>
+    <td>-6.3</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Umbrella IntelDB botnet</td>
+    <td>-6.3</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Phishtank</td>
+    <td>-6.3</td>
+    <td>phsh</td>
+    <td>Phishing</td>
+  </tr>
+  <tr>
+    <td>MalwareDomains.com blacklist</td>
+    <td>-6.2</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>Cyveillance Anti-Phishing</td>
+    <td>-6.2</td>
+    <td>phsh</td>
+    <td>Phishing</td>
+  </tr>
+  <tr>
+    <td>MalwareURL.com URLs</td>
+    <td>-6.2</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>MalwareURL.com URLs</td>
+    <td>-6.2</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>MalwareURL.com URLs</td>
+    <td>-6.2</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>Netcraft Feed</td>
+    <td>-6.2</td>
+    <td>phsh</td>
+    <td>Phishing</td>
+  </tr>
+  <tr>
+    <td>Sunbelt threat</td>
+    <td>-6.2</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>APWG High confidence</td>
+    <td>-6.2</td>
+    <td>phsh</td>
+    <td>Phishing</td>
+  </tr>
+  <tr>
+    <td>Bing DriveBy</td>
+    <td>-6.1</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>Bing Forefront</td>
+    <td>-6.1</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>Bing HoneySnAx</td>
+    <td>-6.1</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>Malware Code</td>
+    <td>-6.1</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>Malwaredomainlist.com blacklist</td>
+    <td>-6.1</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>Malwaredomainlist.com blacklist low weight.</td>
+    <td>-6.1</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>Alexa top one million urls identified as malicious by OpenDNS</td>
+    <td>-6</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>Malicious OpenDNS verdicts from CWS telemetry</td>
+    <td>-6</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Internet Identity</td>
+    <td>-6</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>MalwareURL.com Domains</td>
+    <td>-6</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>MalwareURL.com Domains</td>
+    <td>-6</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>URLs identified by ReturnPath as malicious.</td>
+    <td>-6</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>WBRS OpenDNS block</td>
+    <td>-6</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Sunbelt pefile</td>
+    <td>-5.9</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>Umbrella IntelDB malware</td>
+    <td>-5.9</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>Recently Registered Domains</td>
+    <td>-5.8</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>Clean-MX phishing</td>
+    <td>-5.8</td>
+    <td>phsh</td>
+    <td>Phishing</td>
+  </tr>
+  <tr>
+    <td>Clean-MX Virus</td>
+    <td>-5.8</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>FWI Phishing Data</td>
+    <td>-5.8</td>
+    <td>phsh</td>
+    <td>Phishing</td>
+  </tr>
+  <tr>
+    <td>Sunbelt Miscellaneous Exploits</td>
+    <td>-5.8</td>
+    <td>expl</td>
+    <td>Exploits</td>
+  </tr>
+  <tr>
+    <td>Sunbelt Miscellaneous Exploits</td>
+    <td>-5.8</td>
+    <td>expl</td>
+    <td>Exploits</td>
+  </tr>
+  <tr>
+    <td>Talos Research Malicious Feed-IP</td>
+    <td>-5.8</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Active attacking IP addresses</td>
+    <td>-5.8</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>Bogon Address</td>
+    <td>-5.8</td>
+    <td>bogn</td>
+    <td>Bogon</td>
+  </tr>
+  <tr>
+    <td>IP addresses that are part of a botnet</td>
+    <td>-5.8</td>
+    <td>bots</td>
+    <td>Botnets</td>
+  </tr>
+  <tr>
+    <td>Botnet Command and Control server IP addresses</td>
+    <td>-5.8</td>
+    <td>bots</td>
+    <td>Botnets</td>
+  </tr>
+  <tr>
+    <td>Malware and Exploit IPs</td>
+    <td>-5.8</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>IPs that run Open Web Proxies</td>
+    <td>-5.8</td>
+    <td>hprx</td>
+    <td>Open HTTP Proxy</td>
+  </tr>
+  <tr>
+    <td>Open Mail Relay IPs</td>
+    <td>-5.8</td>
+    <td>mrly</td>
+    <td>Open Mail Relay</td>
+  </tr>
+  <tr>
+    <td>Known Phishing IP address</td>
+    <td>-5.8</td>
+    <td>phsh</td>
+    <td>Phishing</td>
+  </tr>
+  <tr>
+    <td>IP addresses that are actively sending out spam</td>
+    <td>-5.8</td>
+    <td>spam</td>
+    <td>Spam</td>
+  </tr>
+  <tr>
+    <td>Suspicious IP</td>
+    <td>-5.8</td>
+    <td>mali</td>
+    <td>Malicious Sites</td>
+  </tr>
+  <tr>
+    <td>Tor Exit Node IP</td>
+    <td>-5.8</td>
+    <td>tor</td>
+    <td>TOR exit Nodes</td>
+  </tr>
+  <tr>
+    <td>WBNP Patterns Malware 2</td>
+    <td>-5.8</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>Whiskey URI</td>
+    <td>-5.8</td>
+    <td>spam</td>
+    <td>Spam</td>
+  </tr>
+  <tr>
+    <td>Spam URI Realtime Block List SC</td>
+    <td>-5.7</td>
+    <td>spam</td>
+    <td>Spam</td>
+  </tr>
+  <tr>
+    <td>Virus Outbreak Filters Block List</td>
+    <td>-5.7</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>Cyveillance Malware binary URL</td>
+    <td>-5.5</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Medium-weight manual blacklist</td>
+    <td>-5.5</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>IronPort RedList</td>
+    <td>-5.4</td>
+    <td>mali</td>
+    <td>Malicious Sites</td>
+  </tr>
+  <tr>
+    <td>Suspicious AV verdicts from CWS telemetry</td>
+    <td>-5.4</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>Hosts that are actively sending out spam</td>
+    <td>-5.4</td>
+    <td>spam</td>
+    <td>Spam</td>
+  </tr>
+  <tr>
+    <td>Conficker regex</td>
+    <td>-5.2</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>Sentinel IP</td>
+    <td>-5</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Sentinel prefix</td>
+    <td>-5</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Squidguard K12</td>
+    <td>-4.6</td>
+    <td>spy</td>
+    <td>Spyware and Adware</td>
+  </tr>
+  <tr>
+    <td>FS ISAC</td>
+    <td>-4.5</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>Umbrella IntelDB nsd</td>
+    <td>-4.5</td>
+    <td>nsd</td>
+    <td>Newly Seen Domains</td>
+  </tr>
+  <tr>
+    <td>Reversing Labs</td>
+    <td>-4.4</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>MVPS</td>
+    <td>-4.4</td>
+    <td>spy</td>
+    <td>Spyware and Adware</td>
+  </tr>
+  <tr>
+    <td>Cyveillance Malware reference URL</td>
+    <td>-4.2</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Spam URI Realtime Block List WS</td>
+    <td>-4.1</td>
+    <td>spam</td>
+    <td>Spam</td>
+  </tr>
+  <tr>
+    <td>Sunbelt linkshare</td>
+    <td>-4.1</td>
+    <td>lnk</td>
+    <td>Linkshare</td>
+  </tr>
+  <tr>
+    <td>Domain tools reputation score extreme</td>
+    <td>-4</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>MalwareURL.com IPs</td>
+    <td>-4</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>MalwareURL.com IPs</td>
+    <td>-4</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>Spamhaus CSS IPv6</td>
+    <td>-4</td>
+    <td>spam</td>
+    <td>Spam</td>
+  </tr>
+  <tr>
+    <td>SBL</td>
+    <td>-4</td>
+    <td>spam</td>
+    <td>Spam</td>
+  </tr>
+  <tr>
+    <td>Sunbelt Miscellaneous Exploits</td>
+    <td>-4</td>
+    <td>expl</td>
+    <td>Exploits</td>
+  </tr>
+  <tr>
+    <td>Cyveillance Malware Blacklist</td>
+    <td>-4</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>Javacool Restricted Sites</td>
+    <td>-3.9</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Reverse Labs IP</td>
+    <td>-3.9</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>FS ISAC IP</td>
+    <td>-3.9</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>PBL</td>
+    <td>-3.9</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Invaluement</td>
+    <td>-3.9</td>
+    <td>spam</td>
+    <td>Spam</td>
+  </tr>
+  <tr>
+    <td>IP-Based Dotted-Quad URLs List</td>
+    <td>-3.6</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Suspicious URIs from Alexa top 1 million list</td>
+    <td>-3.5</td>
+    <td>mali</td>
+    <td>Malicious Sites</td>
+  </tr>
+  <tr>
+    <td>Sunbelt phish</td>
+    <td>-3.4</td>
+    <td>phsh</td>
+    <td>Phishing</td>
+  </tr>
+  <tr>
+    <td>Domain tools reputation score high</td>
+    <td>-3.2</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>Seclytics predicted malicious</td>
+    <td>-3.2</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>ThreatGRID Banking DNS</td>
+    <td>-3</td>
+    <td>mali</td>
+    <td>Malicious Sites</td>
+  </tr>
+  <tr>
+    <td>ThreatGRID DGA DNS</td>
+    <td>-3</td>
+    <td>dga</td>
+    <td>Domain Generated Algorithm</td>
+  </tr>
+  <tr>
+    <td>ThreatGRID DLL Hijacking DNS</td>
+    <td>-3</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>ThreatGRID Doc Net Com DNS</td>
+    <td>-3</td>
+    <td>mali</td>
+    <td>Malicious Sites</td>
+  </tr>
+  <tr>
+    <td>ThreatGRID Downloaded PE DNS</td>
+    <td>-3</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>ThreatGRID Dynamic DNS</td>
+    <td>-3</td>
+    <td>ddns</td>
+    <td>Dynamic DNS</td>
+  </tr>
+  <tr>
+    <td>ThreatGRID IRC DNS</td>
+    <td>-3</td>
+    <td>mali</td>
+    <td>Malicious Sites</td>
+  </tr>
+  <tr>
+    <td>ThreatGRID Modified Hosts DNS</td>
+    <td>-3</td>
+    <td>mali</td>
+    <td>Malicious Sites</td>
+  </tr>
+  <tr>
+    <td>ThreatGRID Parked DNS</td>
+    <td>-3</td>
+    <td>risk</td>
+    <td>High Risk Sites and Locations</td>
+  </tr>
+  <tr>
+    <td>ThreatGRID Public IP Check DNS</td>
+    <td>-3</td>
+    <td>mali</td>
+    <td>Malicious Sites</td>
+  </tr>
+  <tr>
+    <td>ThreatGRID Ransomware DNS</td>
+    <td>-3</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>ThreatGRID RAT DNS</td>
+    <td>-3</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>ThreatGRID Sinkholed IP DNS</td>
+    <td>-3</td>
+    <td>ioc</td>
+    <td>Indicators of Compromise (IOC)</td>
+  </tr>
+  <tr>
+    <td>ThreatGRID Stolen Cert DNS</td>
+    <td>-3</td>
+    <td>ioc</td>
+    <td>Indicators of Compromise (IOC)</td>
+  </tr>
+  <tr>
+    <td>ThreatGRID Banking DNS IP</td>
+    <td>-3</td>
+    <td>mali</td>
+    <td>Malicious Sites</td>
+  </tr>
+  <tr>
+    <td>ThreatGRID DGA DNS IP</td>
+    <td>-3</td>
+    <td>dga</td>
+    <td>Domain Generated Algorithm</td>
+  </tr>
+  <tr>
+    <td>ThreatGRID DLL Hijacking DNS IP</td>
+    <td>-3</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>ThreatGRID Doc Net Com DNS IP</td>
+    <td>-3</td>
+    <td>mali</td>
+    <td>Malicious Sites</td>
+  </tr>
+  <tr>
+    <td>ThreatGRID Downloaded PE DNS IP</td>
+    <td>-3</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>ThreatGRID Dynamic DNS IP</td>
+    <td>-3</td>
+    <td>ddns</td>
+    <td>Dynamic DNS</td>
+  </tr>
+  <tr>
+    <td>ThreatGRID IRC DNS IP</td>
+    <td>-3</td>
+    <td>mali</td>
+    <td>Malicious Sites</td>
+  </tr>
+  <tr>
+    <td>ThreatGRID Modified Hosts DNS IP</td>
+    <td>-3</td>
+    <td>mali</td>
+    <td>Malicious Sites</td>
+  </tr>
+  <tr>
+    <td>ThreatGRID Parked DNS IP</td>
+    <td>-3</td>
+    <td>risk</td>
+    <td>High Risk Sites and Locations</td>
+  </tr>
+  <tr>
+    <td>ThreatGRID Public IP Check DNS IP</td>
+    <td>-3</td>
+    <td>mali</td>
+    <td>Malicious Sites</td>
+  </tr>
+  <tr>
+    <td>ThreatGRID Ransomware DNS IP</td>
+    <td>-3</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>ThreatGRID RAT DNS IP</td>
+    <td>-3</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>ThreatGRID Sinkholed IP DNS IP</td>
+    <td>-3</td>
+    <td>ioc</td>
+    <td>Indicators of Compromise (IOC)</td>
+  </tr>
+  <tr>
+    <td>ThreatGRID Stolen Cert DNS IP</td>
+    <td>-3</td>
+    <td>ioc</td>
+    <td>Indicators of Compromise (IOC)</td>
+  </tr>
+  <tr>
+    <td>Abuse.ch Ransomware domain blacklist</td>
+    <td>-3</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>Abuse.ch Ransomware URL blacklist</td>
+    <td>-3</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>Clean URIs from Alexa top 1 million list</td>
+    <td>-3</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Safe OpenDNS verdicts from CWS telemetry</td>
+    <td>-3</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>DomainTools Blacklist feed</td>
+    <td>-3</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>DomainTools Reputation feed</td>
+    <td>-3</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Domain tools reputation score low</td>
+    <td>-3</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>Domain tools reputation score medium</td>
+    <td>-3</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>Feed for current hailstorm domains</td>
+    <td>-3</td>
+    <td>spam</td>
+    <td>Spam</td>
+  </tr>
+  <tr>
+    <td>Seclytics determined malicious</td>
+    <td>-3</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>Sophos S4 command and control</td>
+    <td>-3</td>
+    <td>bots</td>
+    <td>Botnets</td>
+  </tr>
+  <tr>
+    <td>Sophos S4 malware/infected sites</td>
+    <td>-3</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>Sophos S4 phishing</td>
+    <td>-3</td>
+    <td>phsh</td>
+    <td>Phishing</td>
+  </tr>
+  <tr>
+    <td>Umbrella IntelDB malware</td>
+    <td>-3</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>Low-weight manual blacklist</td>
+    <td>-2.5</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>Abuse.ch Ransomware IP blacklist</td>
+    <td>-2.4</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>Predictive feed for hailstorm domains</td>
+    <td>-2.4</td>
+    <td>spam</td>
+    <td>Spam</td>
+  </tr>
+  <tr>
+    <td>APWG Low confidence</td>
+    <td>-1</td>
+    <td>phsh</td>
+    <td>Phishing</td>
+  </tr>
+  <tr>
+    <td>Malware Block List Regular</td>
+    <td>-0.9</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>Low-weight manual whitelist</td>
+    <td>2.5</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>TRUSTe Site Seal</td>
+    <td>3</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Alexa Top 500 sites</td>
+    <td>4</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>del.icio.us</td>
+    <td>4.7</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Content Scan Domain Whitelist</td>
+    <td>5</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>SURBL Whitelist</td>
+    <td>5</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Verisign Verified Domains</td>
+    <td>5</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Medium-weight manual whitelist</td>
+    <td>5.5</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Manual CIDR WL</td>
+    <td>8</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Heavy-weight manual whitelist</td>
+    <td>9.5</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Beaker Dynamic Rules Library support</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Test Category 3</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Adult</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Advertisements</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Alcohol</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Arts</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Astrology</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Auctions</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Streaming Audio</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Business and Industry</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Digital Postcards</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Mobile Phones</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Chat and Instant Messaging</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Online Communities</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Computers and Internet</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Child Abuse Content</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Computer Security</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Dating</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>DIY Projects</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Illegal Drugs</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Dynamic and Residential</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Education</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Entertainment</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Extreme</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Fashion</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Filter Avoidance</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Finance</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Dining and Drinking</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Freeware and Shareware</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>File Transfer Services</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Gambling</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Games</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Government and Law</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Hacking</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Hate Speech</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Health and Nutrition</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Hunting</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Illegal Activities</td>
+    <td>10</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>Illegal Downloads</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Photo Search and Images</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Infrastructure and Content Delivery Networks</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Job Search</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Safe for Kids</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Lingerie and Swimsuits</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Humor</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Lotteries</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Web-based Email</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Adult</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Advertisements</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Alcohol</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Arts</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Astrology</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Auctions</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Streaming Audio</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Business and Industry</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Digital Postcards</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Mobile Phones</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Chat and Instant Messaging</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Online Communities</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Computers and Internet</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Child Abuse Content</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Computer Security</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Dating</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>DIY Projects</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Illegal Drugs</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Dynamic and Residential</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Education</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Entertainment</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Extreme</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Fashion</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Filter Avoidance</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Finance</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Dining and Drinking</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Freeware and Shareware</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>File Transfer Services</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Gambling</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Games</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Government and Law</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Hacking</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Hate Speech</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Health and Nutrition</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Hunting</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Illegal Activities</td>
+    <td>10</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>Illegal Downloads</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Photo Search and Images</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Infrastructure and Content Delivery Networks</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Job Search</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Safe for Kids</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Lingerie and Swimsuits</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Humor</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Lotteries</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Web-based Email</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Online Meetings</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Military</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Not Actionable</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Nature</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>News</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Non-governmental Organizations</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Non-sexual Nudity</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Online Storage and Backup</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Peer File Transfer</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Parked Domains</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Organizational Email</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Personal Sites</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Cheating and Plagiarism</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Professional Networking</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Politics</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Pornography</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Paranormal</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Personal VPN</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Reference</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Religion</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Real Estate</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>SaaS and B2B</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Science and Technology</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Society and Culture</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Shopping</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Social Networking</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Social Science</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Sports and Recreation</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Search Engines and Portals</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Software Updates</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Sex Education</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Tobacco</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Online Trading</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Web Page Translation</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Transportation</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Travel</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Streaming Video</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Internet Telephony</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Weapons</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Web Hosting</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Online Meetings</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Military</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Not Actionable</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Nature</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>News</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Non-governmental Organizations</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Non-sexual Nudity</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Online Storage and Backup</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Peer File Transfer</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Parked Domains</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Organizational Email</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Personal Sites</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Cheating and Plagiarism</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Professional Networking</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Politics</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Pornography</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Paranormal</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Personal VPN</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Reference</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Religion</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Real Estate</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>SaaS and B2B</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Science and Technology</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Society and Culture</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Shopping</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Social Networking</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Social Science</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Sports and Recreation</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Search Engines and Portals</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Software Updates</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Sex Education</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Tobacco</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Online Trading</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Web Page Translation</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Transportation</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Travel</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Streaming Video</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Internet Telephony</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Weapons</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Web Hosting</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Adult</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Advertisements</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Alcohol</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Arts</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Astrology</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Auctions</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Streaming Audio</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Business and Industry</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Digital Postcards</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Mobile Phones</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Chat and Instant Messaging</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Online Communities</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Computers and Internet</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Child Abuse Content</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Computer Security</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Dating</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>DIY Projects</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Illegal Drugs</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Dynamic and Residential</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Education</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Entertainment</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Extreme</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Fashion</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Filter Avoidance</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Finance</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Dining and Drinking</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Freeware and Shareware</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>File Transfer Services</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Gambling</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Games</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Government and Law</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Hacking</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Hate Speech</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Health and Nutrition</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Hunting</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Illegal Activities</td>
+    <td>10</td>
+    <td>mals</td>
+    <td>Malware Sites</td>
+  </tr>
+  <tr>
+    <td>Illegal Downloads</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Photo Search and Images</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Infrastructure and Content Delivery Networks</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Job Search</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Safe for Kids</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Lingerie and Swimsuits</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Humor</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Lotteries</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Web-based Email</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Online Meetings</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Military</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Not Actionable</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Nature</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>News</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Non-governmental Organizations</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Non-sexual Nudity</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Online Storage and Backup</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Peer File Transfer</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Parked Domains</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Organizational Email</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Personal Sites</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Cheating and Plagiarism</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Professional Networking</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Politics</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Pornography</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Paranormal</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Personal VPN</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Reference</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Religion</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Real Estate</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>SaaS and B2B</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Science and Technology</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Society and Culture</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Shopping</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Social Networking</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Social Science</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Sports and Recreation</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Search Engines and Portals</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Software Updates</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Sex Education</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Tobacco</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Online Trading</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Web Page Translation</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Transportation</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Travel</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Streaming Video</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Internet Telephony</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Weapons</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Web Hosting</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Test Category 1 updated</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+  <tr>
+    <td>Test Category 2</td>
+    <td>10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+  </tr>
+</table>
+</div>
+<br><br><div class=footer>
+<p>Copyright (c) 2022 wikoeste, Cisco Internal Use Only</p>
+</div>
+</body>
+</html>

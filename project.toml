@@ -6,8 +6,8 @@ build-backend = "setuptools.build_meta"
 find = {}  # Scan the project directory with the default parameters
 
 [project]
-name = "te-talos-casmgr"
-version = "0.0.1"
+name = "te-talos-casemgr"
+version = "0.0.2"
 description = "TE Case Manager and other tools"
 authors = [
     {name = "Will Koester", email = "wikoeste@cisco.com"}
@@ -36,4 +36,4 @@ dependencies = [
 ]
 
 [project.scripts]
-liono = server.py
+te-talos-casemgr =

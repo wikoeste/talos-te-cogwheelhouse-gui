@@ -23,6 +23,7 @@ UPLOAD_FOLDER      = settings.pcapDir  #pcaps directory
 ALLOWED_EXTENSIONS = {'pcap'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['RULES_FOLDER']  = RULES_FOLDER
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = timedelta(days=7)
 #################################################
 #################################################
 
@@ -52,6 +53,13 @@ def backlogbuddy():
     if 'username' in session:
         csvtohtml.htmloutput(settings.backlogbuddy)
         return render_template('/scripts/backlogbuddy.html')
+    return redirect(url_for('notloggedin'))
+
+@app.route('/wbrsfeeds')
+def wbrsfeeds():
+    if 'username' in session:
+        csvtohtml.htmloutput(settings.wbrsfeeds)
+        return render_template('/scripts/wbrsfeeds.html')
     return redirect(url_for('notloggedin'))
 
 @app.route('/elasticq')
@@ -197,7 +205,7 @@ def logout():
    return render_template("/auth/login.html")
 
 #Creates a 3 hour timeout for the user
-@app.before_first_request
+@app.before_request
 def make_session_permanent():
     session.permanent = True
     app.permanent_session_lifetime = timedelta(minutes=180)
@@ -222,8 +230,6 @@ def takescript(): # assign tickets
         return render_template(url_for('notloggedin'))
     else:
         if request.method == 'POST':
-            jsondata = request.json
-            #print(jsondata)
             selected = request.form.getlist('checks')
             print('the list of tix are {}'.format(selected))
             if selected != "":
@@ -492,13 +498,13 @@ def getclam():
         return render_template(url_for('notloggedin'))
     else:
         if request.method   == 'POST':
-            print(request.values)
+            #print(request.values)
             s256    = request.form.get('sha256')
             vrt     = request.form.get('vrt')
             results = clam.searchvrt(s256,vrt)
             if results == None:
-                err = "No Results"
-                return render_template('/err/err.html', err=err)
+                #err = (f"No Results from clam.searchvrt,{s256}")
+                return render_template('/err/err.html', err=results)
             else:
                 return render_template('/results/clamresults.html',res=results)
         else:                                                       # Return Error
@@ -660,6 +666,22 @@ def delete(filename):
             return render_template('./replay/deleteack.html', name=filename)
         else:
             err = "File does not exist!"
+            return render_template('./err/err.html', err=err)
+
+# Deletes all pcaps from snort replay previously uploaded
+@app.route('/delete_all_files', methods=['GET','POST'])
+def delete_all_files():
+    if 'username' not in session:
+        return redirect(url_for('notloggedin'))
+    else:
+        try:
+            for filename in os.listdir(UPLOAD_FOLDER):
+                file_path = os.path.join(UPLOAD_FOLDER, filename)
+                if os.path.isfile(file_path):
+                    os.remove(file_path)
+            return render_template('./replay/deleteack.html', name="All files deleted.")
+        except Exception as e:
+            err = f"Error deleting files: {e}"
             return render_template('./err/err.html', err=err)
 
 # Log in with VRT creds to Download  latest snort rules
@@ -859,4 +881,4 @@ def bpdownload():
 ###MAIN APPLICATION###
 ######################
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(port=8000,debug=True)

@@ -1,32 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#1f1f21">
     <title>ACE Tix</title>
     <link rel='stylesheet' href = "../../static/css/main.css">
     <meta charset="UTF-8">
     <!-- Drop down navigation bar -->
-    <div class="navbar">
-        <h1>Analyst Console Assigned & Unassigned Tickets</h1>
-        <!--Home Page Link-->
-        <a href="/layout">Home</a>
-        <!--TICKETS DROPDOWN MENU-->
-        <div class="dropdown">
-          <button class="dropbtn">Tickets
-            <i class="fa fa-caret-down"></i>
-          </button>
-          <div class="dropdown-content">
-            <a href={{url_for("runscript")}}>GET JIRA TIX</a>
-            <a href={{url_for("assignedtickets")}}>ASSIGNED</a>
-            <a href={{url_for("unassignedtickets")}}>UNASSIGNED</a>
-            <a href={{url_for("getacetix")}}>ANALYST CONSOLE TIX</a>
-          </div>
-        </div>
-        <p></a><a href="/logout">Log Out</a> </p>
-    </div>
+
 </head>
 <body>
+{% include "partials/navigation.html" %}
+<h1>Analyst Console Assigned & Unassigned Tickets</h1>
 
-<div class="center">
+
+<details class="ticket-list" open>
+  <summary><span>Analyst Console tickets</span><span class="ticket-list-hint">Click to minimize or expand</span></summary>
+  <div class="ticket-list-content">
     <table>
         <thead>
             <th>ACE Tickets</th>
@@ -37,7 +27,8 @@
             {%endfor%}
         </tbody>
     </table>
-</div>
+  </div>
+</details>
 
 </body>
 </html>

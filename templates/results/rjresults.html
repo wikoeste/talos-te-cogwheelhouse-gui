@@ -1,13 +1,16 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
     <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#1f1f21">
         <title>Reinjection</title>
-        <header>
-            <h1><strong>CID Analysis Results</strong></h1>
-        </header>
         <link rel='stylesheet' href = "../static/css/main.css">
-    <a href="/">Home | </a><a href="/reinjection">Reinjection | </a><a href="/etd">ETD</a>
     </head>
    <body>
+{% include "partials/navigation.html" %}
+        <h1><strong>CID Analysis Results</strong></h1>
+
         <br><br>
         <div class="divScroll">
             {%for r in res%}

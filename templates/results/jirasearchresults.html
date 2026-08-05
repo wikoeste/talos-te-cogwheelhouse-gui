@@ -1,82 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#1f1f21">
     <meta charset="UTF-8">
     <title>Jira Results</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     <!-- menu bar -->
-    <div class="navbar">
-          <h1>Jira API Search Results</h1>
-          <img src="../static/imgs/toolbox.png" style="position:absolute;right:20px;top:20px;"/>
-        <!--tile layout.html-->
-        <a href="/layout">Home</a>
-        <!--TICKETS DROPDOWN MENU-->
-        <div class="dropdown">
-          <button class="dropbtn">Tickets
-            <i class="fa fa-caret-down"></i>
-          </button>
-          <div class="dropdown-content">
-            <a href={{url_for("runscript")}}>GET JIRA TIX</a>
-            <a href={{url_for("assignedtickets")}}>ASSIGNED</a>
-            <a href={{url_for("unassignedtickets")}}>UNASSIGNED</a>
-            <a href={{url_for("getacetix")}}>ANALYST CONSOLE TIX</a>
-            <a href={{url_for("talosjiraeers")}}>Jira-EERS</a>
-            <a href={{url_for("talosjiraops")}}>Jira-TalosOps</a>
-            <a href={{url_for("talosjirathr")}}>Jira-THR</a>
-            <a href={{url_for("talosjiraresbz")}}>Jira-RESBZ</a>
-          </div>
-        </div>
-        <!--UMBRELLA DROPDOWN MENU-->
-        <div class="dropdown">
-         <button class="dropbtn">Umbrella-Tools
-          <i class="fa fa-caret-down"></i>
-         </button>
-          <div class="dropdown-content">
-            <a href="https://editor.securityresearch.umbrella.com/editor" target="_blank">Research Editor</a>
-            <a href={{url_for("intelproxysearchform")}}>Proxy Script Search</a>
-          </div>
-        </div>
-        <!--SEARCH TOOLS DROPDOWN MENU-->
-        <div class="dropdown">
-          <button class="dropbtn">Search Tools
-            <i class="fa fa-caret-down"></i>
-          </button>
-          <div class="dropdown-content">
-            <a href={{url_for("clamsearch")}}>ClamAV Search</a>
-            <a href="/elasticq">Elastic Queries</a>
-            <a href="/jirasearch">Jira Search</a>
-            <a href={{url_for("tg")}}>Malware Analytics</a>
-          </div>
-        </div>
-        <!--SCRIPTS DROPDOWN MENU-->
-        <div class="dropdown">
-          <button class="dropbtn">Scripts
-            <i class="fa fa-caret-down"></i>
-          </button>
-          <div class="dropdown-content">
-            <a href={{url_for("reinjection")}}>Reinjection</a>
-            <a href={{url_for("etd")}}>ETD</a>
-            <a href={{url_for("backlogbuddy")}}>Backlog Buddy</a>
-            <a href={{url_for("langs")}}>IPAS Lang Acronyms</a>
-          </div>
-        </div>
-        <!--STAGING SERVERS DROPDOWN MENU-->
-        <div class="dropdown">
-         <button class="dropbtn">Staging Servers
-          <i class="fa fa-caret-down"></i>
-         </button>
-          <div class="dropdown-content">
-            <a href="https://analyst-console-staging.vrt.sourcefire.com/escalations" target="_blank">ACE</a>
-            <a href="https://fmd-tepot-01tst.vrt.sourcefire.com" target="_blank">TEA</a>
-            <a href="https://talosintelligence-staging.herokuapp.com/reputation_center/" target="_blank">Talos Intel</a>
-          </div>
-        </div>
-        <!--LOGOUT BUTTON-->
-        <a href={{url_for("logout")}}>Logout</a>
-      </div>
+
     <!--end menu bar-->
 </head>
 <body>
+{% include "partials/navigation.html" %}
+<h1>Jira API Search Results</h1>
+
 <br><br>
 
 <div class="divScroll">

@@ -1,13 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Login Page</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#1f1f21">
+    <title>Talos Escalations Team - COG Wheelhouse</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 </head>
 <body>
     <form action="/login" method="POST">
         <div class="credsform">
             <div class="divform">
+             <h1 class="login-title">Talos Escalations Team <span>COG Wheelhouse</span></h1>
              <p>Enter Username:</p>
              <p><input type="text" name="username" required/></p>
              <p>Enter CEC Password:</p>
@@ -21,4 +25,3 @@
 </div>
 </body>
 </html>
-

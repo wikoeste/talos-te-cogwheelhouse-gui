@@ -1,6 +1,6 @@
 from liono.common import settings
 settings.init()
-import requests,json,re
+import requests,json,re,os,subprocess
 
 # Drop the clamav signature with new sigmgr
 def dropsig(sid,reason,notes):
@@ -36,61 +36,93 @@ def dropsig(sid,reason,notes):
 def searchvrt(sample,vrt):
     results  = []
     url      = settings.search01+"sample/"+sample
-    response = requests.get(url, auth =(settings.uname,vrt),verify=False)
-    if response.status_code == 200:
-        rjson = response.json()
-        #print(json.dumps(rjson, indent=2))
-        sid              = 0
-        s256,ftype       = (None,None)
-        fireamp,clam     = ([],[])
-        amphits,clamhits = (None,None)
-        # get AMP detection
-        if len(rjson["fireamp_detection"]["current"]) == 0:
-            amphits = "None"
+    match    = re.match("[A-Za-z.]|\\d{7}\\-\\d",sample)     # clam sample id or rulename via regex
+    s256     = re.match("[A-Fa-f0-9]{64}",sample)            # sha256 regex
+    if match:
+        #get clam sig data from sigtools
+        cmd     = f"/usr/local/bin/sigtool --find-sigs={sample}"
+        if os.path.isfile("/usr/local/bin/sigtool"):
+            try:
+                res     = subprocess.run(cmd,capture_output=True,text=True,check=True)
+                print(res)
+                filtres = re.sub(r"\[.*\]|;.*",'',res)
+                print("==ClamAV Sigtool Results==")
+                print(filtres)
+            except subprocess.CalledProcessError as e:
+                err=(f"Command failed with return code {e.returncode}\nSTDOUT: {e.stdout}\nSTDERR: {e.stderr}")
+                print(err)
+                return err
+            except FileNotFoundError as e:
+                err=(f"Sigtool not located!\n {e}")
+                print(err)
+                return err
+            except:
+                err=(f"==ClamAV Sigtool Results==\n Error with sigtool.")
+                print(err)
+                return err
         else:
-            [fireamp.append(i) for i in rjson["fireamp_detection"]["current"]]
-            amphits = "\n".join(i for i in fireamp)
-        # get clam detection
-        if len(rjson["clamav_detection"]["current"]) == 0:
-            clamhits = "None"
+            err=("==ClamAV Sigtool Results==\nSigtool not installed.")
+            print(err)
+            return err
+    elif s256:
+        response = requests.get(url, auth =(settings.uname,vrt),verify=False)
+        if response.status_code == 200:
+            rjson = response.json()
+            #print(json.dumps(rjson, indent=2))
+            sid              = 0
+            s256,ftype       = (None,None)
+            fireamp,clam     = ([],[])
+            amphits,clamhits = (None,None)
+            # get AMP detection
+            if len(rjson["fireamp_detection"]["current"]) == 0:
+                amphits = "None"
+            else:
+                [fireamp.append(i) for i in rjson["fireamp_detection"]["current"]]
+                amphits = "\n".join(i for i in fireamp)
+            # get clam detection
+            if len(rjson["clamav_detection"]["current"]) == 0:
+                clamhits = "None"
+            else:
+                [clam.append(i) for i in rjson["clamav_detection"]["current"]]
+                clamhits = "\n".join(i for i in clam)
+            # get the sid
+            if "sample_id" in json.dumps(rjson):
+                sid = rjson["sample_id"]
+            else:
+                sid = "None"
+            if "updated" in json.dumps(rjson):
+                updated = rjson["updated"]
+                updated = re.sub(r"T|Z","",updated)
+            else:
+                updated = "None"
+            try:
+                origin = rjson["origin"]
+            except KeyError:
+                origin = "None"
+            try:
+                s256 = rjson["SHA256"]
+            except KeyError:
+                s256 = "None"
+            try:
+                ftype = rjson["current_mimetype"]
+            except KeyError:
+                ftype = "Unknown"
+            #Print the results from Search01
+            #print(s256,sid,updated,clamhits,amphits,origin)
+            data = ("SHA256: " + s256+
+                "\nSampleID: " + sid+
+                "\nUpdated: " + updated+
+                "\nFile Type: "+ ftype+
+                "\nAmpDections: " + amphits+
+                "\nClamAV: " + clamhits+
+                "\nOrigin: " + origin)
+            data = data.replace("\n", "<br>")
+            return data
         else:
-            [clam.append(i) for i in rjson["clamav_detection"]["current"]]
-            clamhits = "\n".join(i for i in clam)
-        # get the sid
-        if "sample_id" in json.dumps(rjson):
-            sid = rjson["sample_id"]
-        else:
-            sid = "None"
-        if "updated" in json.dumps(rjson):
-            updated = rjson["updated"]
-            updated = re.sub(r"T|Z","",updated)
-        else:
-            updated = "None"
-        try:
-            origin = rjson["origin"]
-        except KeyError:
-            origin = "None"
-        try:
-            s256 = rjson["SHA256"]
-        except KeyError:
-            s256 = "None"
-        try:
-            ftype = rjson["current_mimetype"]
-        except KeyError:
-            ftype = "Unknown"
-
-        #Print the results from Search01
-        #print(s256,sid,updated,clamhits,amphits,origin)
-        data = ("SHA256: " + s256+
-            "\nSampleID: " + sid+
-            "\nUpdated: " + updated+
-            "\nFile Type: "+ ftype+
-            "\nAmpDections: " + amphits+
-            "\nClamAV: " + clamhits+
-            "\nOrigin: " + origin)
-        data = data.replace("\n", "<br>")
-        return data
+            err = (f"VRT Search01 API Error\n HTTP ERROR: {response.status_code}")
+            print(err)
+            return err
     else:
-        err = [["VRT Search01 API Error"],
-            ["HTTP ERROR".format(response.status_code)]]
+        err = (f"The submission, {sample}, is not a valid SHA256, Sample-ID or Signature-ID.")
         print(err)
+        return err

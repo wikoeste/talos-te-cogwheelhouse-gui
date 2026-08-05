@@ -1,0 +1,73 @@
+<nav class="navbar" aria-label="Primary navigation">
+  <a class="nav-brand" href="{{ url_for('layout') }}">Talos Escalations | COG Toolbox</a>
+  <a href="https://confluence.vrt.sourcefire.com/calendar/mycalendar.action" target="_blank" rel="noopener noreferrer">Team Calendar</a>
+
+  <div class="dropdown">
+    <button class="dropbtn" type="button" aria-haspopup="true">Tickets <span aria-hidden="true">▾</span></button>
+    <div class="dropdown-content">
+      <a href="{{ url_for('runscript') }}">Get Jira Tickets</a>
+      <a href="{{ url_for('assignedtickets') }}">Assigned</a>
+      <a href="{{ url_for('unassignedtickets') }}">Unassigned</a>
+      <a href="{{ url_for('getacetix') }}">Analyst Console Tickets</a>
+      <a href="{{ url_for('talosjiraeers') }}">Jira EERS</a>
+      <a href="{{ url_for('talosjiraops') }}">Jira TalosOps</a>
+      <a href="{{ url_for('talosjirathr') }}">Jira THR</a>
+      <a href="{{ url_for('talosjiraresbz') }}">Jira RESBZ</a>
+      <a href="{{ url_for('last7') }}">Metrics: Last 7 Days</a>
+    </div>
+  </div>
+
+  <div class="dropdown">
+    <button class="dropbtn" type="button" aria-haspopup="true">Umbrella Tools <span aria-hidden="true">▾</span></button>
+    <div class="dropdown-content">
+      <a href="https://editor.securityresearch.umbrella.com/editor" target="_blank" rel="noopener noreferrer">Research Editor</a>
+      <a href="{{ url_for('intelproxysearchform') }}">Proxy Script Search</a>
+    </div>
+  </div>
+
+  <div class="dropdown">
+    <button class="dropbtn" type="button" aria-haspopup="true">Search Tools <span aria-hidden="true">▾</span></button>
+    <div class="dropdown-content">
+      <a href="{{ url_for('clamsearch') }}">ClamAV Search</a>
+      <a href="https://scripts.cisco.com/app/quicker_csone/" target="_blank" rel="noopener noreferrer">CSONE Search</a>
+      <a href="{{ url_for('elasticqueries') }}">Elastic Queries</a>
+      <a href="{{ url_for('jirasearch') }}">Jira Search</a>
+      <a href="{{ url_for('tg') }}">Malware Analytics</a>
+      <a href="{{ url_for('bpSearch') }}">BP Search</a>
+    </div>
+  </div>
+
+  <div class="dropdown">
+    <button class="dropbtn" type="button" aria-haspopup="true">Scripts <span aria-hidden="true">▾</span></button>
+    <div class="dropdown-content">
+      <a href="{{ url_for('reinjection') }}">Reinjection</a>
+      <a href="{{ url_for('etd') }}">ETD</a>
+      <a href="{{ url_for('backlogbuddy') }}">Backlog Buddy</a>
+      <a href="{{ url_for('langs') }}">IPAS Language Acronyms</a>
+      <a href="{{ url_for('wbrsfeeds') }}">WBRS Feeds</a>
+    </div>
+  </div>
+
+  <div class="dropdown">
+    <button class="dropbtn" type="button" aria-haspopup="true">Replay Tools <span aria-hidden="true">▾</span></button>
+    <div class="dropdown-content">
+      <a href="{{ url_for('pigreplay') }}">Pig Replay</a>
+      <a href="{{ url_for('uploadpcap') }}">Upload PCAP</a>
+      <a href="{{ url_for('dlpcap') }}">Download PCAP</a>
+      <a href="{{ url_for('delpcap') }}">Delete PCAP</a>
+      <a href="{{ url_for('rulesearch') }}">Rule Search</a>
+      <a href="{{ url_for('ruledl') }}">Rule Download</a>
+    </div>
+  </div>
+
+  <div class="dropdown">
+    <button class="dropbtn" type="button" aria-haspopup="true">Staging Servers <span aria-hidden="true">▾</span></button>
+    <div class="dropdown-content">
+      <a href="https://analyst-console-staging.vrt.sourcefire.com/escalations" target="_blank" rel="noopener noreferrer">ACE</a>
+      <a href="https://fmd-tepot-01tst.vrt.sourcefire.com" target="_blank" rel="noopener noreferrer">TEA</a>
+      <a href="https://talosintelligence-staging.herokuapp.com/reputation_center/" target="_blank" rel="noopener noreferrer">Talos Intelligence</a>
+    </div>
+  </div>
+
+  <a href="{{ url_for('logout') }}">Logout</a>
+</nav>

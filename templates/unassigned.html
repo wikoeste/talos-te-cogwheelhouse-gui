@@ -1,33 +1,39 @@
-<html>
+<!DOCTYPE html>
+<html lang='en'>
 <head>
+<meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<meta name='theme-color' content='#1f1f21'>
+<title>Unassigned | Talos TE Toolbox</title>
 <link rel='stylesheet' href = "{{ url_for('static', filename='css/main.css') }}">
-<h1 class='logo'>Unassigned</h1>
 </head>
-<body><style>
+<body>
+{% include "partials/navigation.html" %}
+<h1 class='logo'>Unassigned</h1>
+<style>
 table, th, td {
 border: 1px solid black;
 border-collapse: collapse;
 }
 </style>
 <table style='width:100%'>
-<p><a href="/layout">Home | </a><a href="/assigned">Assigned</a> <a href="/unassigned"> | Unassigned</a><a href="/getacetix"> | ACE Tix</a><a href="/last7"> | Last 7 Days</a></p>
-<p><a href="/ajx"> | Scripting</a></p>  <tr>
+  <tr>
     <th>Link</th>
     <th>Description</th>
     <th>Created</th>
     <th>Assign</th>
   </tr>
   <tr>
-    <td><a href =https://jira.talos.cisco.com/browse/COG-81775 target=_blank>COG-81775</a></td>
-    <td>[FP] VIRGINIA COMMONWEALTH UNIVERSITY – IPAS – Legitimate message marked spam</td>
-    <td>2025-09-19</td>
-    <td><form action=/takescript method=POST><input type=checkbox name=checks value=COG-81775><label for=COG-81775>COG-81775</label></td>
+    <td><a href =https://jira.talos.cisco.com/browse/COG-87219 target=_blank>COG-87219</a></td>
+    <td>[FP] - CNS US DOE PANTEX PLANT - IPAS Spam Suspect incorrectly classified</td>
+    <td>2026-08-05</td>
+    <td><form action=/takescript method=POST><input type=checkbox name=checks value=COG-87219><label for=COG-87219>COG-87219</label></td>
   </tr>
   <tr>
-    <td><a href =https://jira.talos.cisco.com/browse/COG-81774 target=_blank>COG-81774</a></td>
-    <td>"[FP] ""FIRSTWAVE TECHNOLOGY - TELSTRA"" - IPAS - legit emails marked as spam"</td>
-    <td>2025-09-19</td>
-    <td><form action=/takescript method=POST><input type=checkbox name=checks value=COG-81774><label for=COG-81774>COG-81774</label></td>
+    <td><a href =https://jira.talos.cisco.com/browse/COG-87218 target=_blank>COG-87218</a></td>
+    <td>[FP] QATARENERGY LNG - IPAS - Legit email caught as Marketing - SR 701175798</td>
+    <td>2026-08-05</td>
+    <td><form action=/takescript method=POST><input type=checkbox name=checks value=COG-87218><label for=COG-87218>COG-87218</label></td>
   </tr>
   <tr>
     <td></td>
@@ -40,7 +46,6 @@ border-collapse: collapse;
     <td>2</td>
   </tr>
 </table>
-</div>
 <br><br><div class=footer>
 <p>Copyright (c) 2022 wikoeste, Cisco Internal Use Only</p>
 </div>

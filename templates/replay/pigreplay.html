@@ -1,96 +1,39 @@
 <!DOCTYPE html>
-<html>
-<header>
+<html lang="en">
+
+<!--Home page for snort replay-->
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#1f1f21">
+    <title>Talos TE Toolbox</title>
     <link rel='stylesheet' href = "../static/css/main.css">
-    <div class="navbar">
-      <h1>Talos Escalations | PigReplay</h1>
-        <!--Home-->
-        <a href={{url_for("layout")}}>Home</a>
-        <!--TICKETS DROPDOWN MENU-->
-        <div class="dropdown">
-          <button class="dropbtn">Tickets
-            <i class="fa fa-caret-down"></i>
-          </button>
-          <div class="dropdown-content">
-            <a href={{url_for("runscript")}}>GET JIRA TIX</a>
-            <a href={{url_for("assignedtickets")}}>ASSIGNED</a>
-            <a href={{url_for("unassignedtickets")}}>UNASSIGNED</a>
-            <a href={{url_for("getacetix")}}>ANALYST CONSOLE TIX</a>
-            <a href={{url_for("talosjiraeers")}}>Jira-EERS</a>
-            <a href={{url_for("talosjiraops")}}>Jira-TalosOps</a>
-            <a href={{url_for("talosjirathr")}}>Jira-THR</a>
-            <a href={{url_for("talosjiraresbz")}}>Jira-RESBZ</a>
-          </div>
-        </div>
-        <!--UMBRELLA DROPDOWN MENU-->
-        <div class="dropdown">
-         <button class="dropbtn">Umbrella-Tools
-          <i class="fa fa-caret-down"></i>
-         </button>
-          <div class="dropdown-content">
-            <a href="https://editor.securityresearch.umbrella.com/editor" target="_blank">Research Editor</a>
-            <a href={{url_for("intelproxysearchform")}}>Proxy Script Search</a>
-          </div>
-        </div>
-        <!--SEARCH TOOLS DROPDOWN MENU-->
-        <div class="dropdown">
-          <button class="dropbtn">Search Tools
-            <i class="fa fa-caret-down"></i>
-          </button>
-          <div class="dropdown-content">
-            <a href="/elasticq">Elastic Queries</a>
-            <a href="/jirasearch">Jira Search</a>
-          </div>
-        </div>
-        <!--SCRIPTS DROPDOWN MENU-->
-        <div class="dropdown">
-          <button class="dropbtn">Scripts
-            <i class="fa fa-caret-down"></i>
-          </button>
-          <div class="dropdown-content">
-            <a href={{url_for("reinjection")}}>Reinjection</a>
-            <a href={{url_for("etd")}}>ETD</a>
-            <a href={{url_for("backlogbuddy")}}>Backlog Buddy</a>
-            <a href={{url_for("langs")}}>IPAS Lang Acronyms</a>
-          </div>
-        </div>
-        <!--STAGING SERVERS DROPDOWN MENU-->
-        <div class="dropdown">
-         <button class="dropbtn">Staging Servers
-          <i class="fa fa-caret-down"></i>
-         </button>
-          <div class="dropdown-content">
-            <a href="https://analyst-console-staging.vrt.sourcefire.com/escalations" target="_blank">ACE</a>
-            <a href="https://fmd-tepot-01tst.vrt.sourcefire.com" target="_blank">TEA</a>
-            <a href="https://talosintelligence-staging.herokuapp.com/reputation_center/" target="_blank">Talos Intel</a>
-          </div>
-        </div>
-        <!--LOGOUT BUTTON-->
-        <a href={{url_for("logout")}}>Logout</a>
-      </div>
-    </div>
-</header>
+</head>
 
 <body>
+{% include "partials/navigation.html" %}
+<h1>Talos Escalations | PigReplay</h1>
+
     <!--ACTION TILES FOR USER-->
    <!--UPLOAD PCAP-->
     <div class="tiles tile thover">
          <a href="uploadpcap">
-             <img alt="upload" src="../static/imgs/upload.png" height="150"></a>
+             <img loading="lazy" decoding="async" alt="upload" src="../static/imgs/upload.png" height="150"></a>
           <div class="caption ">Upload Pcap</div>
       </div>
 
     <!--DL pcap-->
     <div class="tiles tile thover">
          <a href="filedownloads">
-             <img alt="upload" src="../static/imgs/download.jpeg" height="150"></a>
+             <img loading="lazy" decoding="async" alt="upload" src="../static/imgs/download.jpeg" height="150"></a>
           <div class="caption ">Download Pcap</div>
       </div>
 
     <!--Delete pcap from system-->
     <div class="tiles tile thover">
           <a href="filedeletion">
-             <img alt="del" src="../static/imgs/delete.jpeg"
+             <img loading="lazy" decoding="async" alt="del" src="../static/imgs/delete.jpeg"
                   height="150"></a>
           <div class="caption ">Delete Pcaps</div>
       </div>
@@ -98,28 +41,28 @@
    <!--Download the latest S2 rules-->
     <div class="tiles tile thover">
           <a href="ruledl">
-             <img alt="ruledl" src="../static/imgs/rules.webp"
+             <img loading="lazy" decoding="async" alt="ruledl" src="../static/imgs/rules.webp"
                   width="180" height="150"></a>
           <div class="caption ">Snort Rule Download</div>
       </div>
 
     <div class="tiles tile thover">
           <a href="rulesearch">
-             <img alt="rulesearch" src="../static/imgs/search.jpeg"
+             <img loading="lazy" decoding="async" alt="rulesearch" src="../static/imgs/search.jpeg"
                   height="150"></a>
           <div class="caption ">Rule Search</div>
       </div>
 
     <div class="tiles tile thover">
           <a href="replay">
-             <img alt="snort" src="../static/imgs/snort.jpeg"
+             <img loading="lazy" decoding="async" alt="snort" src="../static/imgs/snort.jpeg"
                   width="180" height="150"></a>
           <div class="caption ">Snort Replay</div>
       </div>
 
         <div class="tiles tile thover">
          <a href="/jirasearch">
-             <img alt="Jira" src="../static/imgs/jsearch.jpeg"
+             <img loading="lazy" decoding="async" alt="Jira" src="../static/imgs/jsearch.jpeg"
                   height="150"></a>
           <div class="caption ">Jira Search</div>
       </div>

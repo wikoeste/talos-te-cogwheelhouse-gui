@@ -1,17 +1,23 @@
-<html>
+<!DOCTYPE html>
+<html lang='en'>
 <head>
+<meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<meta name='theme-color' content='#1f1f21'>
+<title>Assigned | Talos TE Toolbox</title>
 <link rel='stylesheet' href = "{{ url_for('static', filename='css/main.css') }}">
-<h1 class='logo'>Assigned</h1>
 </head>
-<body><style>
+<body>
+{% include "partials/navigation.html" %}
+<h1 class='logo'>Assigned</h1>
+<style>
 table, th, td {
 border: 1px solid black;
 border-collapse: collapse;
 }
 </style>
 <table style='width:100%'>
-<p><a href="/layout">Home | </a><a href="/assigned">Assigned</a> <a href="/unassigned"> | Unassigned</a><a href="/getacetix"> | ACE Tix</a><a href="/last7"> | Last 7 Days</a></p>
-<p><a href="/ajx"> | Scripting</a></p>  <tr>
+  <tr>
     <th>Link</th>
     <th>Description</th>
     <th>DateOpened</th>
@@ -19,88 +25,88 @@ border-collapse: collapse;
     <th>Bulk Resolve</th>
   </tr>
   <tr>
-    <td><a href =https://jira.talos.cisco.com/browse/COG-81358 target=_blank>COG-81358</a></td>
-    <td>[FN] SCINOPHARM TAIWAN LTD – IPAS – Spam message being missed</td>
-    <td>2025-08-27</td>
-    <td>2025-09-19 12:54:48</td>
-    <td><form action=/bulkresolve method=POST><input type=checkbox name=resolve value=COG-81358><label for=COG-81358>COG-81358</label><br></td>
+    <td><a href =https://jira.talos.cisco.com/browse/COG-87213 target=_blank>COG-87213</a></td>
+    <td>[FP] DATA MANAGEMENT SYSTEMS LTD – WBRS - Good URL blocked</td>
+    <td>2026-08-05</td>
+    <td>2026-08-05 12:47:18</td>
+    <td><form action=/bulkresolve method=POST><input type=checkbox name=resolve value=COG-87213><label for=COG-87213>COG-87213</label><br></td>
   </tr>
   <tr>
-    <td><a href =https://jira.talos.cisco.com/browse/COG-81768 target=_blank>COG-81768</a></td>
-    <td>[FP] SUN LUEN ELECTRICAL MANUFACTURING COMPANY LTD - IPAS - Legitimate message marked spam</td>
-    <td>2025-09-19</td>
-    <td>2025-09-19 12:52:36</td>
-    <td><form action=/bulkresolve method=POST><input type=checkbox name=resolve value=COG-81768><label for=COG-81768>COG-81768</label><br></td>
+    <td><a href =https://jira.talos.cisco.com/browse/COG-87211 target=_blank>COG-87211</a></td>
+    <td>[FP] Boursorama - IPAS - False Positive (HAM) - 701172456</td>
+    <td>2026-08-05</td>
+    <td>2026-08-05 12:47:16</td>
+    <td><form action=/bulkresolve method=POST><input type=checkbox name=resolve value=COG-87211><label for=COG-87211>COG-87211</label><br></td>
   </tr>
   <tr>
-    <td><a href =https://jira.talos.cisco.com/browse/COG-81623 target=_blank>COG-81623</a></td>
-    <td>[FN] AMAZON - IPAS - spam email is not detected</td>
-    <td>2025-09-11</td>
-    <td>2025-09-19 11:43:28</td>
-    <td><form action=/bulkresolve method=POST><input type=checkbox name=resolve value=COG-81623><label for=COG-81623>COG-81623</label><br></td>
+    <td><a href =https://jira.talos.cisco.com/browse/COG-87214 target=_blank>COG-87214</a></td>
+    <td>[CR] HYNIX SEMICONDUCTOR INC - SNORT2/3 - Create Coverage for CVE-2026-18574</td>
+    <td>2026-08-05</td>
+    <td>2026-08-05 12:47:15</td>
+    <td><form action=/bulkresolve method=POST><input type=checkbox name=resolve value=COG-87214><label for=COG-87214>COG-87214</label><br></td>
   </tr>
   <tr>
-    <td><a href =https://jira.talos.cisco.com/browse/COG-80704 target=_blank>COG-80704</a></td>
-    <td>[FP] MVB MARKETING-UND VERLAGSSERVICE DE – IPAS – Incorrectly caught message</td>
-    <td>2025-07-23</td>
-    <td>2025-09-19 11:42:09</td>
-    <td><form action=/bulkresolve method=POST><input type=checkbox name=resolve value=COG-80704><label for=COG-80704>COG-80704</label><br></td>
+    <td><a href =https://jira.talos.cisco.com/browse/COG-87166 target=_blank>COG-87166</a></td>
+    <td>[FP] SCOTCH COLLEGE - AMP - Safe file blocked by AMP d2ac1a96fa52dd3fc784946ad621caac4f3577e39721f1763c9d1e84d2e7cdb8</td>
+    <td>2026-08-03</td>
+    <td>2026-08-05 06:32:08</td>
+    <td><form action=/bulkresolve method=POST><input type=checkbox name=resolve value=COG-87166><label for=COG-87166>COG-87166</label><br></td>
   </tr>
   <tr>
-    <td><a href =https://jira.talos.cisco.com/browse/COG-81417 target=_blank>COG-81417</a></td>
-    <td>[FP] ALLIANZ TECHNOLOGY SE – IPAS – Legitimate message marked as marketing by graymail engine</td>
-    <td>2025-08-29</td>
-    <td>2025-09-19 11:41:44</td>
-    <td><form action=/bulkresolve method=POST><input type=checkbox name=resolve value=COG-81417><label for=COG-81417>COG-81417</label><br></td>
+    <td><a href =https://jira.talos.cisco.com/browse/COG-87169 target=_blank>COG-87169</a></td>
+    <td>[FP]- BAR ILAN UNIVERSITY - SBRS - Good sender with none reputation</td>
+    <td>2026-08-03</td>
+    <td>2026-08-05 03:53:01</td>
+    <td><form action=/bulkresolve method=POST><input type=checkbox name=resolve value=COG-87169><label for=COG-87169>COG-87169</label><br></td>
   </tr>
   <tr>
-    <td><a href =https://jira.talos.cisco.com/browse/COG-81439 target=_blank>COG-81439</a></td>
-    <td>[FN] INFORMATICA SYSTEMHAUS RUECKER GMBH– IPAS – Missed spam message</td>
-    <td>2025-09-01</td>
-    <td>2025-09-19 11:40:37</td>
-    <td><form action=/bulkresolve method=POST><input type=checkbox name=resolve value=COG-81439><label for=COG-81439>COG-81439</label><br></td>
+    <td><a href =https://jira.talos.cisco.com/browse/COG-87182 target=_blank>COG-87182</a></td>
+    <td>[FN] COMANDO CONJUNTO DE LAS FUERZAS ARMADAS - Phish message were not caught</td>
+    <td>2026-08-03</td>
+    <td>2026-08-04 18:25:52</td>
+    <td><form action=/bulkresolve method=POST><input type=checkbox name=resolve value=COG-87182><label for=COG-87182>COG-87182</label><br></td>
   </tr>
   <tr>
-    <td><a href =https://jira.talos.cisco.com/browse/COG-78027 target=_blank>COG-78027</a></td>
-    <td>[CR] AVODAQ AG - AMP - Scheduled Task/Job: Scheduled Task via cmd</td>
-    <td>2025-03-03</td>
-    <td>2025-09-19 11:39:37</td>
-    <td><form action=/bulkresolve method=POST><input type=checkbox name=resolve value=COG-78027><label for=COG-78027>COG-78027</label><br></td>
+    <td><a href =https://jira.talos.cisco.com/browse/COG-86989 target=_blank>COG-86989</a></td>
+    <td>[FP] ALLIANZ TECHNOLOGY SE -SBRS-Poor IP reputation</td>
+    <td>2026-07-23</td>
+    <td>2026-08-04 13:18:19</td>
+    <td><form action=/bulkresolve method=POST><input type=checkbox name=resolve value=COG-86989><label for=COG-86989>COG-86989</label><br></td>
   </tr>
   <tr>
-    <td><a href =https://jira.talos.cisco.com/browse/COG-81750 target=_blank>COG-81750</a></td>
-    <td>[FP] GROENENDIJK BEDRIJFSKLEDING - ETD - Phish/Scam -TUVS</td>
-    <td>2025-09-18</td>
-    <td>2025-09-18 13:59:04</td>
-    <td><form action=/bulkresolve method=POST><input type=checkbox name=resolve value=COG-81750><label for=COG-81750>COG-81750</label><br></td>
+    <td><a href =https://jira.talos.cisco.com/browse/COG-87170 target=_blank>COG-87170</a></td>
+    <td>SK HYNIX - SNORT2 or SNORT3 - Create Coverage for CVE-2025-23211</td>
+    <td>2026-08-03</td>
+    <td>2026-08-04 13:12:03</td>
+    <td><form action=/bulkresolve method=POST><input type=checkbox name=resolve value=COG-87170><label for=COG-87170>COG-87170</label><br></td>
+  </tr>
+  <tr>
+    <td><a href =https://jira.talos.cisco.com/browse/COG-87180 target=_blank>COG-87180</a></td>
+    <td>[FP] PATRIOT FEDERAL CREDIT UNION - Umbrella - Domain variphy.cloud being blocked for phishing and untrusted</td>
+    <td>2026-08-03</td>
+    <td>2026-08-04 12:46:34</td>
+    <td><form action=/bulkresolve method=POST><input type=checkbox name=resolve value=COG-87180><label for=COG-87180>COG-87180</label><br></td>
+  </tr>
+  <tr>
+    <td><a href =https://jira.talos.cisco.com/browse/COG-87159 target=_blank>COG-87159</a></td>
+    <td>[Other] AMTRAK - SBRS - score incorrectly lowered as 'None' for specific domain.</td>
+    <td>2026-07-31</td>
+    <td>2026-08-04 12:42:44</td>
+    <td><form action=/bulkresolve method=POST><input type=checkbox name=resolve value=COG-87159><label for=COG-87159>COG-87159</label><br></td>
+  </tr>
+  <tr>
+    <td><a href =https://jira.talos.cisco.com/browse/COG-87168 target=_blank>COG-87168</a></td>
+    <td>[FP] Blue Yonder - Umbrella - Good URL Blocked</td>
+    <td>2026-08-03</td>
+    <td>2026-08-03 12:42:00</td>
+    <td><form action=/bulkresolve method=POST><input type=checkbox name=resolve value=COG-87168><label for=COG-87168>COG-87168</label><br></td>
   </tr>
   <tr>
     <td><a href =https://jira.talos.cisco.com/browse/COG-80026 target=_blank>COG-80026</a></td>
     <td>[CR] AVODAQ - AMP - Atomic Red Team Tests</td>
     <td>2025-06-19</td>
-    <td>2025-09-18 13:00:23</td>
+    <td>2026-07-29 13:21:25</td>
     <td><form action=/bulkresolve method=POST><input type=checkbox name=resolve value=COG-80026><label for=COG-80026>COG-80026</label><br></td>
-  </tr>
-  <tr>
-    <td><a href =https://jira.talos.cisco.com/browse/COG-80332 target=_blank>COG-80332</a></td>
-    <td>[FP] ASML VIANEN BV - Umbrella - Good URL Blocked</td>
-    <td>2025-07-07</td>
-    <td>2025-09-17 15:32:00</td>
-    <td><form action=/bulkresolve method=POST><input type=checkbox name=resolve value=COG-80332><label for=COG-80332>COG-80332</label><br></td>
-  </tr>
-  <tr>
-    <td><a href =https://jira.talos.cisco.com/browse/COG-81586 target=_blank>COG-81586</a></td>
-    <td>[FP]KBC GROUP- IPAS - Improve SDR verdict</td>
-    <td>2025-09-09</td>
-    <td>2025-09-17 11:56:10</td>
-    <td><form action=/bulkresolve method=POST><input type=checkbox name=resolve value=COG-81586><label for=COG-81586>COG-81586</label><br></td>
-  </tr>
-  <tr>
-    <td><a href =https://jira.talos.cisco.com/browse/COG-80149 target=_blank>COG-80149</a></td>
-    <td>[TEST TICKET][INTERNAL ONLY][Other]Talos Escalations - All - Script Automation Testing</td>
-    <td>2025-06-26</td>
-    <td>2025-09-03 15:52:37</td>
-    <td><form action=/bulkresolve method=POST><input type=checkbox name=resolve value=COG-80149><label for=COG-80149>COG-80149</label><br></td>
   </tr>
   <tr>
     <td></td>
@@ -114,7 +120,6 @@ border-collapse: collapse;
     <td>12</td>
   </tr>
 </table>
-</div>
 <br><br><div class=footer>
 <p>Copyright (c) 2022 wikoeste, Cisco Internal Use Only</p>
 </div>

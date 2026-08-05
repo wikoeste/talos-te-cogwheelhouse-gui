@@ -2,26 +2,30 @@ from liono.common import settings
 import mysql.connector
 
 def htmltable(data):
-    homelink = '<p><a href="/layout">Home | </a><a href="/assigned">Assigned</a>' \
-               '<a href="/unassigned"> | Unassigned</a><a href="/getacetix"> | ACE Tix</a></p>\n'
+    homelink = ''
     #print(data)
     fileout = open(settings.acehtml, "w")
     table = "<table>\n"
     # add css
-    css = "<html>\n" \
+    css = "<!DOCTYPE html>\n" \
+          "<html lang='en'>\n" \
           "<head>\n" \
+          "<meta charset='utf-8'>\n" \
+          "<meta name='viewport' content='width=device-width, initial-scale=1'>\n" \
+          "<meta name='theme-color' content='#1f1f21'>\n" \
+          "<title>Analyst Console Tickets | Talos TE Toolbox</title>\n" \
           "<link rel='stylesheet' href = '{{ url_for('static', filename='css/main.css') }}'>\n" \
-          "<h1 class='logo'>Analyst Console Assigned Tickets</h1>\n" \
           "</head>\n" \
-          "<body>"
+          "<body>\n" \
+          "{% include \"partials/navigation.html\" %}\n" \
+          "<h1 class='logo'>Analyst Console Assigned Tickets</h1>\n"
     table = css
-    table += "<style>\n" \
-             "table, th, td {\n" \
-             "border: 1px solid black;\n" \
-             "border-collapse: collapse;\n" \
-             "}\n" \
-             "</style>\n" \
-             "<table style='width:50% display: block; height: 100px; overflow: scroll;'>\n"
+    ticket_count = sum("<a " in item for item in data)
+    table += "<details class='ticket-list' open>\n" \
+             "<summary><span>Analyst Console tickets</span>" \
+             "<span class='ticket-list-hint'>" + str(ticket_count) + " ticket links</span></summary>\n" \
+             "<div class='ticket-list-content'>\n" \
+             "<table>\n"
 
     # Add links for menu
     table += homelink
@@ -44,13 +48,14 @@ def htmltable(data):
                 table += "    <td>{0}</td>\n".format(column.strip())
                 #pass
         table += "  </tr>\n"
-    table += "</table>\n</div>"
+    table += "</table>\n</div>\n</details>\n"
     table += "<br><br>"
     # add footer to webpage
     footer = "<div class=footer>\n" \
              "<p>Copyright (c) 2022 wikoeste, Cisco Internal Use Only</p>\n" \
              "</div>\n"
     table += footer
+    table += "</body>\n</html>"
     fileout.writelines(table)
     fileout.close()
 

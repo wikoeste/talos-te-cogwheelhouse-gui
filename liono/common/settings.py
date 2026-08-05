@@ -48,7 +48,7 @@ jsondump            = ""
 #AnalystConsole Creds
 acedbhost           = 'ava-tdbro-01prd.vrt.sourcefire.com'
 acedatabase         = 'analyst_console'
-templatespath       = "/Users/wikoeste/PycharmProjects/talos-te-toolbox/templates/"
+templatespath       = "/Users/wikoeste/Documents/PycharmProjects/talos-te-toolbox/templates/"
 lastninety          = datetime.datetime.now() - datetime.timedelta(90)
 lastseven           = datetime.datetime.now() - datetime.timedelta(7)
 # ticket web urls
@@ -79,15 +79,16 @@ elastichtml         = os.path.join(templatespath, "results/elasticresults.html")
 rjresultshtml       = os.path.join(templatespath, "results/rjresults.html")
 acehtml             = os.path.join(templatespath, "acetickets.html")
 backlogbuddy        = os.path.join(templatespath, "scripts/backlogbuddy.html")
+wbrsfeeds           = os.path.join(templatespath, "scripts/wbrsfeeds.html")
 
 #snort replay
 snortversion = None
 rule         = None
 unedited     = None
 vrt          = None
-projDir      = "/Users/" + uname + "/PycharmProjects/talos-te-toolbox/liono/"
-pcapDir      = "/Users/" + uname + "/PycharmProjects/talos-te-toolbox/liono/pigreplay/pcaps/"
-rulesDir     = "/Users/" + uname + "/PycharmProjects/talos-te-toolbox/liono/pigreplay/snort-rules/"
+projDir      = "/Users/" + uname + "/Documents/PycharmProjects/talos-te-toolbox/liono/"
+pcapDir      = "/Users/" + uname + "/Documents/PycharmProjects/talos-te-toolbox/liono/pigreplay/pcaps/"
+rulesDir     = "/Users/" + uname + "/Documents/PycharmProjects/talos-te-toolbox/liono/pigreplay/snort-rules/"
 
 # bp cloud download api
 bpuser  = "wikoeste"

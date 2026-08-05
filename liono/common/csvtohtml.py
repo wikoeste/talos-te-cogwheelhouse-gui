@@ -1,5 +1,8 @@
+import csv
+import itertools
+from pathlib import Path
+
 from liono.common import settings
-import csv,itertools,time
 
 def writedata(flag):
     #create date and formatting for csv file writing
@@ -125,11 +128,12 @@ def writedata(flag):
         f.close()
 
 def htmloutput(fname): # wrtite html file from the csv file
-    homelink = '<p><a href="/layout">Home | </a><a href="/assigned">Assigned</a> ' \
-               '<a href="/unassigned"> | Unassigned</a><a href="/getacetix"> | ACE Tix</a><a href="/last7"> | Last 7 Days</a></p>\n' \
-               '<p><a href="/ajx"> | Scripting</a></p>'
+    homelink = ''
+    static_dir = Path(settings.templatespath).resolve().parent / "static"
     if 'backlog' in fname:
-        filein = open('/Users/wikoeste/PycharmProjects/talos-te-toolbox/static/backlogbuddy.csv', "r")
+        filein = open(static_dir / "backlogbuddy.csv", "r")
+    elif 'wbrs' in fname:
+        filein = open(static_dir / "wbrsfeeds.csv", "r")
     else:
         filein = open(settings.csvfname, "r")
     fileout = open(fname, "w")
@@ -143,23 +147,31 @@ def htmloutput(fname): # wrtite html file from the csv file
         hdr = "Assigned"
     elif "elastic" in fname:
         hdr = "Juno Elastic Query API Results"
-        homelink = '<p><a href="/layout">Home | </a><a href="/elasticq">Elastic Qrys</a></p>\n'
     elif "rj" in fname:
         # REINJECTION
         hdr = "Sherlock API Reinjection Results"
     elif "backlog" in fname:
         # BACKLOG BUDDY
         hdr = "Backlog Buddy List"
+    elif "wbrs" in fname:
+        # WBRS Feeds
+        hdr = "WBRS FEEDS"
     else:
         # ERROR PAGE
         hdr = "Error Page"
     # CSS LINK
-    css = "<html>\n" \
+    css = "<!DOCTYPE html>\n" \
+          "<html lang='en'>\n" \
           "<head>\n" \
+          "<meta charset='utf-8'>\n" \
+          "<meta name='viewport' content='width=device-width, initial-scale=1'>\n" \
+          "<meta name='theme-color' content='#1f1f21'>\n" \
+          "<title>"+hdr+" | Talos TE Toolbox</title>\n" \
           "<link rel='stylesheet' href = \"{{ url_for('static', filename='css/main.css') }}\">\n" \
-          "<h1 class='logo'>"+hdr+"</h1>\n" \
           "</head>\n" \
-          "<body>"
+          "<body>\n" \
+          "{% include \"partials/navigation.html\" %}\n" \
+          "<h1 class='logo'>"+hdr+"</h1>\n"
     #TBL creation
     table = css
     #table += "\n<div class='tblcontainer'>\n" \
@@ -194,7 +206,7 @@ def htmloutput(fname): # wrtite html file from the csv file
         for column in row:
             table += "    <td>{0}</td>\n".format(column.strip())
         table += "  </tr>\n"
-    table   += "</table>\n</div>\n"
+    table   += "</table>\n"
     table   += "<br><br>"
     footer   = "<div class=footer>\n" \
                "<p>Copyright (c) 2022 wikoeste, Cisco Internal Use Only</p>\n" \

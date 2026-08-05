@@ -30,14 +30,15 @@ def snortsig(sid):
             f.close()
         writelocal(rule)
     elif int(sid) < 1000000:           # search for any sid < one million
-        ruleid = "sid:"+sid
+        ruleid = (f"sid:{sid};")
+        print(ruleid)
         for file in os.listdir(path):
             fname = os.path.join(path,file)
             if ruleid in open(fname).read():
                 print("Rule found in, "+ file)              # print the rule file name
                 found = fname
                 for line in open(found):
-                    for match in re.finditer(sid, line):
+                    for match in re.finditer(ruleid, line):
                         with open (path+'local.rules', 'w') as f:
                             f.write(line)
                             settings.unedited = line        # write the rule to return

@@ -1,81 +1,22 @@
-<html>
-    <header>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#1f1f21">
       <title>MA</title>
       <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
       <!-- menu bar -->
-      <div class="navbar">
-          <h1>Malware Analytics Results</h1>
-          <!--<img src="../static/imgs/toolbox.png" style="position:absolute;right:20px;top:20px;"/>-->
-        <a href={{url_for("layout")}}>Home</a>
-        <!--TICKETS DROPDOWN MENU-->
-        <div class="dropdown">
-          <button class="dropbtn">Tickets
-            <i class="fa fa-caret-down"></i>
-          </button>
-          <div class="dropdown-content">
-            <a href={{url_for("runscript")}}>GET JIRA TIX</a>
-            <a href={{url_for("assignedtickets")}}>ASSIGNED</a>
-            <a href={{url_for("unassignedtickets")}}>UNASSIGNED</a>
-            <a href={{url_for("getacetix")}}>ANALYST CONSOLE TIX</a>
-            <a href={{url_for("talosjiraeers")}}>Jira-EERS</a>
-            <a href={{url_for("talosjiraops")}}>Jira-TalosOps</a>
-            <a href={{url_for("talosjirathr")}}>Jira-THR</a>
-            <a href={{url_for("talosjiraresbz")}}>Jira-RESBZ</a>
-          </div>
-        </div>
-        <!--UMBRELLA DROPDOWN MENU-->
-        <div class="dropdown">
-         <button class="dropbtn">Umbrella-Tools
-          <i class="fa fa-caret-down"></i>
-         </button>
-          <div class="dropdown-content">
-            <a href="https://editor.securityresearch.umbrella.com/editor" target="_blank">Research Editor</a>
-            <a href={{url_for("intelproxysearchform")}}>Proxy Script Search</a>
-          </div>
-        </div>
-        <!--SEARCH TOOLS DROPDOWN MENU-->
-        <div class="dropdown">
-          <button class="dropbtn">Search Tools
-            <i class="fa fa-caret-down"></i>
-          </button>
-          <div class="dropdown-content">
-            <a href={{url_for("clamsearch")}}>ClamAV Search</a>
-            <a href={{url_for("tg")}}>Malware Analytics</a>
-            <a href="/elasticq">Elastic Queries</a>
-            <a href="/jirasearch">Jira Search</a>
-          </div>
-        </div>
-        <!--SCRIPTS DROPDOWN MENU-->
-        <div class="dropdown">
-          <button class="dropbtn">Scripts
-            <i class="fa fa-caret-down"></i>
-          </button>
-          <div class="dropdown-content">
-            <a href={{url_for("reinjection")}}>Reinjection</a>
-            <a href={{url_for("etd")}}>ETD</a>
-            <a href={{url_for("backlogbuddy")}}>Backlog Buddy</a>
-            <a href={{url_for("langs")}}>IPAS Lang Acronyms</a>
-          </div>
-        </div>
-        <!--STAGING SERVERS DROPDOWN MENU-->
-        <div class="dropdown">
-         <button class="dropbtn">Staging Servers
-          <i class="fa fa-caret-down"></i>
-         </button>
-          <div class="dropdown-content">
-            <a href="https://analyst-console-staging.vrt.sourcefire.com/escalations" target="_blank">ACE</a>
-            <a href="https://fmd-tepot-01tst.vrt.sourcefire.com" target="_blank">TEA</a>
-            <a href="https://talosintelligence-staging.herokuapp.com/reputation_center/" target="_blank">Talos Intel</a>
-          </div>
-        </div>
-        <!--LOGOUT BUTTON-->
-        <a href={{url_for("logout")}}>Logout</a>
-      </div>
-    </header>
+
+    </head>
     <!--end menu bar-->
    <body>
+{% include "partials/navigation.html" %}
+<h1>Malware Analytics Results</h1>
+
         <br><br>
-        <div style="float: left; width: 20%">
+        <main class="results-layout results-layout--threat-grid">
+        <section class="result-panel">
             <table border="2">
                 <thead>
                     <th>Sample ID</th>
@@ -90,8 +31,8 @@
                 </tr>
                 </tbody>
             </table>
-        </div>
-        <div style="float: left; width: 5%">
+        </section>
+        <section class="result-panel">
             <table border="2">
                 <thead>
                     <th>Score</th>
@@ -103,9 +44,9 @@
                 </tr>
                 </tbody>
             </table>
-        </div>
+        </section>
 
-        <div style="float: left; width: 15%">
+        <section class="result-panel">
             <table border="2">
                 <thead>
                     <th>Date</th>
@@ -117,9 +58,9 @@
                 </tr>
                 </tbody>
             </table>
-        </div>
+        </section>
 
-        <div style="float:left; width:10%">
+        <section class="result-panel">
             <table border="2">
                 <title>Behavioral Indicator > 80</title>
                 <thead>
@@ -132,9 +73,9 @@
                         </tr>{%endfor%}
                 </tbody>
             </table>
-        </div>
+        </section>
 
-        <div style="float:left; width:30%">
+        <section class="result-panel result-panel--wide">
             <table border="2">
                 <thead>
                     <th>BI Name</th>
@@ -146,20 +87,21 @@
                         </tr>{%endfor%}
                 </tbody>
             </table>
-        </div>
+        </section>
+        </main>
 
     <br><br>
     <!--a href="https://panacea.threatgrid.com/login">Malware Analytics Login</a-->
     <!--Malware Analytics login TILE-->
       <div class="tiles tile thover">
           <a href="https://panacea.threatgrid.com/login" target="_blank">
-          <img alt="s3r" src="../static/imgs/malan.jpeg" height="200" width="280"></a>
+          <img loading="lazy" decoding="async" alt="s3r" src="../static/imgs/malan.jpeg" height="200" width="280"></a>
           <div class="caption">Malware Analytics</div>
       </div>
 
-   </body>
    <br><br>
         <div class="footer">
             <p>Copyright (c) 2022 wikoeste, Cisco Internal Use Only</p>
         </div>
+   </body>
 </html>

@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#1f1f21">
     <meta charset="UTF-8">
     <title>Error</title>
     <link rel='stylesheet' href = "../static/css/main.css">
-        <div class="navbar">
-        <h1>Error</h1>
-    </div>
+
 </head>
 <body>
+{% include "partials/navigation.html" %}
+<h1>Error</h1>
+
 <p><a href="/">Home</a></p>
 <p>ERROR:</p>
 <p>{{err}}</p>

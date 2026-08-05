@@ -1,0 +1,435 @@
+﻿wbrs_description,score,threat_mnemonic,threat_description
+Response IP,-9.6,mals,Malware Sites
+Suspicious host,-9.6,mali,Malicious Sites
+Response,-9.5,mals,Malware Sites
+Known Phishing host,-9.5,phsh,Phishing
+CryptoLocker DGA,-9.5,dga,Domain Generated Algorithm
+Kyle and Stan Malvertising Network,-9.5,dga,Domain Generated Algorithm
+Talos Internal Malicious Feed-Domain/URL,-9.5,mals,Malware Sites
+Talos Internal Malicious Feed-IP,-9.5,mals,Malware Sites
+Talos Research Malicious Feed-Domain/URL,-9.5,NULL,NULL
+Talos Research Malicious Feed-IP,-9.5,NULL,NULL
+Active attacking hosts,-9.5,mals,Malware Sites
+Hosts that run Open Web Proxies,-9.5,hprx,Open HTTP Proxy
+Open Mail Relay,-9.5,mrly,Open Mail Relay
+Tor Exit Node,-9.5,tor,TOR exit Nodes
+Heavy-weight manual blacklist,-9.5,mals,Malware Sites
+Zeus DGA,-9.5,dga,Domain Generated Algorithm
+ExploitKit Domains,-9.5,expl,Exploits
+DGA Domains,-9.5,dga,Domain Generated Algorithm
+Botnet Command and Control servers,-9.4,bots,Botnets
+Hosts that are part of a botnet,-9.4,bots,Botnets
+Malware and Exploit hosts,-9.4,mals,Malware Sites
+Manual CIDR BL,-8,mals,Malware Sites
+Spamhaus DROP,-7.2,mals,Malware Sites
+Malicious AV verdicts from CWS telemetry,-7,mals,Malware Sites
+Spamhaus Drop IPv6,-7,spam,Spam
+Spam URI Realtime Block List AB,-6.8,spam,Spam
+Mute Phish,-6.8,phsh,Phishing
+Spam URI Realtime Block List OB,-6.8,spam,Spam
+Spam URI Realtime Block List PH,-6.6,spam,Spam
+ExploitKit IPs,-6.5,expl,Exploits
+VIRBL,-6.5,NULL,NULL
+Spam URI Realtime Block List JP,-6.5,spam,Spam
+CBL,-6.4,bots,Botnets
+WBNP Patterns Malware 1,-6.4,mals,Malware Sites
+MalwareURL.com URLs,-6.3,mals,Malware Sites
+Sunbelt Cool Web search,-6.3,spy,Spyware and Adware
+Umbrella IntelDB phishing,-6.3,phsh,Phishing
+Umbrella IntelDB malware,-6.3,NULL,NULL
+Umbrella IntelDB botnet,-6.3,NULL,NULL
+Phishtank,-6.3,phsh,Phishing
+MalwareDomains.com blacklist,-6.2,mals,Malware Sites
+Cyveillance Anti-Phishing,-6.2,phsh,Phishing
+MalwareURL.com URLs,-6.2,mals,Malware Sites
+MalwareURL.com URLs,-6.2,mals,Malware Sites
+MalwareURL.com URLs,-6.2,mals,Malware Sites
+Netcraft Feed,-6.2,phsh,Phishing
+Sunbelt threat,-6.2,mals,Malware Sites
+APWG High confidence,-6.2,phsh,Phishing
+Bing DriveBy,-6.1,mals,Malware Sites
+Bing Forefront,-6.1,mals,Malware Sites
+Bing HoneySnAx,-6.1,mals,Malware Sites
+Malware Code,-6.1,mals,Malware Sites
+Malwaredomainlist.com blacklist,-6.1,mals,Malware Sites
+Malwaredomainlist.com blacklist low weight.,-6.1,mals,Malware Sites
+Alexa top one million urls identified as malicious by OpenDNS,-6,mals,Malware Sites
+Malicious OpenDNS verdicts from CWS telemetry,-6,NULL,NULL
+Internet Identity,-6,NULL,NULL
+MalwareURL.com Domains,-6,mals,Malware Sites
+MalwareURL.com Domains,-6,NULL,NULL
+URLs identified by ReturnPath as malicious.,-6,mals,Malware Sites
+WBRS OpenDNS block,-6,NULL,NULL
+Sunbelt pefile,-5.9,mals,Malware Sites
+Umbrella IntelDB malware,-5.9,mals,Malware Sites
+Recently Registered Domains,-5.8,mals,Malware Sites
+Clean-MX phishing,-5.8,phsh,Phishing
+Clean-MX Virus,-5.8,mals,Malware Sites
+FWI Phishing Data,-5.8,phsh,Phishing
+Sunbelt Miscellaneous Exploits,-5.8,expl,Exploits
+Sunbelt Miscellaneous Exploits,-5.8,expl,Exploits
+Talos Research Malicious Feed-IP,-5.8,NULL,NULL
+Active attacking IP addresses,-5.8,mals,Malware Sites
+Bogon Address,-5.8,bogn,Bogon
+IP addresses that are part of a botnet,-5.8,bots,Botnets
+Botnet Command and Control server IP addresses,-5.8,bots,Botnets
+Malware and Exploit IPs,-5.8,mals,Malware Sites
+IPs that run Open Web Proxies,-5.8,hprx,Open HTTP Proxy
+Open Mail Relay IPs,-5.8,mrly,Open Mail Relay
+Known Phishing IP address,-5.8,phsh,Phishing
+IP addresses that are actively sending out spam,-5.8,spam,Spam
+Suspicious IP,-5.8,mali,Malicious Sites
+Tor Exit Node IP,-5.8,tor,TOR exit Nodes
+WBNP Patterns Malware 2,-5.8,mals,Malware Sites
+Whiskey URI,-5.8,spam,Spam
+Spam URI Realtime Block List SC,-5.7,spam,Spam
+Virus Outbreak Filters Block List,-5.7,mals,Malware Sites
+Cyveillance Malware binary URL,-5.5,NULL,NULL
+Medium-weight manual blacklist,-5.5,mals,Malware Sites
+IronPort RedList,-5.4,mali,Malicious Sites
+Suspicious AV verdicts from CWS telemetry,-5.4,mals,Malware Sites
+Hosts that are actively sending out spam,-5.4,spam,Spam
+Conficker regex,-5.2,mals,Malware Sites
+Sentinel IP,-5,NULL,NULL
+Sentinel prefix,-5,NULL,NULL
+Squidguard K12,-4.6,spy,Spyware and Adware
+FS ISAC,-4.5,mals,Malware Sites
+Umbrella IntelDB nsd,-4.5,nsd,Newly Seen Domains
+Reversing Labs,-4.4,mals,Malware Sites
+MVPS,-4.4,spy,Spyware and Adware
+Cyveillance Malware reference URL,-4.2,NULL,NULL
+Spam URI Realtime Block List WS,-4.1,spam,Spam
+Sunbelt linkshare,-4.1,lnk,Linkshare
+Domain tools reputation score extreme,-4,mals,Malware Sites
+MalwareURL.com IPs,-4,mals,Malware Sites
+MalwareURL.com IPs,-4,mals,Malware Sites
+Spamhaus CSS IPv6,-4,spam,Spam
+SBL,-4,spam,Spam
+Sunbelt Miscellaneous Exploits,-4,expl,Exploits
+Cyveillance Malware Blacklist,-4,mals,Malware Sites
+Javacool Restricted Sites,-3.9,NULL,NULL
+Reverse Labs IP,-3.9,mals,Malware Sites
+FS ISAC IP,-3.9,mals,Malware Sites
+PBL,-3.9,NULL,NULL
+Invaluement,-3.9,spam,Spam
+IP-Based Dotted-Quad URLs List,-3.6,NULL,NULL
+Suspicious URIs from Alexa top 1 million list,-3.5,mali,Malicious Sites
+Sunbelt phish,-3.4,phsh,Phishing
+Domain tools reputation score high,-3.2,mals,Malware Sites
+Seclytics predicted malicious,-3.2,NULL,NULL
+ThreatGRID Banking DNS,-3,mali,Malicious Sites
+ThreatGRID DGA DNS,-3,dga,Domain Generated Algorithm
+ThreatGRID DLL Hijacking DNS,-3,mals,Malware Sites
+ThreatGRID Doc Net Com DNS,-3,mali,Malicious Sites
+ThreatGRID Downloaded PE DNS,-3,mals,Malware Sites
+ThreatGRID Dynamic DNS,-3,ddns,Dynamic DNS
+ThreatGRID IRC DNS,-3,mali,Malicious Sites
+ThreatGRID Modified Hosts DNS,-3,mali,Malicious Sites
+ThreatGRID Parked DNS,-3,risk,High Risk Sites and Locations
+ThreatGRID Public IP Check DNS,-3,mali,Malicious Sites
+ThreatGRID Ransomware DNS,-3,mals,Malware Sites
+ThreatGRID RAT DNS,-3,mals,Malware Sites
+ThreatGRID Sinkholed IP DNS,-3,ioc,Indicators of Compromise (IOC)
+ThreatGRID Stolen Cert DNS,-3,ioc,Indicators of Compromise (IOC)
+ThreatGRID Banking DNS IP,-3,mali,Malicious Sites
+ThreatGRID DGA DNS IP,-3,dga,Domain Generated Algorithm
+ThreatGRID DLL Hijacking DNS IP,-3,mals,Malware Sites
+ThreatGRID Doc Net Com DNS IP,-3,mali,Malicious Sites
+ThreatGRID Downloaded PE DNS IP,-3,mals,Malware Sites
+ThreatGRID Dynamic DNS IP,-3,ddns,Dynamic DNS
+ThreatGRID IRC DNS IP,-3,mali,Malicious Sites
+ThreatGRID Modified Hosts DNS IP,-3,mali,Malicious Sites
+ThreatGRID Parked DNS IP,-3,risk,High Risk Sites and Locations
+ThreatGRID Public IP Check DNS IP,-3,mali,Malicious Sites
+ThreatGRID Ransomware DNS IP,-3,mals,Malware Sites
+ThreatGRID RAT DNS IP,-3,mals,Malware Sites
+ThreatGRID Sinkholed IP DNS IP,-3,ioc,Indicators of Compromise (IOC)
+ThreatGRID Stolen Cert DNS IP,-3,ioc,Indicators of Compromise (IOC)
+Abuse.ch Ransomware domain blacklist,-3,mals,Malware Sites
+Abuse.ch Ransomware URL blacklist,-3,mals,Malware Sites
+Clean URIs from Alexa top 1 million list,-3,NULL,NULL
+Safe OpenDNS verdicts from CWS telemetry,-3,NULL,NULL
+DomainTools Blacklist feed,-3,NULL,NULL
+DomainTools Reputation feed,-3,NULL,NULL
+Domain tools reputation score low,-3,mals,Malware Sites
+Domain tools reputation score medium,-3,mals,Malware Sites
+Feed for current hailstorm domains,-3,spam,Spam
+Seclytics determined malicious,-3,mals,Malware Sites
+Sophos S4 command and control,-3,bots,Botnets
+Sophos S4 malware/infected sites,-3,mals,Malware Sites
+Sophos S4 phishing,-3,phsh,Phishing
+Umbrella IntelDB malware,-3,mals,Malware Sites
+Low-weight manual blacklist,-2.5,mals,Malware Sites
+Abuse.ch Ransomware IP blacklist,-2.4,mals,Malware Sites
+Predictive feed for hailstorm domains,-2.4,spam,Spam
+APWG Low confidence,-1,phsh,Phishing
+Malware Block List Regular,-0.9,mals,Malware Sites
+Low-weight manual whitelist,2.5,NULL,NULL
+TRUSTe Site Seal,3,NULL,NULL
+Alexa Top 500 sites,4,NULL,NULL
+del.icio.us,4.7,NULL,NULL
+Content Scan Domain Whitelist,5,NULL,NULL
+SURBL Whitelist,5,NULL,NULL
+Verisign Verified Domains,5,NULL,NULL
+Medium-weight manual whitelist,5.5,NULL,NULL
+Manual CIDR WL,8,NULL,NULL
+Heavy-weight manual whitelist,9.5,NULL,NULL
+Beaker Dynamic Rules Library support,10,NULL,NULL
+Test Category 3,10,NULL,NULL
+Adult,10,NULL,NULL
+Advertisements,10,NULL,NULL
+Alcohol,10,NULL,NULL
+Arts,10,NULL,NULL
+Astrology,10,NULL,NULL
+Auctions,10,NULL,NULL
+Streaming Audio,10,NULL,NULL
+Business and Industry,10,NULL,NULL
+Digital Postcards,10,NULL,NULL
+Mobile Phones,10,NULL,NULL
+Chat and Instant Messaging,10,NULL,NULL
+Online Communities,10,NULL,NULL
+Computers and Internet,10,NULL,NULL
+Child Abuse Content,10,NULL,NULL
+Computer Security,10,NULL,NULL
+Dating,10,NULL,NULL
+DIY Projects,10,NULL,NULL
+Illegal Drugs,10,NULL,NULL
+Dynamic and Residential,10,NULL,NULL
+Education,10,NULL,NULL
+Entertainment,10,NULL,NULL
+Extreme,10,NULL,NULL
+Fashion,10,NULL,NULL
+Filter Avoidance,10,NULL,NULL
+Finance,10,NULL,NULL
+Dining and Drinking,10,NULL,NULL
+Freeware and Shareware,10,NULL,NULL
+File Transfer Services,10,NULL,NULL
+Gambling,10,NULL,NULL
+Games,10,NULL,NULL
+Government and Law,10,NULL,NULL
+Hacking,10,NULL,NULL
+Hate Speech,10,NULL,NULL
+Health and Nutrition,10,NULL,NULL
+Hunting,10,NULL,NULL
+Illegal Activities,10,mals,Malware Sites
+Illegal Downloads,10,NULL,NULL
+Photo Search and Images,10,NULL,NULL
+Infrastructure and Content Delivery Networks,10,NULL,NULL
+Job Search,10,NULL,NULL
+Safe for Kids,10,NULL,NULL
+Lingerie and Swimsuits,10,NULL,NULL
+Humor,10,NULL,NULL
+Lotteries,10,NULL,NULL
+Web-based Email,10,NULL,NULL
+Adult,10,NULL,NULL
+Advertisements,10,NULL,NULL
+Alcohol,10,NULL,NULL
+Arts,10,NULL,NULL
+Astrology,10,NULL,NULL
+Auctions,10,NULL,NULL
+Streaming Audio,10,NULL,NULL
+Business and Industry,10,NULL,NULL
+Digital Postcards,10,NULL,NULL
+Mobile Phones,10,NULL,NULL
+Chat and Instant Messaging,10,NULL,NULL
+Online Communities,10,NULL,NULL
+Computers and Internet,10,NULL,NULL
+Child Abuse Content,10,NULL,NULL
+Computer Security,10,NULL,NULL
+Dating,10,NULL,NULL
+DIY Projects,10,NULL,NULL
+Illegal Drugs,10,NULL,NULL
+Dynamic and Residential,10,NULL,NULL
+Education,10,NULL,NULL
+Entertainment,10,NULL,NULL
+Extreme,10,NULL,NULL
+Fashion,10,NULL,NULL
+Filter Avoidance,10,NULL,NULL
+Finance,10,NULL,NULL
+Dining and Drinking,10,NULL,NULL
+Freeware and Shareware,10,NULL,NULL
+File Transfer Services,10,NULL,NULL
+Gambling,10,NULL,NULL
+Games,10,NULL,NULL
+Government and Law,10,NULL,NULL
+Hacking,10,NULL,NULL
+Hate Speech,10,NULL,NULL
+Health and Nutrition,10,NULL,NULL
+Hunting,10,NULL,NULL
+Illegal Activities,10,mals,Malware Sites
+Illegal Downloads,10,NULL,NULL
+Photo Search and Images,10,NULL,NULL
+Infrastructure and Content Delivery Networks,10,NULL,NULL
+Job Search,10,NULL,NULL
+Safe for Kids,10,NULL,NULL
+Lingerie and Swimsuits,10,NULL,NULL
+Humor,10,NULL,NULL
+Lotteries,10,NULL,NULL
+Web-based Email,10,NULL,NULL
+Online Meetings,10,NULL,NULL
+Military,10,NULL,NULL
+Not Actionable,10,NULL,NULL
+Nature,10,NULL,NULL
+News,10,NULL,NULL
+Non-governmental Organizations,10,NULL,NULL
+Non-sexual Nudity,10,NULL,NULL
+Online Storage and Backup,10,NULL,NULL
+Peer File Transfer,10,NULL,NULL
+Parked Domains,10,NULL,NULL
+Organizational Email,10,NULL,NULL
+Personal Sites,10,NULL,NULL
+Cheating and Plagiarism,10,NULL,NULL
+Professional Networking,10,NULL,NULL
+Politics,10,NULL,NULL
+Pornography,10,NULL,NULL
+Paranormal,10,NULL,NULL
+Personal VPN,10,NULL,NULL
+Reference,10,NULL,NULL
+Religion,10,NULL,NULL
+Real Estate,10,NULL,NULL
+SaaS and B2B,10,NULL,NULL
+Science and Technology,10,NULL,NULL
+Society and Culture,10,NULL,NULL
+Shopping,10,NULL,NULL
+Social Networking,10,NULL,NULL
+Social Science,10,NULL,NULL
+Sports and Recreation,10,NULL,NULL
+Search Engines and Portals,10,NULL,NULL
+Software Updates,10,NULL,NULL
+Sex Education,10,NULL,NULL
+Tobacco,10,NULL,NULL
+Online Trading,10,NULL,NULL
+Web Page Translation,10,NULL,NULL
+Transportation,10,NULL,NULL
+Travel,10,NULL,NULL
+Streaming Video,10,NULL,NULL
+Internet Telephony,10,NULL,NULL
+Weapons,10,NULL,NULL
+Web Hosting,10,NULL,NULL
+Online Meetings,10,NULL,NULL
+Military,10,NULL,NULL
+Not Actionable,10,NULL,NULL
+Nature,10,NULL,NULL
+News,10,NULL,NULL
+Non-governmental Organizations,10,NULL,NULL
+Non-sexual Nudity,10,NULL,NULL
+Online Storage and Backup,10,NULL,NULL
+Peer File Transfer,10,NULL,NULL
+Parked Domains,10,NULL,NULL
+Organizational Email,10,NULL,NULL
+Personal Sites,10,NULL,NULL
+Cheating and Plagiarism,10,NULL,NULL
+Professional Networking,10,NULL,NULL
+Politics,10,NULL,NULL
+Pornography,10,NULL,NULL
+Paranormal,10,NULL,NULL
+Personal VPN,10,NULL,NULL
+Reference,10,NULL,NULL
+Religion,10,NULL,NULL
+Real Estate,10,NULL,NULL
+SaaS and B2B,10,NULL,NULL
+Science and Technology,10,NULL,NULL
+Society and Culture,10,NULL,NULL
+Shopping,10,NULL,NULL
+Social Networking,10,NULL,NULL
+Social Science,10,NULL,NULL
+Sports and Recreation,10,NULL,NULL
+Search Engines and Portals,10,NULL,NULL
+Software Updates,10,NULL,NULL
+Sex Education,10,NULL,NULL
+Tobacco,10,NULL,NULL
+Online Trading,10,NULL,NULL
+Web Page Translation,10,NULL,NULL
+Transportation,10,NULL,NULL
+Travel,10,NULL,NULL
+Streaming Video,10,NULL,NULL
+Internet Telephony,10,NULL,NULL
+Weapons,10,NULL,NULL
+Web Hosting,10,NULL,NULL
+Adult,10,NULL,NULL
+Advertisements,10,NULL,NULL
+Alcohol,10,NULL,NULL
+Arts,10,NULL,NULL
+Astrology,10,NULL,NULL
+Auctions,10,NULL,NULL
+Streaming Audio,10,NULL,NULL
+Business and Industry,10,NULL,NULL
+Digital Postcards,10,NULL,NULL
+Mobile Phones,10,NULL,NULL
+Chat and Instant Messaging,10,NULL,NULL
+Online Communities,10,NULL,NULL
+Computers and Internet,10,NULL,NULL
+Child Abuse Content,10,NULL,NULL
+Computer Security,10,NULL,NULL
+Dating,10,NULL,NULL
+DIY Projects,10,NULL,NULL
+Illegal Drugs,10,NULL,NULL
+Dynamic and Residential,10,NULL,NULL
+Education,10,NULL,NULL
+Entertainment,10,NULL,NULL
+Extreme,10,NULL,NULL
+Fashion,10,NULL,NULL
+Filter Avoidance,10,NULL,NULL
+Finance,10,NULL,NULL
+Dining and Drinking,10,NULL,NULL
+Freeware and Shareware,10,NULL,NULL
+File Transfer Services,10,NULL,NULL
+Gambling,10,NULL,NULL
+Games,10,NULL,NULL
+Government and Law,10,NULL,NULL
+Hacking,10,NULL,NULL
+Hate Speech,10,NULL,NULL
+Health and Nutrition,10,NULL,NULL
+Hunting,10,NULL,NULL
+Illegal Activities,10,mals,Malware Sites
+Illegal Downloads,10,NULL,NULL
+Photo Search and Images,10,NULL,NULL
+Infrastructure and Content Delivery Networks,10,NULL,NULL
+Job Search,10,NULL,NULL
+Safe for Kids,10,NULL,NULL
+Lingerie and Swimsuits,10,NULL,NULL
+Humor,10,NULL,NULL
+Lotteries,10,NULL,NULL
+Web-based Email,10,NULL,NULL
+Online Meetings,10,NULL,NULL
+Military,10,NULL,NULL
+Not Actionable,10,NULL,NULL
+Nature,10,NULL,NULL
+News,10,NULL,NULL
+Non-governmental Organizations,10,NULL,NULL
+Non-sexual Nudity,10,NULL,NULL
+Online Storage and Backup,10,NULL,NULL
+Peer File Transfer,10,NULL,NULL
+Parked Domains,10,NULL,NULL
+Organizational Email,10,NULL,NULL
+Personal Sites,10,NULL,NULL
+Cheating and Plagiarism,10,NULL,NULL
+Professional Networking,10,NULL,NULL
+Politics,10,NULL,NULL
+Pornography,10,NULL,NULL
+Paranormal,10,NULL,NULL
+Personal VPN,10,NULL,NULL
+Reference,10,NULL,NULL
+Religion,10,NULL,NULL
+Real Estate,10,NULL,NULL
+SaaS and B2B,10,NULL,NULL
+Science and Technology,10,NULL,NULL
+Society and Culture,10,NULL,NULL
+Shopping,10,NULL,NULL
+Social Networking,10,NULL,NULL
+Social Science,10,NULL,NULL
+Sports and Recreation,10,NULL,NULL
+Search Engines and Portals,10,NULL,NULL
+Software Updates,10,NULL,NULL
+Sex Education,10,NULL,NULL
+Tobacco,10,NULL,NULL
+Online Trading,10,NULL,NULL
+Web Page Translation,10,NULL,NULL
+Transportation,10,NULL,NULL
+Travel,10,NULL,NULL
+Streaming Video,10,NULL,NULL
+Internet Telephony,10,NULL,NULL
+Weapons,10,NULL,NULL
+Web Hosting,10,NULL,NULL
+Test Category 1 updated,10,NULL,NULL
+Test Category 2,10,NULL,NULL

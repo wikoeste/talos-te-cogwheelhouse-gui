@@ -1,41 +1,50 @@
-<html>
+<!DOCTYPE html>
+<html lang='en'>
 <head>
+<meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<meta name='theme-color' content='#1f1f21'>
+<title>Analyst Console Tickets | Talos TE Toolbox</title>
 <link rel='stylesheet' href = '{{ url_for('static', filename='css/main.css') }}'>
-<h1 class='logo'>Analyst Console Assigned Tickets</h1>
 </head>
-<body><style>
-table, th, td {
-border: 1px solid black;
-border-collapse: collapse;
-}
-</style>
-<table style='width:50% display: block; height: 100px; overflow: scroll;'>
-<p><a href="/layout">Home | </a><a href="/assigned">Assigned</a><a href="/unassigned"> | Unassigned</a><a href="/getacetix"> | ACE Tix</a></p>
+<body>
+{% include "partials/navigation.html" %}
+<h1 class='logo'>Analyst Console Assigned Tickets</h1>
+<details class='ticket-list' open>
+<summary><span>Analyst Console tickets</span><span class='ticket-list-hint'>46 ticket links</span></summary>
+<div class='ticket-list-content'>
+<table>
   <tr>
     <th>ACE-Links</th>
  <tr>
-    <td>Web Tickets:7</td>
+    <td>Web Tickets:9</td>
   </tr>
  <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5535715 target=_blank>5535715</a></td>
+    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/11041847 target=_blank>11041847</a></td>
   </tr>
  <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5535747 target=_blank>5535747</a></td>
+    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/11041853 target=_blank>11041853</a></td>
   </tr>
  <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5535831 target=_blank>5535831</a></td>
+    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/11041949 target=_blank>11041949</a></td>
   </tr>
  <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5535851 target=_blank>5535851</a></td>
+    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/11042087 target=_blank>11042087</a></td>
   </tr>
  <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5535857 target=_blank>5535857</a></td>
+    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/11042211 target=_blank>11042211</a></td>
   </tr>
  <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5536095 target=_blank>5536095</a></td>
+    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/11043201 target=_blank>11043201</a></td>
   </tr>
  <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5536101 target=_blank>5536101</a></td>
+    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/11043211 target=_blank>11043211</a></td>
+  </tr>
+ <tr>
+    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/11044045 target=_blank>11044045</a></td>
+  </tr>
+ <tr>
+    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/11050329 target=_blank>11050329</a></td>
   </tr>
  <tr>
     <td>File Tickets:0</td>
@@ -44,25 +53,13 @@ border-collapse: collapse;
     <td>SDR Tickets:0</td>
   </tr>
  <tr>
-    <td>Snort Tickets:4</td>
-  </tr>
- <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/snort_escalations/361 target=_blank>361</a></td>
-  </tr>
- <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/snort_escalations/363 target=_blank>363</a></td>
-  </tr>
- <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/snort_escalations/367 target=_blank>367</a></td>
-  </tr>
- <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/snort_escalations/385 target=_blank>385</a></td>
+    <td>Snort Tickets:0</td>
   </tr>
  <tr>
     <td>Re-Opened Tickets:0</td>
   </tr>
  <tr>
-    <td>ALL Unassigned ACE tickets:86</td>
+    <td>ALL Unassigned ACE tickets:37</td>
   </tr>
  <tr>
     <td>Snort Unassigned:0</td>
@@ -74,267 +71,124 @@ border-collapse: collapse;
     <td>SDR Unassigned:0</td>
   </tr>
  <tr>
-    <td>Web Unassigned:86</td>
+    <td>Web Unassigned:37</td>
   </tr>
  <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5536113 target=_blank>5536113</a></td>
+    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/11043805 target=_blank>11043805</a></td>
   </tr>
  <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5536291 target=_blank>5536291</a></td>
+    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/11044019 target=_blank>11044019</a></td>
   </tr>
  <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5536319 target=_blank>5536319</a></td>
+    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/11044131 target=_blank>11044131</a></td>
   </tr>
  <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5536331 target=_blank>5536331</a></td>
+    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/11044163 target=_blank>11044163</a></td>
   </tr>
  <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5536419 target=_blank>5536419</a></td>
+    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/11044757 target=_blank>11044757</a></td>
   </tr>
  <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5536421 target=_blank>5536421</a></td>
+    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/11044781 target=_blank>11044781</a></td>
   </tr>
  <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5536423 target=_blank>5536423</a></td>
+    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/11044839 target=_blank>11044839</a></td>
   </tr>
  <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5536425 target=_blank>5536425</a></td>
+    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/11044841 target=_blank>11044841</a></td>
   </tr>
  <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5536427 target=_blank>5536427</a></td>
+    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/11044845 target=_blank>11044845</a></td>
   </tr>
  <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5536431 target=_blank>5536431</a></td>
+    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/11044849 target=_blank>11044849</a></td>
   </tr>
  <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5536525 target=_blank>5536525</a></td>
+    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/11044851 target=_blank>11044851</a></td>
   </tr>
  <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5536575 target=_blank>5536575</a></td>
+    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/11045833 target=_blank>11045833</a></td>
   </tr>
  <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5536589 target=_blank>5536589</a></td>
+    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/11046067 target=_blank>11046067</a></td>
   </tr>
  <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5536591 target=_blank>5536591</a></td>
+    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/11046209 target=_blank>11046209</a></td>
   </tr>
  <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5536599 target=_blank>5536599</a></td>
+    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/11046773 target=_blank>11046773</a></td>
   </tr>
  <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5536603 target=_blank>5536603</a></td>
+    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/11046775 target=_blank>11046775</a></td>
   </tr>
  <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5536607 target=_blank>5536607</a></td>
+    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/11046965 target=_blank>11046965</a></td>
   </tr>
  <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5536611 target=_blank>5536611</a></td>
+    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/11046969 target=_blank>11046969</a></td>
   </tr>
  <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5536621 target=_blank>5536621</a></td>
+    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/11047167 target=_blank>11047167</a></td>
   </tr>
  <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5536645 target=_blank>5536645</a></td>
+    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/11047219 target=_blank>11047219</a></td>
   </tr>
  <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5536649 target=_blank>5536649</a></td>
+    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/11047357 target=_blank>11047357</a></td>
   </tr>
  <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5536651 target=_blank>5536651</a></td>
+    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/11047457 target=_blank>11047457</a></td>
   </tr>
  <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5536667 target=_blank>5536667</a></td>
+    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/11047695 target=_blank>11047695</a></td>
   </tr>
  <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5536669 target=_blank>5536669</a></td>
+    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/11048281 target=_blank>11048281</a></td>
   </tr>
  <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5536741 target=_blank>5536741</a></td>
+    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/11048629 target=_blank>11048629</a></td>
   </tr>
  <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5537053 target=_blank>5537053</a></td>
+    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/11048833 target=_blank>11048833</a></td>
   </tr>
  <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5537081 target=_blank>5537081</a></td>
+    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/11049515 target=_blank>11049515</a></td>
   </tr>
  <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5537153 target=_blank>5537153</a></td>
+    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/11049519 target=_blank>11049519</a></td>
   </tr>
  <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5537301 target=_blank>5537301</a></td>
+    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/11049521 target=_blank>11049521</a></td>
   </tr>
  <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5537375 target=_blank>5537375</a></td>
+    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/11049929 target=_blank>11049929</a></td>
   </tr>
  <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5537381 target=_blank>5537381</a></td>
+    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/11050263 target=_blank>11050263</a></td>
   </tr>
  <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5537393 target=_blank>5537393</a></td>
+    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/11050481 target=_blank>11050481</a></td>
   </tr>
  <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5537483 target=_blank>5537483</a></td>
+    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/11050847 target=_blank>11050847</a></td>
   </tr>
  <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5537533 target=_blank>5537533</a></td>
+    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/11050941 target=_blank>11050941</a></td>
   </tr>
  <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5537537 target=_blank>5537537</a></td>
+    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/11050999 target=_blank>11050999</a></td>
   </tr>
  <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5537623 target=_blank>5537623</a></td>
+    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/11052115 target=_blank>11052115</a></td>
   </tr>
  <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5537743 target=_blank>5537743</a></td>
-  </tr>
- <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5537745 target=_blank>5537745</a></td>
-  </tr>
- <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5559043 target=_blank>5559043</a></td>
-  </tr>
- <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5559103 target=_blank>5559103</a></td>
-  </tr>
- <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5560417 target=_blank>5560417</a></td>
-  </tr>
- <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5561221 target=_blank>5561221</a></td>
-  </tr>
- <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5561251 target=_blank>5561251</a></td>
-  </tr>
- <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5561275 target=_blank>5561275</a></td>
-  </tr>
- <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5561325 target=_blank>5561325</a></td>
-  </tr>
- <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5561335 target=_blank>5561335</a></td>
-  </tr>
- <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5561499 target=_blank>5561499</a></td>
-  </tr>
- <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5561601 target=_blank>5561601</a></td>
-  </tr>
- <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5561603 target=_blank>5561603</a></td>
-  </tr>
- <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5561605 target=_blank>5561605</a></td>
-  </tr>
- <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5561609 target=_blank>5561609</a></td>
-  </tr>
- <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5561611 target=_blank>5561611</a></td>
-  </tr>
- <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5561619 target=_blank>5561619</a></td>
-  </tr>
- <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5561621 target=_blank>5561621</a></td>
-  </tr>
- <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5561625 target=_blank>5561625</a></td>
-  </tr>
- <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5561639 target=_blank>5561639</a></td>
-  </tr>
- <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5561641 target=_blank>5561641</a></td>
-  </tr>
- <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5561647 target=_blank>5561647</a></td>
-  </tr>
- <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5561795 target=_blank>5561795</a></td>
-  </tr>
- <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5561797 target=_blank>5561797</a></td>
-  </tr>
- <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5561803 target=_blank>5561803</a></td>
-  </tr>
- <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5561807 target=_blank>5561807</a></td>
-  </tr>
- <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5561831 target=_blank>5561831</a></td>
-  </tr>
- <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5561855 target=_blank>5561855</a></td>
-  </tr>
- <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5561859 target=_blank>5561859</a></td>
-  </tr>
- <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5561861 target=_blank>5561861</a></td>
-  </tr>
- <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5561867 target=_blank>5561867</a></td>
-  </tr>
- <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5561869 target=_blank>5561869</a></td>
-  </tr>
- <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5561905 target=_blank>5561905</a></td>
-  </tr>
- <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5561907 target=_blank>5561907</a></td>
-  </tr>
- <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5561945 target=_blank>5561945</a></td>
-  </tr>
- <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5561947 target=_blank>5561947</a></td>
-  </tr>
- <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5561955 target=_blank>5561955</a></td>
-  </tr>
- <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5561957 target=_blank>5561957</a></td>
-  </tr>
- <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5561975 target=_blank>5561975</a></td>
-  </tr>
- <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5561989 target=_blank>5561989</a></td>
-  </tr>
- <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5561999 target=_blank>5561999</a></td>
-  </tr>
- <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5562001 target=_blank>5562001</a></td>
-  </tr>
- <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5562007 target=_blank>5562007</a></td>
-  </tr>
- <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5564031 target=_blank>5564031</a></td>
-  </tr>
- <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5564045 target=_blank>5564045</a></td>
-  </tr>
- <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5564087 target=_blank>5564087</a></td>
-  </tr>
- <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5564099 target=_blank>5564099</a></td>
-  </tr>
- <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5564119 target=_blank>5564119</a></td>
-  </tr>
- <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5564121 target=_blank>5564121</a></td>
-  </tr>
- <tr>
-    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/5564171 target=_blank>5564171</a></td>
+    <td><a href=https://analyst-console.vrt.sourcefire.com/escalations/webrep/disputes/11052119 target=_blank>11052119</a></td>
   </tr>
 </table>
-</div><br><br><div class=footer>
+</div>
+</details>
+<br><br><div class=footer>
 <p>Copyright (c) 2022 wikoeste, Cisco Internal Use Only</p>
 </div>
+</body>
+</html>

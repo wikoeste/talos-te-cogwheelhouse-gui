@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#1f1f21">
     <meta charset="UTF-8">
     <title>Not Logged In</title>
     <link rel='stylesheet' href = "../static/css/main.css">
-    <header>
-            <h1>You are not logged in!</h1>
-    </header>
 </head>
 <body>
-<p><a href="{{url_for('login')}}">Click here to log in.</a></p>
+<div class="credsform">
+  <div class="divform">
+    <h1>You are not logged in</h1>
+    <p>Your session is unavailable or has expired.</p>
+    <a class="button" href="{{ url_for('login') }}">Return to login</a>
+  </div>
+</div>
 </body>
 </html>

@@ -1,43 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#1f1f21">
     <title>BP Results</title>
     <link rel='stylesheet' href = "../../static/css/main.css">
     <meta charset="UTF-8">
     <!-- Drop down navigation bar -->
-    <div class="navbar">
-        <h1>Secure Endpoint BP Search Results</h1>
-        <!--Home Page Link-->
-        <a href="/layout">Home</a>
-        <!--TICKETS DROPDOWN MENU-->
-        <div class="dropdown">
-          <button class="dropbtn">Tickets
-            <i class="fa fa-caret-down"></i>
-          </button>
-          <div class="dropdown-content">
-            <a href={{url_for("runscript")}}>GET JIRA TIX</a>
-            <a href={{url_for("assignedtickets")}}>ASSIGNED</a>
-            <a href={{url_for("unassignedtickets")}}>UNASSIGNED</a>
-            <a href={{url_for("getacetix")}}>ANALYST CONSOLE TIX</a>
-          </div>
-        </div>
-        <a href={{url_for("bpSearch")}}> BP Search Form</a>
-        <p></a><a href="/logout">Log Out</a></p>
-    </div>
+
 </head>
 <body>
+{% include "partials/navigation.html" %}
+<h1>Secure Endpoint BP Search Results</h1>
+
 <br><br>
 
-<div style="float: left; width: 50%">
+<main class="results-layout results-layout--two-column">
+<section class="result-panel">
     {%for d in data%}
         {{d}}
     <br>
     {%endfor%}
-</div>
+</section>
 
 <br><br>
 
-<div style="float: right; width: 50%">
+<section class="result-panel">
     <table border="1">
         <thead>
             <th>Jira THR related tickets</th>
@@ -50,7 +38,8 @@
             {%endfor%}
         </tbody>
     </table>
-</div>
+</section>
+</main>
 <br><br>
 
 <div class="footer">

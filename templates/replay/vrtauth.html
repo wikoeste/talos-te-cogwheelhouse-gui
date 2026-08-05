@@ -1,28 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#1f1f21">
     <title>Login Page</title>
     <link rel='stylesheet' href = "../static/css/main.css">
-    <div class="navbar">
-        <h1>VRT Auth</h1>
-        <!--Snort 3 tile dashboad-->
-        <a href="/pigreplay">Pig Replay</a>
-        <!--delete pcap-->
-        <a href="/filedeletion">Delete Pcap</a>
-        <!--upload pcap-->
-        <a href="/uploadpcap">Upload Pcap</a>
-        <!--download pcap=-->
-        <a href="filedownloads">Download Pcap</a>
-        <!--rule search-->
-        <a href="/rulesearch">Rule Search</a>
-        <!--replay pcap-->
-        <a href="/replay">Replay Pcap</a>
-        <!--LOGOUT BUTTON-->
-        <a href={{url_for("logout")}}>Logout</a>
-    </div>
+
 
 </head>
 <body>
+{% include "partials/navigation.html" %}
+<h1>VRT Auth</h1>
+
     <form action="/vrtauth" method="POST">
         <div class="credsform">
         <div class="divform">
@@ -41,4 +31,3 @@
 </div>
 </body>
 </html>
-

@@ -12,9 +12,6 @@ def assignque(ticket):
             if "COG" in ticket:
                 results = jira(ticket)
                 return results
-            elif ticket.isdigit() == True:  # its bugzilla
-                results = bzticket(ticket)
-                return results
             else:
                 return results
     else:
@@ -22,7 +19,6 @@ def assignque(ticket):
             results = jira(ticket)
             return results
         elif ticket.isdigit() == True: #its bugzilla
-            results = bzticket(ticket)
             return results
         else:
             return results
@@ -81,6 +77,8 @@ def resolveclose(ticket):
         print(err)
         logger.log(err)
 
+'''
+No longer use this queue
 def bzticket(bugid): # auto assign and comment bz tickets
     teuser = settings.uname+"@cisco.com"
     params = {'id': int(bugid), 'assigned_to': teuser,'api_key': settings.bzKey}
@@ -109,3 +107,4 @@ def bzticket(bugid): # auto assign and comment bz tickets
     else:
         err = ("BZ API Assign Error {}".format(resp.status_code))
         logger.log(err)
+'''

@@ -1,9 +1,16 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#1f1f21">
+    <title>Talos TE Toolbox</title>
 <link rel='stylesheet' href = "{{ url_for('static', filename='css/main.css') }}">
 <h1 class='logo'>Backlog Buddy List</h1>
 </head>
-<body><style>
+<body>
+{% include "partials/navigation.html" %}
+<style>
 table, th, td {
 border: 1px solid black;
 border-collapse: collapse;

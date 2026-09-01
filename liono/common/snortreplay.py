@@ -1,52 +1,76 @@
 from liono.common import settings
-import subprocess,os,re,pyshark,time
+import asyncio
+import os
+from pathlib import Path
+import re
+import subprocess
+import time
+
+import pyshark
 
 def getsnortversion():
-    vcheck  = subprocess.run(['snort','-V'],check=True,capture_output=True)
-    vstr    = vcheck.stdout.decode("utf-8")
-    match   = re.search("Version 3.",vstr)
-    if match is None:
-        v = 2
+    version_check = subprocess.run(
+        ['snort', '-V'],
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    return (version_check.stdout or version_check.stderr).strip()
+
+def list_pcaps(pcap_dir=None):
+    """Return sorted PCAP filenames from the configured replay directory."""
+    directory = Path(pcap_dir or settings.pcapDir)
+    if not directory.is_dir():
+        return []
+    return sorted(
+        path.name for path in directory.iterdir()
+        if path.is_file() and path.suffix.lower() == '.pcap'
+    )
+
+
+def build_snort_command(rules, pcap=None, pcap_dir=None):
+    """Build a Snort 3 command for one PCAP or an entire PCAP directory."""
+    if bool(pcap) == bool(pcap_dir):
+        raise ValueError("Choose exactly one PCAP file or one PCAP directory")
+
+    lua = Path(settings.projDir) / 'pigreplay/snortfiles/lua/snort.lua'
+    rules_dir = Path(settings.rulesDir)
+    command = ['snort']
+    if rules != 'debug':
+        command.append('-q')
+    command.extend(['-c', str(lua)])
+
+    if pcap_dir:
+        command.extend([
+            '--pcap-dir', str(Path(pcap_dir)),
+            '--pcap-filter', '*.[pP][cC][aA][pP]',
+        ])
     else:
-        v = vstr
-    return v
+        command.extend(['-r', str(Path(settings.pcapDir) / pcap)])
 
-def s3(rules,pcap):
-    lua      = settings.projDir+"pigreplay/snortfiles/lua/snort.lua"
-    # Run Snort3
-    #test all s3 local rules
     if rules == 'lcl':
-        snortrun = subprocess.run(['snort', '-q', '-c', lua, '-r', settings.pcapDir + pcap,'-R', settings.rulesDir+'local.rules', '-A', 'alert_talos'], check=True, capture_output=True)
+        command.extend(['-R', str(rules_dir / 'local.rules')])
+    else:
+        tweaks = {
+            'max': 'max_detect',
+            'sec': 'security',
+            'bal': 'balanced',
+            'con': 'connectivity',
+            'debug': 'security',
+        }
+        if rules not in {*tweaks, 'all'}:
+            raise ValueError(f'Unsupported Snort policy: {rules}')
+        command.extend(['--rule-path', str(rules_dir)])
+        if rules in tweaks:
+            command.extend(['--tweaks', tweaks[rules]])
 
-    #test with max-detect
-    if rules == 'max':
-        snortrun = subprocess.run(['snort', '-q', '-c', lua, '-r', settings.pcapDir + pcap,
-                    '--rule-path', settings.rulesDir,'--tweaks', 'max_detect', '-A','alert_talos'], check=True, capture_output=True)
+    command.extend(['-A', 'alert_talos'])
+    return command
 
-    # test with sec over con
-    if "sec" in rules:
-        snortrun = subprocess.run(['snort', '-q', '-c', lua, '-r', settings.pcapDir + pcap,
-                    '--rule-path', settings.rulesDir,'--tweaks', 'security', '-A','alert_talos'], check=True, capture_output=True)
 
-    # test with balanced
-    if rules == 'bal':
-        snortrun = subprocess.run(['snort', '-q', '-c', lua, '-r', settings.pcapDir + pcap,
-                    '--rule-path', settings.rulesDir,'--tweaks', 'balanced', '-A','alert_talos'], check=True, capture_output=True)
-
-    # test with connectivity over security
-    if rules == 'con':
-        snortrun = subprocess.run(['snort', '-q', '-c', lua, '-r', settings.pcapDir + pcap,
-                    '--rule-path', settings.rulesDir,'--tweaks', 'connectivity', '-A', 'alert_talos'], check=True, capture_output=True)
-
-    # test all snort3.rules downloaded
-    if rules == 'all':
-        snortrun = subprocess.run(['snort', '-q', '-c', lua, '-r', settings.pcapDir + pcap,
-                    '--rule-path', settings.rulesDir, '-A', 'alert_talos'], check=True, capture_output=True)
-
-    # test with sec over con & debug logs no -q
-    if "debug" in rules:
-        snortrun = subprocess.run(['snort', '-c', lua, '-r', settings.pcapDir + pcap,
-                    '--rule-path', settings.rulesDir,'--tweaks', 'security', '-A','alert_talos'], check=True, capture_output=True)
+def s3(rules, pcap=None, pcap_dir=None):
+    command = build_snort_command(rules, pcap=pcap, pcap_dir=pcap_dir)
+    snortrun = subprocess.run(command, check=True, capture_output=True)
 
     # write snort output to snort.log
     with open(settings.projDir+"pigreplay/snort.log", "w") as f:
@@ -94,11 +118,13 @@ def readsnortlogs():
 def replay(pcap):
     lcltime, proto, sip, dip, sport, dport = (None,None,None,None,None,None)
     data   = []
-    replay = pyshark.FileCapture(settings.pcapDir+pcap)         # call tcpdump/tshark and replay packet
-    if replay is None:
-        return None
-    else:
-        for pkt in replay:
+    event_loop = asyncio.new_event_loop()
+    capture = pyshark.FileCapture(
+        str(Path(settings.pcapDir) / pcap),
+        eventloop=event_loop,
+    )
+    try:
+        for pkt in capture:
             lcltime = time.asctime(time.localtime(time.time()))
             proto   = "Protocol: {}".format(pkt.transport_layer)
             sip     = "Source IP: {}".format(pkt.ip.src)
@@ -111,3 +137,19 @@ def replay(pcap):
                 dport = "Dest Port: {}".format(pkt.udp.dstport)
         data.extend((lcltime,proto,sip,dip,sport,dport))
         return data
+    finally:
+        try:
+            capture.close()
+        finally:
+            event_loop.close()
+
+
+def replay_directory(pcap_dir=None):
+    """Summarize the PCAP directory selected for a Snort directory replay."""
+    directory = Path(pcap_dir or settings.pcapDir)
+    pcaps = list_pcaps(directory)
+    return [
+        f"PCAP Directory: {directory}",
+        f"PCAP Files: {len(pcaps)}",
+        *pcaps,
+    ]

@@ -1,4 +1,25 @@
-import getpass,re,os.path,datetime
+import datetime
+import getpass
+import os
+import re
+import sys
+from pathlib import Path
+
+
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+SOURCE_LAYOUT = (PROJECT_ROOT / "templates").is_dir()
+DATA_ROOT = Path(
+    os.getenv(
+        "COGWHEELHOUSE_DATA_ROOT",
+        str(PROJECT_ROOT if SOURCE_LAYOUT else Path(sys.prefix) / "share" / "talos-te-cogwheelhouse-gui"),
+    )
+).expanduser().resolve()
+STATE_ROOT = Path(
+    os.getenv(
+        "COGWHEELHOUSE_STATE_ROOT",
+        str(PROJECT_ROOT if SOURCE_LAYOUT else Path.home() / ".local" / "share" / "talos-te-cogwheelhouse-gui"),
+    )
+).expanduser().resolve()
 
 # Global vars inititialized
 def init():
@@ -6,30 +27,26 @@ def init():
     global filedata,csvfname,rj,sherlockKey,inteldbmatches
     global htmlfname,homedir,templatespath,fname,junoKey,juno,que,results,guidconvert
     global acedbhost,acedatabase,jkey,jsondump,ques,escalations,etd,monthly,cog
-    global rule,vrt,snortversion,unedited,projDir,pcapDir,rulesDir
+    global rule,vrt,snortversion,unedited,projDir,pcapDir,rulesDir,rulesDirs
     global search01,sigmgr,sigkey
 
 # get home dir location based on OS/platform
 def gethome():
-    match     = ''
-    freebsd   = "/home/{}".format(uname)+"/.profile"
-    osx       = "/Users/{}".format(uname)+"/.profile"
-    if os.path.exists(freebsd):
-        fname   = freebsd
-        home    = "/home/{}".format(uname)
-    else:
-        fname   = osx
-        home    = "/Users/{}".format(uname)
-    return fname,home
+    home = str(Path.home())
+    return str(Path(home) / ".profile"), home
 
 #Get api keys for internal lookups
 def getKey(keyname):
     #take the search keyname and return the appropriate api key
-    with open(fname, 'r') as fp:
-        lines = fp.read().splitlines()
-        for l in lines:
-            if keyname.upper() in l:
-                match = l
+    match = ''
+    try:
+        with open(fname, 'r', encoding='utf-8') as fp:
+            lines = fp.read().splitlines()
+    except OSError:
+        lines = []
+    for line in lines:
+        if keyname.upper() in line:
+            match = line
     key = re.sub(r'.*=|.*API=','',match) # remove key name and = sign
     key = re.sub(r'"','',key)            # remove quotes from keys
     #print(key)
@@ -48,7 +65,7 @@ jsondump            = ""
 #AnalystConsole Creds
 acedbhost           = 'ava-tdbro-01prd.vrt.sourcefire.com'
 acedatabase         = 'analyst_console'
-templatespath       = "/Users/wikoeste/Documents/PycharmProjects/talos-te-toolbox/templates/"
+templatespath       = str(DATA_ROOT / "templates") + os.sep
 lastninety          = datetime.datetime.now() - datetime.timedelta(90)
 lastseven           = datetime.datetime.now() - datetime.timedelta(7)
 # ticket web urls
@@ -86,15 +103,36 @@ snortversion = None
 rule         = None
 unedited     = None
 vrt          = None
-projDir      = "/Users/" + uname + "/Documents/PycharmProjects/talos-te-toolbox/liono/"
-pcapDir      = "/Users/" + uname + "/Documents/PycharmProjects/talos-te-toolbox/liono/pigreplay/pcaps/"
-rulesDir     = "/Users/" + uname + "/Documents/PycharmProjects/talos-te-toolbox/liono/pigreplay/snort-rules/"
+projDir      = str(DATA_ROOT / "liono") + os.sep
+pcapDir      = str(
+    Path(
+        os.getenv(
+            "PIGREPLAY_PCAP_DIR",
+            str((PROJECT_ROOT if SOURCE_LAYOUT else STATE_ROOT) / "liono" / "pigreplay" / "pcaps"),
+        )
+    ).expanduser().resolve()
+) + os.sep
+_configured_rules = os.getenv("PIGREPLAY_SHARED_RULES_DIR", "").strip()
+rulesDirs    = tuple(
+    dict.fromkeys(
+        path.rstrip("/") + "/"
+        for path in (
+            *([_configured_rules] if _configured_rules else []),
+            "/var/tmp/snort-rules",
+            "/private/var/tmp/snort-rules",
+        )
+    )
+)
+# /var/tmp is the canonical cross-platform location. On macOS it resolves to
+# /private/var/tmp, so both spellings are retained for rule discovery and UI
+# diagnostics while downloads and temporary local rules use one path.
+rulesDir     = rulesDirs[0]
 
 # bp cloud download api
 bpuser  = "wikoeste"
-key     = "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"
+key     = os.getenv("BP_GITHUB_TOKEN", "")
 repo    = "code.engine.sourcefire.com/Cloud/apde-signatures.git"
-pkg     = f"https://{bpuser}:{key}@{repo}"
+pkg     = f"https://{bpuser}:{key}@{repo}" if key else f"https://{repo}"
 # dictionary to store bp usr input id revision and name
 bp      = {"usrstrng":"","id":0,"rev":0,"name":"","active":"","type":""}
 bpres   = []

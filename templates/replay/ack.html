@@ -4,20 +4,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#1f1f21">
     <meta charset="UTF-8">
-    <title>Success</title>
-    <link rel='stylesheet' href = "../static/css/main.css">
-
-
+    <title>PCAP Upload Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 </head>
 <body>
 {% include "partials/navigation.html" %}
-<h1>Upload Results</h1>
+<main class="results-layout upload-summary">
+    <header class="results-heading">
+        <p class="replay-eyebrow">Replay workspace</p>
+        <h1>PCAP Upload Results</h1>
+        {% if uploaded_files %}
+        <p>{{ uploaded_files|length }} PCAP file{% if uploaded_files|length != 1 %}s{% endif %} uploaded successfully.</p>
+        {% else %}
+        <p>No PCAP files were uploaded.</p>
+        {% endif %}
+    </header>
 
-  <p>File uploaded successfully</p>
-  <p>File Name: {{name}}</p>
-</body>
-<!--Footer section-->
-    <div class="footer">
-      <p>Copyright (c) 2023 wikoeste, Cisco Internal Use Only</p>
+    {% if uploaded_files %}
+    <section class="result-panel" aria-labelledby="uploaded-files-title">
+        <h2 id="uploaded-files-title">Uploaded files</h2>
+        <ul class="upload-result-list upload-result-list--success">
+            {% for filename in uploaded_files %}<li>{{ filename }}</li>{% endfor %}
+        </ul>
+    </section>
+    {% endif %}
+
+    {% if rejected_files %}
+    <section class="result-panel" aria-labelledby="rejected-files-title">
+        <h2 id="rejected-files-title">Files not uploaded</h2>
+        <ul class="upload-result-list upload-result-list--error">
+            {% for message in rejected_files %}<li>{{ message }}</li>{% endfor %}
+        </ul>
+    </section>
+    {% endif %}
+
+    <nav class="upload-actions" aria-label="Upload next steps">
+        <a class="button" href="{{ url_for('uploadpcap') }}">Upload another PCAP</a>
+        <a href="{{ url_for('pigreplay') }}">Return to Pig Replay</a>
+    </nav>
+</main>
+
+<div class="footer">
+    <p>Copyright (c) 2023 wikoeste, Cisco Internal Use Only</p>
     </div>
+</body>
 </html>

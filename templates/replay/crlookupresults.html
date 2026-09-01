@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#1f1f21">
+    <title>CVE CR Results | Talos TE Toolbox</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/cve-cr.css') }}">
+    <script src="{{ url_for('static', filename='js/cve-cr.js') }}" defer></script>
+</head>
+<body>
+{% include "partials/navigation.html" %}
+<main class="cr-shell">
+    <header class="cr-page-heading cr-page-heading--results">
+        <div><p class="cr-eyebrow">Replay Tools</p><h1>CVE CR Analysis Results</h1></div>
+        <div class="cr-summary" aria-label="Lookup summary"><strong>{{ successful_count }}</strong> completed <span>·</span> <strong>{{ failed_count }}</strong> failed</div>
+    </header>
+
+    <div class="cr-actions cr-actions--top">
+        <a class="cr-button" href="{{ url_for('crlookup') }}">New analysis</a>
+        <button class="cr-button cr-copy" type="button" data-copy-target="jira-copy-all">Copy all for Jira</button>
+        <textarea id="jira-copy-all" class="cr-copy-source" readonly tabindex="-1">{{ jira_copy_all }}</textarea>
+    </div>
+
+    <div class="cr-tabs" role="tablist" aria-label="CVE results">
+        {% for item in batch %}
+        <button class="cr-tab{% if loop.first %} is-active{% endif %}" id="tab-{{ loop.index }}" type="button" role="tab" aria-selected="{{ 'true' if loop.first else 'false' }}" aria-controls="panel-{{ loop.index }}" data-tab="panel-{{ loop.index }}">{{ item.cve }}</button>
+        {% endfor %}
+    </div>
+
+    {% for item in batch %}
+    <section class="cr-result-panel{% if loop.first %} is-active{% endif %}" id="panel-{{ loop.index }}" role="tabpanel" aria-labelledby="tab-{{ loop.index }}"{% if not loop.first %} hidden{% endif %}>
+        <h2>{{ item.cve }}</h2>
+        {% if item.error %}
+        <div class="cr-alert cr-alert--error"><strong>Lookup failed.</strong> {{ item.error }}</div>
+        {% else %}
+        <div class="cr-assessment-grid">
+            <article class="cr-assessment"><span>Exploit evidence</span><strong>{{ item.research.exploit_status }}</strong></article>
+            <article class="cr-assessment"><span>Signature feasibility</span><strong>{{ item.research.signature_feasibility }}</strong><small>{{ item.research.signature_note }}</small></article>
+            <article class="cr-assessment"><span>Downloaded rule matches</span><strong>{{ item.snort_signatures|length }}</strong></article>
+        </div>
+
+        {% if item.research.exploit_links %}
+        <section class="cr-result-group"><h3>Exploit references</h3><ul class="cr-link-list">
+            {% for link in item.research.exploit_links %}<li><a href="{{ link.url }}" target="_blank" rel="noopener noreferrer">{{ link.label }}</a></li>{% endfor %}
+        </ul></section>
+        {% endif %}
+
+        <section class="cr-result-group">
+            <h3>Downloaded Snort signatures</h3>
+            {% if item.rule_lookup_error %}<div class="cr-alert cr-alert--error">Rule search failed: {{ item.rule_lookup_error }}</div>{% endif %}
+            {% if item.snort_signatures %}
+                {% for signature in item.snort_signatures %}
+                <article class="cr-rule-match">
+                    <div><strong>SID {{ signature.sid }}</strong><span>{{ signature.source_name }}{% if signature.line_number %}:{{ signature.line_number }}{% endif %} · {{ signature.match_source }}</span></div>
+                    <pre><code>{{ signature.rule }}</code></pre>
+                </article>
+                {% endfor %}
+            {% else %}<p class="cr-muted">No matching signatures were found in the downloaded rule set.</p>{% endif %}
+        </section>
+
+        <section class="cr-result-group"><h3>Analysis API details</h3>
+            {% for record in item.records %}
+            <dl class="cr-details">
+                {% for label, value in record.fields %}
+                <div><dt>{{ label }}</dt><dd>{% for part in cr_ticket_links(value) %}{% if part.url %}<a href="{{ part.url }}" target="_blank" rel="noopener noreferrer">{{ part.text }}</a>{% else %}{{ part.text }}{% endif %}{% endfor %}</dd></div>
+                {% endfor %}
+            </dl>
+            {% endfor %}
+        </section>
+        {% endif %}
+    </section>
+    {% endfor %}
+
+    <section class="cr-panel cr-jira-panel" aria-labelledby="jira-title">
+        <h2 id="jira-title">Private Jira comment</h2>
+        <p>Optionally post a newly generated copy of these results to a COG or RESBZ ticket.</p>
+        <form action="{{ url_for('crlookup_results_jira') }}" method="post" data-jira-form>
+            <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+            <input type="hidden" name="cves" value="{{ cves|join(' ') }}">
+            <fieldset><legend>Post results to Jira?</legend><div class="cr-choice-grid">
+                <label><input type="radio" name="post_to_jira" value="no" checked> No</label>
+                <label><input type="radio" name="post_to_jira" value="yes"> Yes, post privately</label>
+            </div></fieldset>
+            <div class="cr-jira-fields" data-jira-fields hidden>
+                <label for="ticket">COG or RESBZ ticket</label>
+                <input id="ticket" name="ticket" type="text" maxlength="16" placeholder="COG-12345" autocomplete="off" disabled>
+            </div>
+            <button class="cr-button cr-button--primary" type="submit">Continue</button>
+        </form>
+    </section>
+</main>
+<div class="footer"><p>Copyright (c) 2023 wikoeste, Cisco Internal Use Only</p></div>
+</body>
+</html>

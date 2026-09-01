@@ -1,172 +1,163 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#1f1f21">
-      <title>COG-Dboard</title>
-      <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-      <!-- menu bar -->
-
-    </head>
-    <!--end menu bar-->
-
-    <body>
+    <title>COG Wheelhouse | Talos Escalations</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body>
 {% include "partials/navigation.html" %}
 
-    <!--timezone widgets-->
-    <div class="clocks">
-    <!--UTC-->
-      <div class="cleanslate w24tz-current-time w24tz-middle" style="display: inline-block !important; visibility: hidden !important; min-width:300px !important; min-height:145px !important;"><p><a href="//24timezones.com/time-zone/utc" style="text-decoration: none" class="clock24" id="tz24-1644522455-tzutc-eyJob3VydHlwZSI6MTIsInNob3dkYXRlIjoiMSIsInNob3dzZWNvbmRzIjoiMCIsImNvbnRhaW5lcl9pZCI6ImNsb2NrX2Jsb2NrX2NiNjIwNTZiZDc2OWIyYyIsInR5cGUiOiJkYiIsImxhbmciOiJlbiJ9" title="Current time in UTC" target="_blank">UTC</a></p><div id="clock_block_cb62056bd769b2c"></div></div>
-    <!--EST-->
-      <div class="cleanslate w24tz-current-time w24tz-middle" style="display: inline-block !important; visibility: hidden !important; min-width:300px !important; min-height:145px !important;"><p><a href="//24timezones.com/time-zone/et" style="text-decoration: none" class="clock24" id="tz24-1734374843-tzest-eyJob3VydHlwZSI6MTIsInNob3dkYXRlIjoiMSIsInNob3dzZWNvbmRzIjoiMCIsImNvbnRhaW5lcl9pZCI6ImNsb2NrX2Jsb2NrX2NiNjc2MDc1YmI4YjFhNSIsInR5cGUiOiJkYiIsImxhbmciOiJlbiJ9" title="EST actual time" target="_blank" rel="nofollow">EST</a></p><div id="clock_block_cb676075bb8b1a5"></div></div>
-    <!--EDT-->
-      <div class="cleanslate w24tz-current-time w24tz-middle" style="display: inline-block !important; visibility: hidden !important; min-width:300px !important; min-height:145px !important;"><p><a href="//24timezones.com/time-zone/edt" style="text-decoration: none" class="clock24" id="tz24-1644523920-tzedt-eyJob3VydHlwZSI6MTIsInNob3dkYXRlIjoiMSIsInNob3dzZWNvbmRzIjoiMCIsImNvbnRhaW5lcl9pZCI6ImNsb2NrX2Jsb2NrX2NiNjIwNTcxOTA3NTEwYyIsInR5cGUiOiJkYiIsImxhbmciOiJlbiJ9" title="EDT timezone" target="_blank">EDT</a></p><div id="clock_block_cb620571907510c"></div></div>
-    <!--PST-->
-      <div class="cleanslate w24tz-current-time w24tz-middle" style="display: inline-block !important; visibility: hidden !important; min-width:300px !important; min-height:145px !important;"><p><a href="//24timezones.com/time-zone/pt" style="text-decoration: none" class="clock24" id="tz24-1644523955-tzpst-eyJob3VydHlwZSI6MTIsInNob3dkYXRlIjoiMSIsInNob3dzZWNvbmRzIjoiMCIsImNvbnRhaW5lcl9pZCI6ImNsb2NrX2Jsb2NrX2NiNjIwNTcxYjNjMjUyMiIsInR5cGUiOiJkYiIsImxhbmciOiJlbiJ9" title="PST what time is now" target="_blank">PST</a></p><div id="clock_block_cb620571b3c2522"></div></div>
-    <!--IST-->
-      <div class="cleanslate w24tz-current-time w24tz-middle" style="display: inline-block !important; visibility: hidden !important; min-width:300px !important; min-height:145px !important;"><p><a href="//24timezones.com/time-zone/ist" style="text-decoration: none" class="clock24" id="tz24-1652442229-tzist-eyJob3VydHlwZSI6MTIsInNob3dkYXRlIjoiMSIsInNob3dzZWNvbmRzIjoiMCIsImNvbnRhaW5lcl9pZCI6ImNsb2NrX2Jsb2NrX2NiNjI3ZTQ0NzVlM2Y3NyIsInR5cGUiOiJkYiIsImxhbmciOiJlbiJ9" title="current time in IST" target="_blank">IST</a></p><div id="clock_block_cb627e4475e3f77"></div></div>
-    <!--JST-->
-      <div class="cleanslate w24tz-current-time w24tz-middle" style="display: inline-block !important; visibility: hidden !important; min-width:300px !important; min-height:145px !important;"><p><a href="//24timezones.com/time-zone/jst" style="text-decoration: none" class="clock24" id="tz24-1707824428-tzjst-eyJob3VydHlwZSI6MTIsInNob3dkYXRlIjoiMSIsInNob3dzZWNvbmRzIjoiMCIsImNvbnRhaW5lcl9pZCI6ImNsb2NrX2Jsb2NrX2NiNjVjYjU1MmMwNjQxNyIsInR5cGUiOiJkYiIsImxhbmciOiJlbiJ9" title="Current time in JST" target="_blank">JST</a></p><div id="clock_block_cb65cb552c06417"></div></div>
-      <script src="https://w.24timezones.com/l.js" async></script>
-    </div>
+<main class="replay-hub layout-hub">
+    <header class="replay-hero layout-hero">
+        <p class="replay-eyebrow">Talos Escalations Team</p>
+        <h1>COG Wheelhouse</h1>
+        <p>Launch the investigation, reputation, malware, replay, and escalation tools used across the COG workflow.</p>
+    </header>
 
-    <!--WEB CLICKABLE TILES-->
-    <div class="container">
-       <!--JUPITER UI TILE-->
-       <div class="tiles tile thover">
-         <a href="https://jupiterui.ironport.com" target="_blank">
-             <img loading="lazy" decoding="async" alt="jptr" src="../static/imgs/jupiter.jpeg" height="200"></a>
-          <div class="caption ">Jupiter</div>
-      </div>
+    <section class="clocks" aria-label="Team time zones">
+        <div class="cleanslate w24tz-current-time w24tz-middle" style="display: inline-block !important; visibility: hidden !important; min-width:300px !important; min-height:145px !important;"><p><a href="//24timezones.com/time-zone/utc" style="text-decoration: none" class="clock24" id="tz24-1644522455-tzutc-eyJob3VydHlwZSI6MTIsInNob3dkYXRlIjoiMSIsInNob3dzZWNvbmRzIjoiMCIsImNvbnRhaW5lcl9pZCI6ImNsb2NrX2Jsb2NrX2NiNjIwNTZiZDc2OWIyYyIsInR5cGUiOiJkYiIsImxhbmciOiJlbiJ9" title="Current time in UTC" target="_blank">UTC</a></p><div id="clock_block_cb62056bd769b2c"></div></div>
+        <div class="cleanslate w24tz-current-time w24tz-middle" style="display: inline-block !important; visibility: hidden !important; min-width:300px !important; min-height:145px !important;"><p><a href="//24timezones.com/time-zone/et" style="text-decoration: none" class="clock24" id="tz24-1734374843-tzest-eyJob3VydHlwZSI6MTIsInNob3dkYXRlIjoiMSIsInNob3dzZWNvbmRzIjoiMCIsImNvbnRhaW5lcl9pZCI6ImNsb2NrX2Jsb2NrX2NiNjc2MDc1YmI4YjFhNSIsInR5cGUiOiJkYiIsImxhbmciOiJlbiJ9" title="EST actual time" target="_blank" rel="nofollow">EST</a></p><div id="clock_block_cb676075bb8b1a5"></div></div>
+        <div class="cleanslate w24tz-current-time w24tz-middle" style="display: inline-block !important; visibility: hidden !important; min-width:300px !important; min-height:145px !important;"><p><a href="//24timezones.com/time-zone/edt" style="text-decoration: none" class="clock24" id="tz24-1644523920-tzedt-eyJob3VydHlwZSI6MTIsInNob3dkYXRlIjoiMSIsInNob3dzZWNvbmRzIjoiMCIsImNvbnRhaW5lcl9pZCI6ImNsb2NrX2Jsb2NrX2NiNjIwNTcxOTA3NTEwYyIsInR5cGUiOiJkYiIsImxhbmciOiJlbiJ9" title="EDT timezone" target="_blank">EDT</a></p><div id="clock_block_cb620571907510c"></div></div>
+        <div class="cleanslate w24tz-current-time w24tz-middle" style="display: inline-block !important; visibility: hidden !important; min-width:300px !important; min-height:145px !important;"><p><a href="//24timezones.com/time-zone/pt" style="text-decoration: none" class="clock24" id="tz24-1644523955-tzpst-eyJob3VydHlwZSI6MTIsInNob2RhdGUiOiIxIiwic2hvd3NlY29uZHMiOiIwIiwiY29udGFpbmVyX2lkIjoiY2xvY2tfYmxvY2tfY2I2MjA1NzFiM2MyNTIyIiwidHlwZSI6ImRiIiwibGFuZyI6ImVuIn0=" title="PST what time is now" target="_blank">PST</a></p><div id="clock_block_cb620571b3c2522"></div></div>
+        <div class="cleanslate w24tz-current-time w24tz-middle" style="display: inline-block !important; visibility: hidden !important; min-width:300px !important; min-height:145px !important;"><p><a href="//24timezones.com/time-zone/ist" style="text-decoration: none" class="clock24" id="tz24-1652442229-tzist-eyJob3VydHlwZSI6MTIsInNob2RhdGUiOiIxIiwic2hvd3NlY29uZHMiOiIwIiwiY29udGFpbmVyX2lkIjoiY2xvY2tfYmxvY2tfY2I2MjdlNDQ3NWUzZjc3IiwidHlwZSI6ImRiIiwibGFuZyI6ImVuIn0=" title="current time in IST" target="_blank">IST</a></p><div id="clock_block_cb627e4475e3f77"></div></div>
+        <div class="cleanslate w24tz-current-time w24tz-middle" style="display: inline-block !important; visibility: hidden !important; min-width:300px !important; min-height:145px !important;"><p><a href="//24timezones.com/time-zone/jst" style="text-decoration: none" class="clock24" id="tz24-1707824428-tzjst-eyJob3VydHlwZSI6MTIsInNob2RhdGUiOiIxIiwic2hvd3NlY29uZHMiOiIwIiwiY29udGFpbmVyX2lkIjoiY2xvY2tfYmxvY2tfY2I2NWNiNTUyYzA2NDE3IiwidHlwZSI6ImRiIiwibGFuZyI6ImVuIn0=" title="Current time in JST" target="_blank">JST</a></p><div id="clock_block_cb65cb552c06417"></div></div>
+        <script src="https://w.24timezones.com/l.js" async></script>
+    </section>
 
-       <!--SHERLOCK UI TILE-->
-       <div class="tiles tile thover">
-          <a href="https://sherlock.ironport.com" target="_blank">
-             <img loading="lazy" decoding="async" alt="sherlock" src="../static/imgs/sherlock.png" height="200"></a>
-          <div class="caption ">Sherlock</div>
-       </div>
+    <section class="replay-tiles layout-tiles" aria-label="COG tools">
+        <a class="replay-tile layout-tile" href="https://jupiterui.ironport.com" target="_blank" rel="noopener noreferrer">
+            <span class="replay-tile-media"><img loading="lazy" decoding="async" src="{{ url_for('static', filename='imgs/jupiter.jpeg') }}" alt=""></span>
+            <span class="replay-tile-copy"><strong>Jupiter</strong><span>Investigate email telemetry and message activity.</span></span>
+            <span class="replay-tile-action" aria-hidden="true">Open →</span>
+        </a>
 
-       <!--WBRS SCORE TOOL-->
-       <div class="tiles tile thover">
-          <a href="https://fmd-repapi-01tst.vrt.sourcefire.com/calc/" target="_blank">
-              <img loading="lazy" decoding="async" alt="scoretool" src="../static/imgs/scrtool.png" height="200" width="280"></a>
-              <div class="caption">Score Tool</div>
-       </div>
+        <a class="replay-tile layout-tile" href="https://sherlock.ironport.com" target="_blank" rel="noopener noreferrer">
+            <span class="replay-tile-media"><img loading="lazy" decoding="async" src="{{ url_for('static', filename='imgs/sherlock.png') }}" alt=""></span>
+            <span class="replay-tile-copy"><strong>Sherlock</strong><span>Search and analyze email-security intelligence.</span></span>
+            <span class="replay-tile-action" aria-hidden="true">Open →</span>
+        </a>
 
-       <!--TE ANALYSIS UI TILE-->
-       <div class="tiles tile thover">
-            <a href="https://ava-tepot-01prd.vrt.sourcefire.com/" target="_blank">
-            <img loading="lazy" decoding="async" alt="tea" src="../static/imgs/tea.png" height="200"></a>
-            <div class="caption ">TEA GUI</div>
-       </div>
+        <a class="replay-tile layout-tile" href="https://fmd-repapi-01tst.vrt.sourcefire.com/calc/" target="_blank" rel="noopener noreferrer">
+            <span class="replay-tile-media"><img loading="lazy" decoding="async" src="{{ url_for('static', filename='imgs/scrtool.png') }}" alt=""></span>
+            <span class="replay-tile-copy"><strong>Score Tool</strong><span>Calculate and review WBRS reputation scores.</span></span>
+            <span class="replay-tile-action" aria-hidden="true">Open →</span>
+        </a>
 
-       <!--Analyst Console UI TILE-->
-       <div class="tiles tile thover">
-            <a href="https://analyst-console.vrt.sourcefire.com/" target="_blank">
-            <img loading="lazy" decoding="async" alt="ace" src="../static/imgs/acespd.png" height="200"></a>
-            <div class="caption ">ACE GUI</div>
-       </div>
+        <a class="replay-tile layout-tile replay-tile--primary" href="https://analysis-gui.vrt.sourcefire.com/" target="_blank" rel="noopener noreferrer">
+            <span class="replay-tile-media"><img loading="lazy" decoding="async" src="{{ url_for('static', filename='imgs/tea.png') }}" alt=""></span>
+            <span class="replay-tile-copy"><strong>TEA GUI</strong><span>Open the primary Talos Escalations analysis interface.</span></span>
+            <span class="replay-tile-action" aria-hidden="true">Launch →</span>
+        </a>
 
-       <!--AMPTOOLS UI TILE-->
-       <div class="tiles tile thover">
-            <a href="https://amptools.cisco.com/" target="_blank">
-              <img loading="lazy" decoding="async" alt="ampwrench" src="../static/imgs/tools.png" height="200"></a>
-          <div class="caption">AMP Tools</div>
-      </div>
+        <a class="replay-tile layout-tile" href="https://analyst-console.vrt.sourcefire.com/" target="_blank" rel="noopener noreferrer">
+            <span class="replay-tile-media"><img loading="lazy" decoding="async" src="{{ url_for('static', filename='imgs/acespd.png') }}" alt=""></span>
+            <span class="replay-tile-copy"><strong>ACE GUI</strong><span>Manage assigned and unassigned analyst-console cases.</span></span>
+            <span class="replay-tile-action" aria-hidden="true">Open →</span>
+        </a>
 
-       <!--SNORT SID/CVE Checker TILE-->
-       <div class="tiles tile thover">
-            <a href="https://scripts.cisco.com/app/SnortRule_checker/" target="_blank">
-              <img loading="lazy" decoding="async" alt="snort" src="../static/imgs/snortbw.jpg" height="200" width="250"></a>
-           <br>
-          <div class="caption">Snort|CVE Checker</div>
-      </div>
+        <a class="replay-tile layout-tile" href="https://amptools.cisco.com/" target="_blank" rel="noopener noreferrer">
+            <span class="replay-tile-media"><img loading="lazy" decoding="async" src="{{ url_for('static', filename='imgs/tools.png') }}" alt=""></span>
+            <span class="replay-tile-copy"><strong>AMP Tools</strong><span>Access Secure Endpoint investigation utilities.</span></span>
+            <span class="replay-tile-action" aria-hidden="true">Open →</span>
+        </a>
 
-       <!--Talos Intelligence Reputation UI TILE-->
-       <div class="tiles tile thover">
-          <a href="https://talosintelligence.com/reputation" target="_blank">
-              <img loading="lazy" decoding="async" alt="talos" src="../static/imgs/talosbw.png" height="200" width="280"></a>
-          <div class="caption">Talos Reputation</div>
-      </div>
+        <a class="replay-tile layout-tile" href="https://scripts.cisco.com/app/SnortRule_checker/" target="_blank" rel="noopener noreferrer">
+            <span class="replay-tile-media"><img loading="lazy" decoding="async" src="{{ url_for('static', filename='imgs/snortbw.jpg') }}" alt=""></span>
+            <span class="replay-tile-copy"><strong>Snort | CVE Checker</strong><span>Cross-reference Snort rules and CVE coverage.</span></span>
+            <span class="replay-tile-action" aria-hidden="true">Open →</span>
+        </a>
 
-        <!--VIRUS TOTAL SSO TILE-->
-       <div class="tiles tile thover">
-          <a href="http://go2.cisco.com/virustotal" target="_blank">
-          <img loading="lazy" decoding="async" alt="vtenterprise" src="../static/imgs/vtenterprise.png" height="200" width="280"></a>
-          <div class="caption">Virus Total Enterprise</div>
-      </div>
+        <a class="replay-tile layout-tile" href="https://talosintelligence.com/reputation" target="_blank" rel="noopener noreferrer">
+            <span class="replay-tile-media"><img loading="lazy" decoding="async" src="{{ url_for('static', filename='imgs/talosbw.png') }}" alt=""></span>
+            <span class="replay-tile-copy"><strong>Talos Reputation</strong><span>Review IP, domain, URL, and file reputation.</span></span>
+            <span class="replay-tile-action" aria-hidden="true">Open →</span>
+        </a>
 
-        <!--CUA WEB UI TILE-->
-       <div class="tiles tile thover">
-          <a href="https://armory-sl.sco.cisco.com/web/cua/conviction/query" target="_blank">
-          <img loading="lazy" decoding="async" alt="cua" src="../static/imgs/cua.png" height="200" width="280"></a>
-          <div class="caption">CUA Tool</div>
-      </div>
+        <a class="replay-tile layout-tile replay-tile--malicious" href="{{ url_for('malicious_top100') }}">
+            <span class="replay-tile-media replay-tile-media--malicious" aria-hidden="true">
+                <span class="malicious-tile-icon"><span>!</span></span>
+            </span>
+            <span class="replay-tile-copy"><strong>Top-100 Malicious</strong><span>Review ranked malicious URLs, IP addresses, and SHA-256 hashes from public feeds.</span></span>
+            <span class="replay-tile-action" aria-hidden="true">Investigate →</span>
+        </a>
 
-      <!--Snort3 PigReplay UI TILE-->
-      <div class="tiles tile thover">
-          <a href={{url_for("pigreplay")}}>
-          <img loading="lazy" decoding="async" alt="s3r" src="../static/imgs/s3.png" height="200" width="280"></a>
-          <div class="caption">Pig Replay</div>
-      </div>
+        <a class="replay-tile layout-tile" href="http://go2.cisco.com/virustotal" target="_blank" rel="noopener noreferrer">
+            <span class="replay-tile-media"><img loading="lazy" decoding="async" src="{{ url_for('static', filename='imgs/vtenterprise.png') }}" alt=""></span>
+            <span class="replay-tile-copy"><strong>VirusTotal Enterprise</strong><span>Search enterprise malware and indicator intelligence.</span></span>
+            <span class="replay-tile-action" aria-hidden="true">Open →</span>
+        </a>
 
-      <!--Secure Endpoint BP Search TILE-->
-      <div class="tiles tile thover">
-          <a href={{url_for("bpSearch")}}>
-          <img loading="lazy" decoding="async" alt="s3r" src="../static/imgs/sendpoint.png" height="200" width="280"></a>
-          <div class="caption">BP Search</div>
-      </div>
+        <a class="replay-tile layout-tile" href="https://armory-sl.sco.cisco.com/web/cua/conviction/query" target="_blank" rel="noopener noreferrer">
+            <span class="replay-tile-media"><img loading="lazy" decoding="async" src="{{ url_for('static', filename='imgs/cua.png') }}" alt=""></span>
+            <span class="replay-tile-copy"><strong>CUA Tool</strong><span>Query conviction and cloud usage analytics.</span></span>
+            <span class="replay-tile-action" aria-hidden="true">Open →</span>
+        </a>
 
-      <!--Malware Analytics login TILE-->
-      <div class="tiles tile thover">
-          <a href="https://panacea.threatgrid.com/login" target="_blank">
-          <img loading="lazy" decoding="async" alt="s3r" src="../static/imgs/malan.jpeg" height="200" width="280"></a>
-          <div class="caption">Malware Analytics</div>
-      </div>
+        <a class="replay-tile layout-tile" href="{{ url_for('pigreplay') }}">
+            <span class="replay-tile-media"><img loading="lazy" decoding="async" src="{{ url_for('static', filename='imgs/s3.png') }}" alt=""></span>
+            <span class="replay-tile-copy"><strong>Pig Replay</strong><span>Manage PCAPs, Snort rules, and replay operations.</span></span>
+            <span class="replay-tile-action" aria-hidden="true">Open →</span>
+        </a>
 
-      <!--Umbrella login TILE-->
-      <div class="tiles tile thover">
-          <a href="https://login.umbrella.com/" target="_blank">
-          <img loading="lazy" decoding="async" alt="s3r" src="../static/imgs/umbr.png" height="200" width="280"></a>
-          <div class="caption">Umbrella</div>
-      </div>
+        <a class="replay-tile layout-tile" href="{{ url_for('bpSearch') }}">
+            <span class="replay-tile-media"><img loading="lazy" decoding="async" src="{{ url_for('static', filename='imgs/sendpoint.png') }}" alt=""></span>
+            <span class="replay-tile-copy"><strong>BP Search</strong><span>Search Secure Endpoint behavioral-protection data.</span></span>
+            <span class="replay-tile-action" aria-hidden="true">Open →</span>
+        </a>
 
-      <!--Reversing Labs login TILE-->
-      <div class="tiles tile thover">
-          <a href="https://rl.vrt.sourcefire.com/accounts/login/" target="_blank">
-          <img loading="lazy" decoding="async" alt="s3r" src="../static/imgs/rlabs.jpeg" height="200" width="280"></a>
-          <div class="caption">Rev Labs Spectra</div>
-      </div>
+        <a class="replay-tile layout-tile" href="https://login.umbrella.com/" target="_blank" rel="noopener noreferrer">
+            <span class="replay-tile-media"><img loading="lazy" decoding="async" src="{{ url_for('static', filename='imgs/umbr.png') }}" alt=""></span>
+            <span class="replay-tile-copy"><strong>Umbrella</strong><span>Access cloud-security and DNS investigation tools.</span></span>
+            <span class="replay-tile-action" aria-hidden="true">Open →</span>
+        </a>
 
-      <!--TE useful links side bar-->
-        <ul class="demo">
-            <p align="center">Resources</p>
-                <li><a href="https://wwwin.cisco.com/cgi-bin/it/sales/acctteamdir/index.cgi" target="_blank">Acct Team Locator</a></li>
-                <li><a href="https://bst.cloudapps.cisco.com/bugsearch/" target="_blank">Bug Search Tool</a> </li>
-                <li><a href="https://wwwin.cisco.com/c/cec/bridge.html/home" target="_blank">Cisco Home</a></li>
-                <li><a href="https://wwwin.cisco.com/c/cec/cisco/calendar-events.html" target="_blank">Calendar & Events</a></li>
-                <li><a href="https://sign-on.security.cisco.com/" target="_blank">Cloud Security</a></li>
-                <li><a href="https://confluence.vrt.sourcefire.com/" target="_blank">Confluence</a></li>
-                <li><a href="https://prod-juno-kibana.sv4.ironport.com/login?next=%2F" target="_blank">Kibana</a> </li>
-                <li><a href="http://wwwin-tools.cisco.com/itsm/mailer/welcome.do" target="_blank">Mailer Lists</a></li>
-                <li><a href="https://directory.cisco.com/find-people/search" target="_blank">People/Directory</a></li>
-                <li><a href="https://onesearch.cisco.com/" target="_blank">OneSearch/Topic</a></li>
-                <li><a href="https://docs.snort.org/welcome" target="_blank">S3 Docs</a></li>
-                <li><a href="https://search01.vrt.sourcefire.com/" target="_blank">Search Sigs</a></li>
-                <li><a href="https://sigmanager.talos.cisco.com/" target="_blank">Sig Mgr</a></li>
-                <li><a href="https://scripts.cisco.com/app/quicker_csone/" target="_blank">SR Lookup</a></li>
-                <li><a href="https://blog.talosintelligence.com/" target="_blank">Talos Blog</a></li>
-                <li><a href="https://talosservices.statuspage.io/?subscription_confirmed=true" target="_blank">Talos Services</a></li>
-            <p align="center">External Tools</p>
-                <li><a href="https://regex101.com/" target="_blank">Regex Tester</a></li>
-        </ul>
-    </div>
-    <br><br>
-    </body>
-    <br><br>
-    <!--Footer section-->
-    <div class="footer">
-            <p>Copyright 2022 Cisco/Talos Internal Use Only.<br>Version 0.0.2</p>
+        <a class="replay-tile layout-tile" href="https://rl.vrt.sourcefire.com/accounts/login/" target="_blank" rel="noopener noreferrer">
+            <span class="replay-tile-media"><img loading="lazy" decoding="async" src="{{ url_for('static', filename='imgs/rlabs.jpeg') }}" alt=""></span>
+            <span class="replay-tile-copy"><strong>ReversingLabs Spectra</strong><span>Inspect files with ReversingLabs threat intelligence.</span></span>
+            <span class="replay-tile-action" aria-hidden="true">Open →</span>
+        </a>
+
+        <a class="replay-tile layout-tile layout-tile--reports" href="http://127.0.0.1:8810/" target="_blank" rel="noopener noreferrer">
+            <span class="replay-tile-media replay-tile-media--reports" aria-hidden="true">
+                <span class="reports-tile-icon"><span>RCA</span></span>
+            </span>
+            <span class="replay-tile-copy"><strong>Reports</strong><span>Create RCA, Executive Summary, and Situational Report documents.</span></span>
+            <span class="replay-tile-action" aria-hidden="true">Create →</span>
+        </a>
+    </section>
+
+    <section class="layout-resources" aria-labelledby="resources-title">
+        <div>
+            <p class="replay-eyebrow">Quick access</p>
+            <h2 id="resources-title">Resources</h2>
         </div>
+        <ul class="resource-link-grid">
+            <li><a href="https://wwwin.cisco.com/cgi-bin/it/sales/acctteamdir/index.cgi" target="_blank" rel="noopener noreferrer">Account Team Locator</a></li>
+            <li><a href="https://bst.cloudapps.cisco.com/bugsearch/" target="_blank" rel="noopener noreferrer">Bug Search Tool</a></li>
+            <li><a href="https://wwwin.cisco.com/c/cec/bridge.html/home" target="_blank" rel="noopener noreferrer">Cisco Home</a></li>
+            <li><a href="https://wwwin.cisco.com/c/cec/cisco/calendar-events.html" target="_blank" rel="noopener noreferrer">Calendar &amp; Events</a></li>
+            <li><a href="https://sign-on.security.cisco.com/" target="_blank" rel="noopener noreferrer">Cloud Security</a></li>
+            <li><a href="https://confluence.vrt.sourcefire.com/" target="_blank" rel="noopener noreferrer">Confluence</a></li>
+            <li><a href="https://docs.cisco.com/doclite/ui/#/library/e25a5815-2994-4f3d-a3f1-7669f2e7b9d3" target="_blank" rel="noopener noreferrer">Cisco Docs Library</a></li>
+            <li><a href="https://confluence.vrt.sourcefire.com/pages/viewpage.action?pageId=59594229&amp;spaceKey=TET&amp;title=Escalation%2BPaths%2Bfor%2BALL%2BInternal%2BTeams" target="_blank" rel="noopener noreferrer">Escalation Paths for ALL Internal Teams</a></li>
+            <li><a href="https://prod-juno-kibana.sv4.ironport.com/login?next=%2F" target="_blank" rel="noopener noreferrer">Kibana</a></li>
+            <li><a href="http://wwwin-tools.cisco.com/itsm/mailer/welcome.do" target="_blank" rel="noopener noreferrer">Mailer Lists</a></li>
+            <li><a href="https://directory.cisco.com/find-people/search" target="_blank" rel="noopener noreferrer">People Directory</a></li>
+            <li><a href="https://onesearch.cisco.com/" target="_blank" rel="noopener noreferrer">OneSearch</a></li>
+            <li><a href="https://docs.snort.org/welcome" target="_blank" rel="noopener noreferrer">Snort 3 Docs</a></li>
+            <li><a href="https://search01.vrt.sourcefire.com/" target="_blank" rel="noopener noreferrer">Search Signatures</a></li>
+            <li><a href="https://sigmanager.talos.cisco.com/" target="_blank" rel="noopener noreferrer">Signature Manager</a></li>
+            <li><a href="https://scripts.cisco.com/app/quicker_csone/" target="_blank" rel="noopener noreferrer">SR Lookup</a></li>
+            <li><a href="https://blog.talosintelligence.com/" target="_blank" rel="noopener noreferrer">Talos Blog</a></li>
+            <li><a href="https://talosservices.statuspage.io/?subscription_confirmed=true" target="_blank" rel="noopener noreferrer">Talos Services</a></li>
+            <li><a href="https://regex101.com/" target="_blank" rel="noopener noreferrer">Regex Tester</a></li>
+        </ul>
+    </section>
+</main>
+
+<div class="footer"><p>Copyright 2022 Cisco/Talos Internal Use Only.<br>Version 0.6.0</p></div>
+</body>
 </html>

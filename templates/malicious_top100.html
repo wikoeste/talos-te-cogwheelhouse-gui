@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Ranked malicious URLs, IP addresses, and SHA-256 hashes from public threat-intelligence feeds.">
+  <meta name="csrf-token" content="{{ csrf_token }}">
+  <meta name="theme-color" content="#071521">
+  <title>Top-100 Malicious | COG Wheelhouse</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/malicious-top100.css') }}">
+  <script src="{{ url_for('static', filename='js/malicious-top100.js') }}" defer></script>
+</head>
+<body class="mt100-page">
+{% include "partials/navigation.html" %}
+
+<main class="mt100-main">
+  <section class="mt100-hero" id="intelligence" aria-labelledby="page-title">
+    <div class="mt100-hero-copy">
+      <p class="mt100-eyebrow">COG WHEELHOUSE · OPEN-SOURCE THREAT INTELLIGENCE</p>
+      <h1 id="page-title">Top-100<br><span>Malicious</span></h1>
+      <p class="mt100-lede">Investigate the highest-priority malicious infrastructure and file indicators collected from public threat feeds.</p>
+      <a class="mt100-text-link" href="#indicators">Explore current indicators <span aria-hidden="true">→</span></a>
+    </div>
+    <aside class="mt100-console" aria-label="Intelligence snapshot">
+      <div class="mt100-console-head"><span>LIVE FEED OVERVIEW</span><span>MT100 / OSINT</span></div>
+      <div class="mt100-radar" aria-hidden="true">
+        <span class="mt100-ring mt100-ring-one"></span>
+        <span class="mt100-ring mt100-ring-two"></span>
+        <span class="mt100-cross mt100-cross-x"></span>
+        <span class="mt100-cross mt100-cross-y"></span>
+        <span class="mt100-sweep"></span>
+        <span class="mt100-node mt100-node-one"></span>
+        <span class="mt100-node mt100-node-two"></span>
+        <span class="mt100-node mt100-node-three"></span>
+        <span class="mt100-radar-label">PUBLIC SIGNALS</span>
+      </div>
+      <div class="mt100-console-foot">
+        <div><span>COLLECTION</span><strong>ACTIVE</strong></div>
+        <div><span>COVERAGE</span><strong>URL · IP · SHA</strong></div>
+      </div>
+    </aside>
+  </section>
+
+  <section class="mt100-lookup" aria-labelledby="lookup-title">
+    <div class="mt100-section-intro">
+      <p class="mt100-eyebrow">REPUTATION LOOKUP</p>
+      <h2 id="lookup-title">Search the intelligence index</h2>
+    </div>
+    <label class="mt100-global-search">
+      <span class="mt100-search-icon" aria-hidden="true"></span>
+      <span class="sr-only">Search the current indicator list</span>
+      <input id="search" type="search" placeholder="Search by IP, URL, source, threat, or SHA-256" autocomplete="off" spellcheck="false" maxlength="2048">
+    </label>
+    <div class="mt100-lookup-foot">
+      <p>Search stays in this page and never opens or contacts an indicator.</p>
+      <button id="refresh" class="mt100-primary" type="button">Refresh intelligence <span aria-hidden="true">↻</span></button>
+    </div>
+  </section>
+
+  <section class="mt100-metrics" aria-label="Indicator totals">
+    <article><span class="mt100-metric-index">01</span><div><span>Malicious URLs</span><small>Phishing &amp; payload delivery</small></div><strong id="count-urls">—</strong></article>
+    <article><span class="mt100-metric-index">02</span><div><span>Malicious IPs</span><small>C2 &amp; compromised hosts</small></div><strong id="count-ips">—</strong></article>
+    <article><span class="mt100-metric-index">03</span><div><span>SHA-256 hashes</span><small>Recent malware samples</small></div><strong id="count-hashes">—</strong></article>
+  </section>
+
+  <section class="mt100-workspace" id="indicators" aria-labelledby="list-title">
+    <div class="mt100-workspace-heading">
+      <div><p class="mt100-eyebrow" id="list-kicker">TOP 100 · URLS</p><h2 id="list-title">Threat indicators</h2></div>
+      <div class="mt100-snapshot"><span>LAST SNAPSHOT</span><p id="updated">No local snapshot yet</p></div>
+    </div>
+    <div class="mt100-toolbar">
+      <div class="mt100-tabs" role="tablist" aria-label="Indicator types">
+        <button class="mt100-tab active" role="tab" aria-selected="true" data-kind="urls"><span>01</span> URLs</button>
+        <button class="mt100-tab" role="tab" aria-selected="false" data-kind="ips"><span>02</span> IP addresses</button>
+        <button class="mt100-tab" role="tab" aria-selected="false" data-kind="hashes"><span>03</span> SHA-256</button>
+      </div>
+      <div class="mt100-tools" aria-label="Export controls">
+        <span>EXPORT</span>
+        <button id="export-csv" class="mt100-secondary" type="button">CSV</button>
+        <button id="export-json" class="mt100-secondary" type="button">JSON</button>
+      </div>
+    </div>
+
+    <div class="mt100-table-panel">
+      <div class="mt100-panel-topline"><span>CURRENT OBSERVATIONS</span><p id="methodology">Ranked by source confidence, overlap, and recency.</p></div>
+      <div class="mt100-table-wrap">
+        <table>
+          <thead><tr><th scope="col">Rank</th><th scope="col">Indicator / classification</th><th scope="col">Signal</th><th scope="col">Source</th><th scope="col"><span class="sr-only">Copy</span></th></tr></thead>
+          <tbody id="indicator-rows"></tbody>
+        </table>
+        <div id="empty" class="mt100-empty" hidden>No indicators match this filter.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="mt100-sources" id="sources" aria-labelledby="sources-title">
+    <div class="mt100-sources-copy">
+      <p class="mt100-eyebrow">COLLECTION STATUS</p>
+      <h2 id="sources-title">Open intelligence<br>feed health</h2>
+      <p>Each card reports the most recent collection result and accepted indicator count.</p>
+    </div>
+    <div id="source-list" class="mt100-source-grid"></div>
+  </section>
+</main>
+
+<footer class="mt100-footer">
+  <a href="{{ url_for('layout') }}">← Return to COG Wheelhouse</a>
+  <p>Indicators are investigative leads, not verdicts. Validate before blocking or incident response.</p>
+  <p>Public feeds · authenticated internal view</p>
+</footer>
+<div id="toast" class="mt100-toast" role="status" aria-live="polite"></div>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>PCAP Analysis Results | COG Wheelhouse</title><link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}"><link rel="stylesheet" href="{{ url_for('static', filename='css/pcap-analyzer.css') }}"></head><body>
+{% include "partials/navigation.html" %}<main class="analyzer-shell">
+{% set capture = analysis.capture %}{% set rule = analysis.rule %}
+<section class="page-heading"><p class="eyebrow">ANALYSIS COMPLETE</p><h1>PCAP analysis</h1><p>{{ capture.filename }} compared with {% if rule.sid %}SID {{ rule.sid }}{% else %}the submitted Snort rule{% endif %}.</p></section>
+
+<section class="metric-grid" aria-label="Analysis summary">
+  <article><span>PACKETS ANALYZED</span><strong>{{ capture.packets_analyzed }}</strong></article>
+  <article><span>RULE MATCHES</span><strong>{{ analysis.matched_packet_count }}</strong></article>
+  <article><span>CAPTURE SIZE</span><strong>{{ "{:,}".format(capture.file_size) }} B</strong></article>
+  <article><span>WIRE BYTES</span><strong>{{ "{:,}".format(capture.wire_bytes) }} B</strong></article>
+</section>
+
+{% if rule.pcres %}
+<section class="panel">
+  <div class="panel-heading"><div><p class="eyebrow">PCRE OPTIONS</p><h2>Regular expressions evaluated</h2></div></div>
+  <div class="table-scroll"><table class="data-table"><thead><tr><th>#</th><th>Expression</th><th>Flags</th><th>Mode</th><th>Status</th></tr></thead><tbody>
+    {% for pcre in rule.pcres %}<tr><td>{{ pcre.index }}</td><td><code>{% if pcre.negated %}!{% endif %}/{{ pcre.source }}/{{ pcre.flags }}</code></td><td>{{ pcre.flags or '—' }}</td><td>{% if pcre.relative %}Relative to previous match{% else %}Start of payload{% endif %}</td><td>{% if pcre.supported %}<span class="match-state match-state-yes">Supported</span>{% else %}<span class="match-state match-state-no">Unsupported</span><br><small>{{ pcre.unsupported_reason }}</small>{% endif %}</td></tr>{% endfor %}
+  </tbody></table></div>
+  <p class="field-help">PCRE checks use raw decoded transport payload. Snort sticky buffers and transformed application data still require full engine replay.</p>
+</section>
+{% endif %}
+
+<section class="panel">
+  <div class="panel-heading"><div><p class="eyebrow">RULE</p><h2>{{ rule.message or "Submitted signature" }}</h2></div>{% if rule.sid %}<span class="badge">SID {{ rule.sid }}</span>{% endif %}</div>
+  <pre class="rule-block"><code>{{ rule.text }}</code></pre>
+  {% if analysis.rule_source %}<p class="field-help">Loaded from {{ analysis.rule_source.source_name }}, line {{ analysis.rule_source.line_number }} · <code>{{ analysis.rule_source.source_path }}</code></p>{% endif %}
+  <div class="rule-facts"><span>{{ rule.protocol|upper }}</span><span>{{ rule.source_net }}:{{ rule.source_port }}</span><span>{{ rule.direction }}</span><span>{{ rule.destination_net }}:{{ rule.destination_port }}</span></div>
+  {% if rule.ignored_options %}<div class="notice notice-info"><strong>Not modeled by this inspector:</strong> {{ rule.ignored_options|join('; ') }}. Confirm the final verdict with Snort replay.</div>{% endif %}
+</section>
+
+<section class="panel">
+  <div class="panel-heading"><div><p class="eyebrow">CONTENT OPTIONS</p><h2>Values evaluated</h2></div></div>
+  <div class="table-scroll"><table class="data-table"><thead><tr><th>#</th><th>Content</th><th>Hex</th><th>Modifiers</th></tr></thead><tbody>
+    {% for content in rule.contents %}<tr><td>{{ content.index }}</td><td><code>{% if content.negated %}!{% endif %}{{ content.source }}</code></td><td><code>{{ content.value.hex(' ') }}</code></td><td>{% if content.nocase %}nocase {% endif %}{% for key in ['offset','depth','distance','within'] %}{% if content[key] is not none %}{{ key }}={{ content[key] }} {% endif %}{% endfor %}</td></tr>{% endfor %}
+  </tbody></table></div>
+</section>
+
+<section class="panel">
+  <div class="panel-heading"><div><p class="eyebrow">CAPTURE DATA</p><h2>Protocols and timing</h2></div></div>
+  <dl class="detail-grid"><div><dt>First packet</dt><dd>{{ capture.first_timestamp }}</dd></div><div><dt>Last packet</dt><dd>{{ capture.last_timestamp }}</dd></div>{% for protocol, count in capture.protocols %}<div><dt>{{ protocol }}</dt><dd>{{ count }} packet{% if count != 1 %}s{% endif %}</dd></div>{% endfor %}</dl>
+  {% if capture.top_conversations %}<div class="table-scroll"><table class="data-table"><thead><tr><th>Source</th><th>Destination</th><th>Packets</th></tr></thead><tbody>{% for conversation in capture.top_conversations %}<tr><td>{{ conversation.source }}</td><td>{{ conversation.destination }}</td><td>{{ conversation.packets }}</td></tr>{% endfor %}</tbody></table></div>{% endif %}
+  {% if capture.limit_reached %}<div class="notice notice-info">Analysis stopped at the {{ capture.packet_limit }}-packet safety limit.</div>{% endif %}
+</section>
+
+<section class="panel">
+  <div class="panel-heading"><div><p class="eyebrow">MATCHED PACKETS</p><h2>Header, content, and PCRE matches</h2></div></div>
+  {% if analysis.matches %}
+    <div class="packet-results">{% for packet in analysis.matches %}<details class="packet-card"{% if loop.first %} open{% endif %}><summary><span>Packet {{ packet.number }}</span><strong>{{ packet.protocol }} · {{ packet.source }} → {{ packet.destination }}</strong><em>{{ packet.payload_length }} payload bytes</em></summary>{% if packet.contents %}<div class="table-scroll"><table class="data-table"><thead><tr><th>Content</th><th>Result</th><th>Offset</th><th>Search window</th></tr></thead><tbody>{% for content in packet.contents %}<tr><td><code>{{ content.display }}</code></td><td><span class="match-state match-state-{{ 'yes' if content.matched else 'no' }}">{{ 'Match' if content.matched else 'Miss' }}</span></td><td>{{ content.offset if content.offset is not none else '—' }}</td><td>{{ content.search_start }}–{{ content.search_end }}</td></tr>{% endfor %}</tbody></table></div>{% endif %}{% if packet.pcres %}<div class="table-scroll"><table class="data-table"><thead><tr><th>PCRE</th><th>Result</th><th>Offset</th><th>Search window</th></tr></thead><tbody>{% for pcre in packet.pcres %}<tr><td><code>{% if pcre.negated %}!{% endif %}/{{ pcre.source }}/{{ pcre.flags }}</code></td><td><span class="match-state match-state-{{ 'yes' if pcre.matched else 'no' }}">{% if pcre.unsupported_reason %}Unsupported{% else %}{{ 'Match' if pcre.matched else 'Miss' }}{% endif %}</span>{% if pcre.unsupported_reason %}<br><small>{{ pcre.unsupported_reason }}</small>{% endif %}</td><td>{% if pcre.offset is not none %}{{ pcre.offset }}–{{ pcre.match_end }}{% else %}—{% endif %}</td><td>{{ pcre.search_start }}–{{ pcre.search_end }}</td></tr>{% endfor %}</tbody></table></div>{% endif %}</details>{% endfor %}</div>
+  {% else %}<p class="empty-state">No decoded packet payload satisfied the supported header, content, and PCRE conditions.</p>{% endif %}
+</section>
+
+<section class="panel">
+  <div class="panel-heading"><div><p class="eyebrow">PACKET SAMPLE</p><h2>Decoded capture inventory</h2></div></div>
+  <div class="table-scroll"><table class="data-table"><thead><tr><th>#</th><th>UTC time</th><th>Protocol</th><th>Source</th><th>Destination</th><th>Payload</th><th>Header</th><th>Content</th><th>PCRE</th></tr></thead><tbody>{% for packet in analysis.packets %}<tr><td>{{ packet.number }}</td><td>{{ packet.timestamp }}</td><td>{{ packet.protocol }}</td><td>{{ packet.source }}</td><td>{{ packet.destination }}</td><td>{{ packet.payload_length }} B</td><td>{{ 'Match' if packet.header_match else 'Miss' }}</td><td>{% if packet.contents %}{{ 'Match' if packet.content_match else 'Miss' }}{% else %}—{% endif %}</td><td>{% if packet.pcres %}{{ 'Match' if packet.pcre_match else 'Miss' }}{% else %}—{% endif %}</td></tr>{% endfor %}</tbody></table></div>
+  {% if analysis.packet_rows_truncated %}<p class="field-help">Showing the first {{ analysis.packets|length }} packet rows.</p>{% endif %}
+</section>
+
+<div class="actions"><a class="button button-primary" href="{{ url_for('analyzepcap') }}">Analyze another PCAP</a><a class="button" href="{{ url_for('replay') }}">Run Snort replay</a></div>
+</main></body></html>

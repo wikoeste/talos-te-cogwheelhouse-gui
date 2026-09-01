@@ -1,35 +1,78 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#1f1f21">
-    <title>Elstc Qrys</title>
-      <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-      <!-- menu bar -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1f1f21">
+  <meta name="description" content="Search Juno email-security telemetry using validated Elastic query templates.">
+  <title>Elastic Queries Search | COG Wheelhouse</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/elastic-queries.css') }}">
 </head>
-
-<body>
+<body class="elastic-page">
 {% include "partials/navigation.html" %}
 
-
-<h1>Juno Elastic Query API Searches</h1>
-
-    <br><br>
-    <div class="elasticform">
-    <form action="/getelastic" method="POST">
-        <p>Username: <input type="text" name="username" /></p>
-        <p>SHA256: <input type="text" name="sha256" /></p>
-        <p>From Domain Address: <input type="text" name="domain" /></p>
-        <p>Sender Full Email Address: <input type="email" name="sender" /></p>
-        <p>Sender IP Address:  <input type="text" name="ip" /></p>
-        <p>Subject Message:  <input type="text" name="subj" /></p>
-        <p>GUID: <input type="text" name="guid" /></p>
-        <p><input type="submit" value="Submit"></p>
-    </form>
+<main class="elastic-shell">
+  <header class="elastic-hero">
+    <div>
+      <p class="elastic-eyebrow">SEARCH TOOLS · JUNO TELEMETRY</p>
+      <h1>Elastic Queries</h1>
+      <p>Search message telemetry with the validated query modes from the Talos TE Elastic Queries toolkit.</p>
     </div>
-<div class="footer">
-  <p>Copyright (c) 2022 wikoeste, Cisco Internal Use Only</p>
-</div>
+    <aside class="elastic-hero-status" aria-label="Search service details">
+      <span>DATA SOURCE</span><strong>Juno Elasticsearch</strong>
+      <span>QUERY MODE</span><strong>Read-only · authenticated</strong>
+    </aside>
+  </header>
+
+  {% if error %}
+  <div class="elastic-alert" role="alert"><strong>Search not submitted.</strong><span>{{ error }}</span></div>
+  {% endif %}
+
+  <form class="elastic-search-form" action="{{ url_for('getelastic') }}" method="post">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+    <fieldset>
+      <legend><span>01</span> Choose a query</legend>
+      <div class="elastic-query-grid">
+        {% for spec in query_specs %}
+        <label class="elastic-query-option">
+          <input type="radio" name="query_type" value="{{ spec.key }}" {% if selected_type == spec.key or (not selected_type and loop.first) %}checked{% endif %} required>
+          <span class="elastic-query-card">
+            <span class="elastic-query-number">{{ "%02d"|format(loop.index) }}</span>
+            <strong>{{ spec.label }}</strong>
+            <span>{{ spec.description }}</span>
+            <small>{{ spec.period }}{% if spec.multiple %} · up to 10 values{% endif %}</small>
+          </span>
+        </label>
+        {% endfor %}
+      </div>
+    </fieldset>
+
+    <fieldset class="elastic-value-fieldset">
+      <legend><span>02</span> Enter search data</legend>
+      <label for="query-value">Search value</label>
+      <textarea id="query-value" name="query_value" rows="5" maxlength="20480" required autocomplete="off" spellcheck="false" placeholder="Enter one value, or one value per line for batch-enabled queries">{{ submitted_value or "" }}</textarea>
+      <div class="elastic-form-note">
+        <p>Inputs are validated for the selected query type before a request reaches Juno.</p>
+        <button type="submit">Run Elastic search <span aria-hidden="true">→</span></button>
+      </div>
+    </fieldset>
+  </form>
+
+  <section class="elastic-guidance" aria-labelledby="guidance-title">
+    <p class="elastic-eyebrow">QUERY COVERAGE</p>
+    <h2 id="guidance-title">Twelve focused investigation paths</h2>
+    <div>
+      <p><strong>Message identity</strong><span>CEC submissions, Message-ID headers, GUID conversion, and direct CID verdict lookup.</span></p>
+      <p><strong>Infrastructure</strong><span>Sender domains, sender IPs, message URIs, and attachment SHA-256 hashes.</span></p>
+      <p><strong>Mail flow</strong><span>Sender and recipient addresses, receiving domains, subjects, categories, and verdicts.</span></p>
+    </div>
+  </section>
+</main>
+
+<footer class="elastic-footer">
+  <a href="{{ url_for('layout') }}">← Return to COG Wheelhouse</a>
+  <p>Cisco/Talos internal use only · results are not stored by this page</p>
+</footer>
 </body>
 </html>

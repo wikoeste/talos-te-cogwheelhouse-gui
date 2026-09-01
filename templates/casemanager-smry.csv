@@ -1,5 +1,0 @@
-Link,Description,Created,Assign
-<a href =https://jira.talos.cisco.com/browse/COG-87219 target=_blank>COG-87219</a>,[FP] - CNS US DOE PANTEX PLANT - IPAS Spam Suspect incorrectly classified,2026-08-05,<form action=/takescript method=POST><input type=checkbox name=checks value=COG-87219><label for=COG-87219>COG-87219</label>
-<a href =https://jira.talos.cisco.com/browse/COG-87218 target=_blank>COG-87218</a>,[FP] QATARENERGY LNG - IPAS - Legit email caught as Marketing - SR 701175798,2026-08-05,<form action=/takescript method=POST><input type=checkbox name=checks value=COG-87218><label for=COG-87218>COG-87218</label>
-,,,<button type=submit>Take Selected Tickets</button></form>
-Total Opened,2

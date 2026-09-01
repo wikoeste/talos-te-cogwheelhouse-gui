@@ -1,24 +1,27 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#1f1f21">
     <meta charset="UTF-8">
     <title>Snort Replay</title>
-        <link rel='stylesheet' href = "../static/css/main.css">
-
-
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 </head>
 <body>
 {% include "partials/navigation.html" %}
-<h1>Select the pcap and rule to test!</h1>
+<h1>Select PCAPs and a Rule to Test</h1>
 
 <br>
-Enter the Snort Signature ID. Choose a Base policy and a pcap for Snort replay.
+Enter the Snort signature ID, choose a base policy, and replay one PCAP or every uploaded PCAP.
 <br>
+<p class="replay-path-note">
+    Snort rule locations:
+    {% for location in rule_locations %}<code>{{ location }}</code>{% if not loop.last %} and {% endif %}{% endfor %}
+</p>
 <div class="replaybox">
-    <form action="/testpcap" method="POST">
-        <p>SID:       <input type="numeric" name="sid" required/></p>
+    <form action="{{ url_for('testpcap') }}" method="POST">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+        <p><label for="sid">SID:</label> <input id="sid" type="number" min="1" name="sid" required></p>
         <!--<p>Rule Text: <textarea rows="5" cols="75" name="rawrule"></textarea></p>-->
         <p>Base Policy:
         <select name="policy">
@@ -31,14 +34,29 @@ Enter the Snort Signature ID. Choose a Base policy and a pcap for Snort replay.
             <option value="dbg">No Quiet Mode</option>
         </select>
         </p>
-            <p>Packet Capture:</p>
-            <ul style="list-style-type:none">
+            <fieldset class="pcap-options">
+                <legend>Packet Capture</legend>
+                {% if files %}
+                <label class="pcap-option pcap-option--all" for="all-pcaps">
+                    <input id="all-pcaps" type="radio" value="__all__" name="pcaps" required>
+                    <span><strong>Run all uploaded PCAPs</strong><small>{{ files|length }} file{% if files|length != 1 %}s{% endif %} in the replay directory</small></span>
+                </label>
                 {% for file in files %}
-                <li><input type="radio" value={{file}} name="pcaps"/><label for="{{url_for('download', filename=file)}}">{{file}}</label></li>
+                <label class="pcap-option" for="pcap-{{ loop.index }}">
+                    <input id="pcap-{{ loop.index }}" type="radio" value="{{ file }}" name="pcaps" required>
+                    <span>{{ file }}</span>
+                </label>
                 {% endfor %}
-            </ul>
+                {% else %}
+                <p>No PCAP files are available. <a href="{{ url_for('uploadpcap') }}">Upload PCAPs first.</a></p>
+                {% endif %}
+            </fieldset>
+            <label class="pcap-option pcap-option--all" for="analyze-content">
+                <input id="analyze-content" type="checkbox" name="analyze_content" value="yes" checked>
+                <span><strong>Include PCAP analyzer summary</strong><small>Show the structured analyzer results without packet-sample inventory and include them in optional Jira output.</small></span>
+            </label>
             <br>
-            <input type="submit" value="Submit">
+            <input type="submit" value="Run Snort Replay"{% if not files %} disabled{% endif %}>
     </form>
 </div>
 

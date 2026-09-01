@@ -1,75 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<!--Home page for snort replay-->
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#1f1f21">
-    <title>Talos TE Toolbox</title>
-    <link rel='stylesheet' href = "../static/css/main.css">
+    <title>Pig Replay Operations | Talos TE Toolbox</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 </head>
-
 <body>
 {% include "partials/navigation.html" %}
-<h1>Talos Escalations | PigReplay</h1>
 
-    <!--ACTION TILES FOR USER-->
-   <!--UPLOAD PCAP-->
-    <div class="tiles tile thover">
-         <a href="uploadpcap">
-             <img loading="lazy" decoding="async" alt="upload" src="../static/imgs/upload.png" height="150"></a>
-          <div class="caption ">Upload Pcap</div>
-      </div>
+<main class="replay-hub">
+    <header class="replay-hero">
+        <p class="replay-eyebrow">Talos Escalations</p>
+        <h1>Pig Replay Operations</h1>
+        <p>Manage packet captures, maintain Snort rules, run traffic replays, and investigate related Jira tickets.</p>
+    </header>
 
-    <!--DL pcap-->
-    <div class="tiles tile thover">
-         <a href="filedownloads">
-             <img loading="lazy" decoding="async" alt="upload" src="../static/imgs/download.jpeg" height="150"></a>
-          <div class="caption ">Download Pcap</div>
-      </div>
+    <section class="replay-tiles" aria-label="Pig Replay tools">
+        <a class="replay-tile" href="{{ url_for('uploadpcap') }}">
+            <span class="replay-tile-media"><img loading="lazy" decoding="async" src="{{ url_for('static', filename='imgs/upload.png') }}" alt=""></span>
+            <span class="replay-tile-copy"><strong>Upload PCAP</strong><span>Add a packet capture to the replay workspace.</span></span>
+            <span class="replay-tile-action" aria-hidden="true">Open →</span>
+        </a>
 
-    <!--Delete pcap from system-->
-    <div class="tiles tile thover">
-          <a href="filedeletion">
-             <img loading="lazy" decoding="async" alt="del" src="../static/imgs/delete.jpeg"
-                  height="150"></a>
-          <div class="caption ">Delete Pcaps</div>
-      </div>
+        <a class="replay-tile" href="{{ url_for('dlpcap') }}">
+            <span class="replay-tile-media"><img loading="lazy" decoding="async" src="{{ url_for('static', filename='imgs/download.jpeg') }}" alt=""></span>
+            <span class="replay-tile-copy"><strong>Download PCAP</strong><span>Browse and retrieve packet captures from the system.</span></span>
+            <span class="replay-tile-action" aria-hidden="true">Open →</span>
+        </a>
 
-   <!--Download the latest S2 rules-->
-    <div class="tiles tile thover">
-          <a href="ruledl">
-             <img loading="lazy" decoding="async" alt="ruledl" src="../static/imgs/rules.webp"
-                  width="180" height="150"></a>
-          <div class="caption ">Snort Rule Download</div>
-      </div>
+        <a class="replay-tile" href="{{ url_for('delpcap') }}">
+            <span class="replay-tile-media"><img loading="lazy" decoding="async" src="{{ url_for('static', filename='imgs/delete.jpeg') }}" alt=""></span>
+            <span class="replay-tile-copy"><strong>Delete PCAPs</strong><span>Remove packet captures that are no longer needed.</span></span>
+            <span class="replay-tile-action" aria-hidden="true">Open →</span>
+        </a>
 
-    <div class="tiles tile thover">
-          <a href="rulesearch">
-             <img loading="lazy" decoding="async" alt="rulesearch" src="../static/imgs/search.jpeg"
-                  height="150"></a>
-          <div class="caption ">Rule Search</div>
-      </div>
+        <a class="replay-tile" href="{{ url_for('ruledl') }}">
+            <span class="replay-tile-media"><img loading="lazy" decoding="async" src="{{ url_for('static', filename='imgs/rules.webp') }}" alt=""></span>
+            <span class="replay-tile-copy"><strong>Snort Rule Download</strong><span>Authenticate and retrieve the latest Snort rules.</span></span>
+            <span class="replay-tile-action" aria-hidden="true">Open →</span>
+        </a>
 
-    <div class="tiles tile thover">
-          <a href="replay">
-             <img loading="lazy" decoding="async" alt="snort" src="../static/imgs/snort.jpeg"
-                  width="180" height="150"></a>
-          <div class="caption ">Snort Replay</div>
-      </div>
+        <a class="replay-tile" href="{{ url_for('rulesearch') }}">
+            <span class="replay-tile-media"><img loading="lazy" decoding="async" src="{{ url_for('static', filename='imgs/search.jpeg') }}" alt=""></span>
+            <span class="replay-tile-copy"><strong>Rule Search</strong><span>Find Snort rules before replaying traffic.</span></span>
+            <span class="replay-tile-action" aria-hidden="true">Open →</span>
+        </a>
 
-        <div class="tiles tile thover">
-         <a href="/jirasearch">
-             <img loading="lazy" decoding="async" alt="Jira" src="../static/imgs/jsearch.jpeg"
-                  height="150"></a>
-          <div class="caption ">Jira Search</div>
-      </div>
+        <a class="replay-tile" href="{{ url_for('crlookup') }}">
+            <span class="replay-tile-media"><img loading="lazy" decoding="async" src="{{ url_for('static', filename='imgs/resesrcheditor.png') }}" alt=""></span>
+            <span class="replay-tile-copy"><strong>CVE CR Analysis</strong><span>Check exploit evidence and Snort signature feasibility for CVEs.</span></span>
+            <span class="replay-tile-action" aria-hidden="true">Open →</span>
+        </a>
+
+        <a class="replay-tile replay-tile--primary" href="{{ url_for('replay') }}">
+            <span class="replay-tile-media"><img loading="lazy" decoding="async" src="{{ url_for('static', filename='imgs/snort.jpeg') }}" alt=""></span>
+            <span class="replay-tile-copy"><strong>PCAP Analysis</strong><span>Configure and launch a Snort packet replay.</span></span>
+            <span class="replay-tile-action" aria-hidden="true">Launch →</span>
+        </a>
+
+        <a class="replay-tile" href="{{ url_for('analyzepcap') }}">
+            <span class="replay-tile-media"><img loading="lazy" decoding="async" src="{{ url_for('static', filename='imgs/tools.png') }}" alt=""></span>
+            <span class="replay-tile-copy"><strong>Analyze PCAP</strong><span>Inspect decoded traffic against a Snort SID or pasted rule.</span></span>
+            <span class="replay-tile-action" aria-hidden="true">Analyze →</span>
+        </a>
+
+        <a class="replay-tile" href="{{ url_for('jirasearch') }}">
+            <span class="replay-tile-media"><img loading="lazy" decoding="async" src="{{ url_for('static', filename='imgs/jsearch.jpeg') }}" alt=""></span>
+            <span class="replay-tile-copy"><strong>Jira Search</strong><span>Investigate Jira tickets associated with replay work.</span></span>
+            <span class="replay-tile-action" aria-hidden="true">Open →</span>
+        </a>
+    </section>
+</main>
+
+<div class="footer"><p>Copyright (c) 2023 wikoeste, Cisco Internal Use Only</p></div>
 </body>
-
-<!--Footer section-->
-    <div class="footer">
-      <p>Copyright (c) 2023 wikoeste, Cisco Internal Use Only</p>
-    </div>
 </html>

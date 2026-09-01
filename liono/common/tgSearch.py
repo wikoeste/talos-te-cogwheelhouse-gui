@@ -1,24 +1,27 @@
-import json,requests,re
+import os
+
+import requests
 from terminaltables import AsciiTable
 ######################################
 def tgFileSearch(sha): #Search TG for shas
     tgurl       = 'https://panacea.threatgrid.com/api/v2/search/submissions?q='
-    header      = {'Content-Type: application/json'}
-    apiKey      = "uacpqmm4mqr7socimr6h4viogd"
-    qry         = tgurl+sha+'&api_key='+apiKey+'&limit=10'
+    apiKey      = os.getenv("THREATGRID_API_KEY", "").strip()
+    if not apiKey:
+        raise RuntimeError("THREATGRID_API_KEY is not configured.")
     total,sums  = (0,0)
     tscores     = []
     thrtbeh     = {"score":[],"name":[],"desc":[]}
     tgdata      = {"fname":[],"sid":[],"date":[],"score":[]}
     metadata    = {"fname":[],"s256":[],"ftype":[],"magic":[]}
     try:
-        r = requests.get(url = qry)
-        if r.status_code == 200:
-            jresp       = r.json()
-            print('TG Search', json.dumps(jresp, indent=2))
-            total       = jresp['data']['total']
-            if total is None:
-                total = 0
+        r = requests.get(
+            url=tgurl,
+            params={"q": sha, "api_key": apiKey, "limit": 10},
+            timeout=(5, 30),
+        )
+        r.raise_for_status()
+        jresp = r.json()
+        total = jresp.get('data', {}).get('total') or 0
         if total > 0:
             for x in jresp['data']['items']:
                 status      = x['item']['status']
@@ -61,10 +64,9 @@ def tgFileSearch(sha): #Search TG for shas
         else:
             tscores.append(0)
         #get average threat grid scores
-        for i in tscores:
-            sums = total + int(i)
-        samples     = int(len(tscores))
-        avrg        = sums / samples
+        sums        = sum(int(i) for i in tscores)
+        samples     = len(tscores)
+        avrg        = sums / samples if samples else 0
         avg         = round(avrg, 2)
 
         #format api data
@@ -72,7 +74,6 @@ def tgFileSearch(sha): #Search TG for shas
         sampleids    = "\n".join(i for i in tgdata["sid"])
         submitted    = "\n".join(i for i in tgdata["date"])
         scores       = "\n".join(str(i) for i in tscores)
-        meta         = "\n".join(str(i) for i in metadata)
         thrtbehname = "\n".join(i for i in thrtbeh["name"])
         thrtbscr    = "\n".join(str(i) for i in thrtbeh["score"])
         thrtdesc    = "\n".join(str(i) for i in thrtbeh["desc"])
@@ -112,6 +113,5 @@ def tgFileSearch(sha): #Search TG for shas
         print(tgmetadata.table)
         #send back to flask for HTML UI
         return (tgdata,thrtbeh)
-    except requests.exceptions.HTTPError as e:
-        err = "TG Server HTTP Timeout {}".format(e)
-        print(err)
+    except (requests.RequestException, ValueError, KeyError, TypeError):
+        raise RuntimeError("Threat Grid search failed.") from None

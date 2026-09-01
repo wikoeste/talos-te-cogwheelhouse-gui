@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#1f1f21">
+    <title>CVE CR Analysis | Talos TE Toolbox</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/cve-cr.css') }}">
+</head>
+<body>
+{% include "partials/navigation.html" %}
+<main class="cr-shell">
+    <header class="cr-page-heading">
+        <p class="cr-eyebrow">Replay Tools</p>
+        <h1>CVE CR Analysis</h1>
+        <p>Review Analysis API research, exploit evidence, signature feasibility, and matching rules already downloaded to this host.</p>
+    </header>
+    <section class="cr-panel cr-form-panel" aria-labelledby="lookup-title">
+        <h2 id="lookup-title">Analyze CVEs</h2>
+        <form action="{{ url_for('crlookup_results') }}" method="post">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+            <label for="cves">CVE identifiers</label>
+            <textarea id="cves" name="cves" rows="8" required autofocus placeholder="CVE-2026-12345&#10;CVE-2025-54321" aria-describedby="cve-help"></textarea>
+            <p id="cve-help" class="cr-help">Enter up to 25 CVEs separated by spaces, commas, or new lines.</p>
+            <div class="cr-actions">
+                <button class="cr-button cr-button--primary" type="submit">Run analysis</button>
+                <a class="cr-button" href="{{ url_for('pigreplay') }}">Back to Pig Replay</a>
+            </div>
+        </form>
+    </section>
+</main>
+<div class="footer"><p>Copyright (c) 2023 wikoeste, Cisco Internal Use Only</p></div>
+</body>
+</html>

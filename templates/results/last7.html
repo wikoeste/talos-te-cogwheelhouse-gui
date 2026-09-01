@@ -1,208 +1,147 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/html" lang="en">
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#1f1f21">
-    <title>TE Metrics</title>
-    <link rel='stylesheet' href = "../../static/css/main.css">
-
+    <meta name="description" content="Date-range priority, resolution, product, customer, and Mailer Jira metrics for COG Requests.">
+    <title>Jira Metrics | COG Wheelhouse</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 </head>
 <body>
 {% include "partials/navigation.html" %}
-<h1> Metrics Last 7 Days</h1>
+<main class="results-layout">
+    <header class="result-panel">
+        <p>COG REQUESTS · {{ date_range.label|upper }}</p>
+        <h1>Jira Metrics</h1>
+        <p>P1/P2 tickets created during the period and tickets resolved as Invalid during the period.</p>
+        <p class="metric-date-range"><strong>{{ date_range.display }}</strong></p>
+        <nav class="metric-range-actions" aria-label="Rerun Jira Metrics">
+            <a class="button{% if date_range.key == '7' %} metric-range-active{% endif %}"
+               href="{{ url_for('jira_metrics', period='7') }}"
+               {% if date_range.key == '7' %}aria-current="page"{% endif %}>7 days</a>
+            <a class="button{% if date_range.key == '30' %} metric-range-active{% endif %}"
+               href="{{ url_for('jira_metrics', period='30') }}"
+               {% if date_range.key == '30' %}aria-current="page"{% endif %}>30 days</a>
+            <a class="button{% if date_range.key == '60' %} metric-range-active{% endif %}"
+               href="{{ url_for('jira_metrics', period='60') }}"
+               {% if date_range.key == '60' %}aria-current="page"{% endif %}>60 days</a>
+        </nav>
+        <form class="metric-quarter-form" method="get" action="{{ url_for('jira_metrics') }}">
+            <input type="hidden" name="period" value="fiscal">
+            <label for="fiscal-quarter">Cisco fiscal quarter</label>
+            <select id="fiscal-quarter" name="quarter">
+                {% for option in fiscal_quarters %}
+                <option value="{{ option.key }}"{% if option.key == date_range.key %} selected{% endif %}>
+                    {{ option.label }} · {{ option.start.isoformat() }} to {{ option.end.isoformat() }}
+                </option>
+                {% endfor %}
+            </select>
+            <button type="submit">Run quarter</button>
+        </form>
+    </header>
 
-<br><br>
-
-<!--Tickets-->
-<!--Users tickets-->
-<main class="results-layout results-layout--two-column">
-<section class="result-panel">
-    <table border="1px solid black;">
-            <thead>
-            <tr>
-                <th>CASES ACCEPTED by {{user}}</th>
-                <th> LAST 7 DAYS</th>
-            </tr>
-                {%for h in hdrs%}
-                <th>{{h}}</th>
-                {%endfor%}
-            </thead>
-            <tbody>
-            {%for d in data %}
-                <tr>
-                    <td>{{d[0]}}</td>
-                    <td>{{d[1]}}</td>
-                    <td>{{d[2]}}</td>
-                </tr>
-            {% endfor %}
-                <tr>
-                    <td>==============</td>
-                    <td>==============</td>
-                    <td>==============</td>
-                </tr>
-                <tr>
-                    <td>Total</td>
-                    <td>{{total}}</td>
-                    <td>Open:{{op}}|Reopened:{{reo}}|Resolved:{{cl}}</td>
-                </tr>
-            </tbody>
-        </table>
-</section>
-
-<!--Customer submitted tickets last 7 days-->
-<section class="result-panel result-stack">
-    <div class="divScroll">
-        <table border="1px solid black;">
-            <thead>
-                <th>COMPANY</th>
-                <th>SUBMITTED TICKETS</th>
-            </thead>
-            <tbody>
-            {% for ele,count in monthly.items()%}
-            <tr>
-                <td>{{ele}}</td>
-                <td>{{count}}</td>
-            </tr>
-            {%endfor%}
-            </tbody>
-        </table>
-    </div>
-    <!--Escalations-->
-    <div>
-    <table border="1px solid black;">
-            <thead>
-                    <tr>
-                        <th>Escalations</th>
-                        <th>Totals</th>
-                    </tr>
-                </thead>
+    <section class="result-panel" aria-labelledby="priority-metrics-heading">
+        <h2 id="priority-metrics-heading">P1 and P2 priority tickets</h2>
+        <p>{{ priority_tickets|length }} ticket{% if priority_tickets|length != 1 %}s{% endif %} created from {{ date_range.display }}.</p>
+        {% if priority_tickets %}
+        <div class="divScroll">
+            <table>
+                <thead><tr><th>Ticket</th><th>Summary</th><th>Priority</th><th>Created</th><th>Status</th></tr></thead>
                 <tbody>
-                    <tr>
-                        <td>ALL Qs</td>
-                        <td>{{totalesc}}</td>
-                    </tr>
-                    <tr>
-                        <td>EERS</td>
-                        <td>{{ee}}</td>
-                    </tr>
-                    <tr>
-                        <td>THR</td>
-                        <td>{{thr}}</td>
-                    </tr>
-                    <tr>
-                        <td>RESBZ</td>
-                        <td>{{resbz}}</td>
-                    </tr>
+                {% for ticket in priority_tickets %}
+                <tr>
+                    <td><a href="{{ jira_browse_url }}/{{ ticket.key }}" target="_blank" rel="noopener noreferrer">{{ ticket.key }}</a></td>
+                    <td>{{ ticket.summary }}</td>
+                    <td>{{ ticket.priority }}</td>
+                    <td>{{ ticket.created }}</td>
+                    <td>{{ ticket.status }}</td>
+                </tr>
+                {% endfor %}
                 </tbody>
-        </table>
-    </div>
-</section>
+            </table>
+        </div>
+        {% else %}<p>No P1 or P2 COG Requests were created during this reporting period.</p>{% endif %}
+    </section>
 
-<!--Cases by engineer-->
-<section class="result-panel">
-    <table align="left" border="1px solid black;">
-        <thead>
-             <th>Engineer</th>
-             <th>Open Cases</th>
-        </thead>
-        {% for ele,count in team.items()%}
-        <tbody>
-        <tr>
-            <td>{{ele}}</td>
-            <td>{{count}}</td>
-        </tr>
-        {%endfor%}
-        </tbody>
-    </table>
-</section>
-
-<!--COG Tix by Product/Platform -->
-<section class="result-panel">
-    <table border="1px solid black;">
-            <thead>
+    <section class="result-panel" aria-labelledby="invalid-metrics-heading">
+        <h2 id="invalid-metrics-heading">Invalid resolutions</h2>
+        <p>{{ invalid_tickets|length }} ticket{% if invalid_tickets|length != 1 %}s{% endif %} resolved as Invalid from {{ date_range.display }}.</p>
+        {% if invalid_tickets %}
+        <div class="divScroll">
+            <table>
+                <thead><tr><th>Ticket</th><th>Summary</th><th>Resolved</th><th>Resolution</th><th>Status</th></tr></thead>
+                <tbody>
+                {% for ticket in invalid_tickets %}
                 <tr>
-                    <th>PRODUCT</th>
-                    <th>TOTALS</th>
-                    <th>Open</th>
-                    <th>Closed</th>
+                    <td><a href="{{ jira_browse_url }}/{{ ticket.key }}" target="_blank" rel="noopener noreferrer">{{ ticket.key }}</a></td>
+                    <td>{{ ticket.summary }}</td>
+                    <td>{{ ticket.resolved }}</td>
+                    <td>{{ ticket.resolution }}</td>
+                    <td>{{ ticket.status }}</td>
                 </tr>
-            </thead>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}<p>No COG Requests were resolved as Invalid during this reporting period.</p>{% endif %}
+    </section>
+
+    <section class="result-panel" aria-labelledby="mailer-metrics-heading">
+        <h2 id="mailer-metrics-heading">Mailer cases</h2>
+        <p>{{ mailer_tickets|length }} COG Mailer case{% if mailer_tickets|length != 1 %}s{% endif %} created from {{ date_range.display }}.</p>
+        {% if mailer_tickets %}
+        <div class="divScroll">
+            <table>
+                <thead><tr><th>Ticket</th><th>Summary</th><th>Priority</th><th>Created</th><th>Status</th></tr></thead>
                 <tbody>
-            <tr>
-                <td>COG</td>
-                <td>{{cog}}</td>
-                <td>{{opn}}</td>
-                <td>{{clsd}}</td>
-            </tr>
-            <tr>
-                <td>IPAS</td>
-                <td>{{email}}</td>
-            </tr>
-            <tr>
-                <td>FILE</td>
-                <td>{{amp}}</td>
-            </tr>
-            <tr>
-                <td>SNORT</td>
-                <td>{{snort}}</td>
-            </tr>
-            <tr>
-                <td>SBRS</td>
-                <td>{{sbrs}}</td>
-            </tr>
-            <tr>
-                <td>WEB</td>
-                <td>{{web}}</td>
-            </tr>
-            <tr>
-                <td>OTHER</td>
-                <td>{{other}}</td>
-            </tr>
-            <tr>
-                <td>P1 or P2</td>
-                <td>{{hot}}</td>
-            </tr>
-            </tbody>
-        </table>
-</section>
+                {% for ticket in mailer_tickets %}
+                <tr>
+                    <td><a href="{{ jira_browse_url }}/{{ ticket.key }}" target="_blank" rel="noopener noreferrer">{{ ticket.key }}</a></td>
+                    <td>{{ ticket.summary }}</td>
+                    <td>{{ ticket.priority }}</td>
+                    <td>{{ ticket.created }}</td>
+                    <td>{{ ticket.status }}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}<p>No COG Mailer cases were created during this reporting period.</p>{% endif %}
+    </section>
 
-
-
-<!--ETD-->
-<section class="result-panel">
-    <table border="1px solid black;">
-            <thead>
-                <th>ETD Tickets</th>
-                <th>TOTALS</th>
-            </thead>
+    <section class="result-panel" aria-labelledby="product-metrics-heading">
+        <h2 id="product-metrics-heading">COG product breakdown</h2>
+        <p>All COG Requests created from {{ date_range.display }}, grouped by the established product mapping.</p>
+        <div class="divScroll">
+            <table>
+                <thead><tr><th>Product</th><th>Tickets</th></tr></thead>
                 <tbody>
-        <tr>
-            <td>ALL</td>
-            <td>{{etd}}</td>
-        </tr>
-        <tr>
-            <td>FN</td>
-            <td>{{fn}}</td>
-        </tr>
-        <tr>
-            <td>FP</td>
-            <td>{{fp}}</td>
-        </tr>
+                {% for metric in product_metrics %}
+                <tr><td>{{ metric.product }}</td><td>{{ metric.count }}</td></tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
 
-        <tr>
-            <td>OTHER</td>
-            <td>{{etdother}}</td>
-        </tr>
-        </tbody>
-         </table>
-</section>
+    <section class="result-panel" aria-labelledby="customer-metrics-heading">
+        <h2 id="customer-metrics-heading">Customers with more than five tickets</h2>
+        <p>Customers that submitted at least six COG Requests from {{ date_range.display }}.</p>
+        {% if high_volume_customers %}
+        <div class="divScroll">
+            <table>
+                <thead><tr><th>Customer</th><th>Submitted tickets</th></tr></thead>
+                <tbody>
+                {% for metric in high_volume_customers %}
+                <tr><td>{{ metric.customer }}</td><td>{{ metric.count }}</td></tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}<p>No customer submitted more than five COG tickets during this reporting period.</p>{% endif %}
+    </section>
 </main>
-
-<br><br>
-
-<div class="footer">
-  <p>Copyright (c) 2022 wikoeste, Cisco Internal Use Only</p>
-</div>
+<footer class="footer"><p>Copyright (c) 2022 wikoeste, Cisco Internal Use Only</p></footer>
 </body>
 </html>

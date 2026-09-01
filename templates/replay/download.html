@@ -4,26 +4,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#1f1f21">
     <meta charset="UTF-8">
-    <title>Download Pcap</title>
-    <link rel='stylesheet' href = "../static/css/main.css">
-
-
-
+    <title>Download PCAP | Talos TE COG Wheelhouse</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 </head>
 <body>
 {% include "partials/navigation.html" %}
 <h1>Select the Packet Capture to Download</h1>
-
-
-
-<ol type="1">
+{% if files %}
+<ol class="pcap-file-list">
     {% for file in files %}
-    <li><a href="{{ url_for('download', filename=file) }}">{{ file }}</a></li>
+    <li>
+        <a class="button" href="{{ url_for('download', filename=file) }}">Download {{ file }}</a>
+    </li>
     {% endfor %}
 </ol>
+{% else %}
+<div class="elasticform ticket-empty">
+    <p>No PCAP files are available to download.</p>
+    <a class="button" href="{{ url_for('uploadpcap') }}">Upload PCAPs</a>
+</div>
+{% endif %}
+<div class="footer">
+  <p>Copyright © 2026 Cisco · Talos Internal Use Only</p>
+</div>
 </body>
-<!--Footer section-->
-    <div class="footer">
-      <p>Copyright (c) 2023 wikoeste, Cisco Internal Use Only</p>
-    </div>
 </html>

@@ -4,33 +4,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#1f1f21">
     <meta charset="UTF-8">
-    <title>Upload Pcap</title>
-    <link rel='stylesheet' href = "../static/css/main.css">
-
-
-
+    <title>Upload PCAPs</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 </head>
 <body>
 {% include "partials/navigation.html" %}
-<h1>Select the Packet Capture to Upload</h1>
+<h1>Select Packet Captures to Upload</h1>
 
       <div class="credsform">
           <div class="card">
-              <h2>Upload Pcaps Only</h2>
+              <h2>Upload PCAP Files</h2>
               <div class="cardData">
-                <form action = "/upload" method = "post" enctype="multipart/form-data">
-                    <input type="file" accept=".pcap" name="file" />
+                <form action="{{ url_for('uploadfile') }}" method="post" enctype="multipart/form-data">
+                    <label for="pcap-files">Choose one or more .pcap files</label>
+                    <input id="pcap-files" type="file" accept=".pcap,application/vnd.tcpdump.pcap" name="files" multiple required>
                     <br><br>
                     <div class="button">
-                        <input type="submit" value="Upload">
+                        <input type="submit" value="Upload selected PCAPs">
                     </div>
                 </form>
               </div>
           </div>
       </div>
 
-</body>
 <div class="footer">
   <p>Copyright (c) 2022 wikoeste, Cisco Internal Use Only</p>
 </div>
+</body>
 </html>

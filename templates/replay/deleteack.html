@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#1f1f21">
-  <title>Deletion Results | Talos TE Toolbox</title>
+  <title>Deletion Results | Talos TE COG Wheelhouse</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 </head>
 <body>
@@ -13,6 +13,10 @@
   <div class="elasticform">
     <p>Deleted files</p>
     <pre>{{ name }}</pre>
+    <div class="upload-actions">
+      <a class="button" href="{{ url_for('delfiles') }}">Delete another PCAP</a>
+      <a href="{{ url_for('uploadpcap') }}">Upload PCAPs</a>
+    </div>
   </div>
   <div class="footer">
     <p>Copyright © 2026 Cisco · Talos Internal Use Only</p>

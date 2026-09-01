@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Analyze PCAP | COG Wheelhouse</title><link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}"><link rel="stylesheet" href="{{ url_for('static', filename='css/pcap-analyzer.css') }}"></head><body>
+{% include "partials/navigation.html" %}<main class="analyzer-shell">
+<section class="page-heading"><p class="eyebrow">PACKET INSPECTION</p><h1>Analyze PCAP</h1><p>Compare decoded packet payloads by loading a SID from <code>/var/tmp/snort-rules</code>, or paste a rule directly.</p></section>
+{% if analysis_error %}<div class="notice notice-error" role="alert">{{ analysis_error }}</div>{% endif %}
+<section class="panel form-panel">
+  <form action="{{ url_for('analyzepcap_results') }}" method="post">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+    <label for="analysis-pcap">Packet capture</label>
+    {% if files %}
+      <select id="analysis-pcap" name="pcap" required>
+        <option value="">Choose a staged PCAP</option>
+        {% for file in files %}<option value="{{ file }}"{% if selected_pcap == file %} selected{% endif %}>{{ file }}</option>{% endfor %}
+      </select>
+    {% else %}
+      <p class="empty-state">Upload a PCAP before starting an analysis.</p>
+    {% endif %}
+    <label for="analysis-sid">Snort SID</label>
+    <input id="analysis-sid" type="number" min="1" step="1" name="sid" value="{{ submitted_sid or '' }}" placeholder="66965">
+    <p class="field-help">When a SID is entered, its exact rule is loaded recursively from <code>/var/tmp/snort-rules</code> and takes precedence over pasted text.</p>
+    <label for="analysis-rule">Snort rule <span class="optional-label">(optional when SID is entered)</span></label>
+    <textarea id="analysis-rule" name="rule" rows="10" maxlength="64000" placeholder='alert tcp any any -> any 80 (msg:"Example"; content:"GET"; nocase; content:"/admin"; distance:0; within:64; sid:1000001; rev:1;)'>{{ submitted_rule or '' }}</textarea>
+    <p class="field-help">The analyzer evaluates rule direction, protocol, simple IP/port constraints, ordered content and PCRE checks, hex blocks, negation, nocase, offset, depth, distance, within, and common PCRE flags including relative matching. Snort preprocessors and transformed application buffers require a full Snort replay.</p>
+    <button class="button button-primary" type="submit"{% if not files %} disabled{% endif %}>Analyze capture</button>
+  </form>
+</section>
+</main></body></html>

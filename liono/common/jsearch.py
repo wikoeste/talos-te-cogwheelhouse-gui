@@ -1,7 +1,252 @@
 from liono.common import settings
 from jira import JIRA
+from jira.exceptions import JIRAError
 import requests,os,re,json,threading
 from collections import Counter, OrderedDict
+from dataclasses import dataclass
+from datetime import date, timedelta
+
+
+JIRA_SERVER = "https://jira.talos.cisco.com"
+JIRA_METRIC_FIELDS = (
+    "summary,created,resolutiondate,priority,status,resolution,"
+    "issuetype,customfield_13528"
+)
+JIRA_METRIC_DAY_OPTIONS = OrderedDict((("7", 7), ("30", 30), ("60", 60)))
+JIRA_METRIC_FISCAL_OPTION_COUNT = 8
+PRODUCT_ISSUE_TYPES = {
+    "IPAS": {"email"},
+    "FILE": {"endpoint"},
+    "SNORT": {"vulnerability"},
+    "SBRS": {"sbrs"},
+    "WEB": {"phishtank", "web"},
+    "OTHER": {"anti-virus", "mailer", "other"},
+}
+HIGH_VOLUME_CUSTOMER_THRESHOLD = 5
+
+
+class JiraMetricsError(RuntimeError):
+    """Raised when COG Jira metrics cannot be retrieved."""
+
+
+class JiraMetricsPeriodError(ValueError):
+    """Raised when a Jira Metrics reporting period is not supported."""
+
+
+@dataclass(frozen=True)
+class JiraMetricDateRange:
+    key: str
+    label: str
+    start: date
+    end: date
+
+    @property
+    def end_exclusive(self):
+        return self.end + timedelta(days=1)
+
+    @property
+    def display(self):
+        return "{} – {}".format(
+            self.start.strftime("%B %-d, %Y"),
+            self.end.strftime("%B %-d, %Y"),
+        )
+
+
+def _last_saturday_in_july(year):
+    day = date(year, 7, 31)
+    return day - timedelta(days=(day.weekday() - 5) % 7)
+
+
+def _fiscal_year_start(fiscal_year):
+    return _last_saturday_in_july(fiscal_year - 1) + timedelta(days=1)
+
+
+def _fiscal_quarter_range(fiscal_year, quarter):
+    if quarter not in (1, 2, 3, 4):
+        raise JiraMetricsPeriodError("Unsupported Cisco fiscal quarter.")
+    fiscal_start = _fiscal_year_start(fiscal_year)
+    start = fiscal_start + timedelta(weeks=13 * (quarter - 1))
+    next_start = (
+        fiscal_start + timedelta(weeks=13 * quarter)
+        if quarter < 4
+        else _fiscal_year_start(fiscal_year + 1)
+    )
+    key = "FY{}-Q{}".format(fiscal_year, quarter)
+    return JiraMetricDateRange(
+        key=key,
+        label="Cisco FY{} Q{}".format(fiscal_year, quarter),
+        start=start,
+        end=next_start - timedelta(days=1),
+    )
+
+
+def _fiscal_quarter_for_day(day):
+    fiscal_year = day.year if day <= _last_saturday_in_july(day.year) else day.year + 1
+    fiscal_start = _fiscal_year_start(fiscal_year)
+    quarter = min(((day - fiscal_start).days // 91) + 1, 4)
+    return fiscal_year, quarter
+
+
+def fiscal_quarter_options(today=None, count=JIRA_METRIC_FISCAL_OPTION_COUNT):
+    """Return the current and recent Cisco fiscal quarters, newest first."""
+    day = today or date.today()
+    fiscal_year, quarter = _fiscal_quarter_for_day(day)
+    options = []
+    for offset in range(count):
+        position = (fiscal_year * 4 + quarter - 1) - offset
+        option_year, option_index = divmod(position, 4)
+        options.append(_fiscal_quarter_range(option_year, option_index + 1))
+    return options
+
+
+def resolve_metric_date_range(period="7", quarter=None, today=None):
+    """Resolve an allowlisted reporting period into immutable calendar dates."""
+    day = today or date.today()
+    if period in JIRA_METRIC_DAY_OPTIONS:
+        days = JIRA_METRIC_DAY_OPTIONS[period]
+        return JiraMetricDateRange(
+            key=period,
+            label="Last {} days".format(days),
+            start=day - timedelta(days=days - 1),
+            end=day,
+        )
+    if period != "fiscal":
+        raise JiraMetricsPeriodError("Unsupported Jira Metrics date range.")
+
+    allowed_quarters = {
+        option.key: option for option in fiscal_quarter_options(today=day)
+    }
+    selected = quarter or next(iter(allowed_quarters))
+    try:
+        return allowed_quarters[selected]
+    except KeyError as exc:
+        raise JiraMetricsPeriodError("Unsupported Cisco fiscal quarter.") from exc
+
+
+def _metric_queries(date_range):
+    start = date_range.start.isoformat()
+    end = date_range.end_exclusive.isoformat()
+    created_window = 'created >= "{}" AND created < "{}"'.format(start, end)
+    resolved_window = 'resolved >= "{}" AND resolved < "{}"'.format(start, end)
+    return OrderedDict((
+        ("priority", (
+            "project = COG AND priority in (P1, P2) AND {} "
+            "ORDER BY created DESC"
+        ).format(created_window)),
+        ("invalid", (
+            "project = COG AND resolution = Invalid AND {} "
+            "ORDER BY resolved DESC"
+        ).format(resolved_window)),
+        ("mailer", (
+            "project = COG AND issuetype = Mailer AND {} "
+            "ORDER BY created DESC"
+        ).format(created_window)),
+        ("all", "project = COG AND {} ORDER BY created DESC".format(created_window)),
+    ))
+
+
+def _field_name(value):
+    return str(getattr(value, "name", value) or "Unknown")
+
+
+def _date_only(value):
+    return str(value or "Unknown").split("T", 1)[0]
+
+
+def _metric_row(issue):
+    fields = issue.fields
+    return {
+        "key": str(issue.key),
+        "summary": str(getattr(fields, "summary", "") or "No summary"),
+        "priority": _field_name(getattr(fields, "priority", None)),
+        "created": _date_only(getattr(fields, "created", None)),
+        "resolved": _date_only(getattr(fields, "resolutiondate", None)),
+        "status": _field_name(getattr(fields, "status", None)),
+        "resolution": _field_name(getattr(fields, "resolution", None)),
+    }
+
+
+def _product_breakdown(issues):
+    counts = OrderedDict((product, 0) for product in PRODUCT_ISSUE_TYPES)
+    unmapped = 0
+    for issue in issues:
+        issue_type = _field_name(getattr(issue.fields, "issuetype", None)).casefold()
+        product = next(
+            (
+                name
+                for name, issue_types in PRODUCT_ISSUE_TYPES.items()
+                if issue_type in issue_types
+            ),
+            None,
+        )
+        if product:
+            counts[product] += 1
+        else:
+            unmapped += 1
+    rows = [{"product": name, "count": count} for name, count in counts.items()]
+    if unmapped:
+        rows.append({"product": "UNMAPPED", "count": unmapped})
+    rows.append({"product": "TOTAL COG REQUESTS", "count": len(issues)})
+    return rows
+
+
+def _customer_name(value):
+    if isinstance(value, (list, tuple)):
+        value = value[0] if value else None
+    for attribute in ("value", "name", "displayName"):
+        candidate = getattr(value, attribute, None)
+        if candidate:
+            return str(candidate).strip()
+    customer = str(value or "").strip()
+    return customer or "Unknown"
+
+
+def _high_volume_customers(issues):
+    counts = Counter(
+        _customer_name(getattr(issue.fields, "customfield_13528", None))
+        for issue in issues
+    )
+    return [
+        {"customer": customer, "count": count}
+        for customer, count in sorted(
+            counts.items(), key=lambda item: (-item[1], item[0].casefold())
+        )
+        if customer != "Unknown" and count > HIGH_VOLUME_CUSTOMER_THRESHOLD
+    ]
+
+
+def jira_metrics(date_range=None, jira=None):
+    """Return COG Request metrics for one validated reporting window."""
+    selected_range = date_range or resolve_metric_date_range()
+    try:
+        client = jira or JIRA(
+            basic_auth=(settings.uname, settings.jkey),
+            options={"server": JIRA_SERVER},
+            get_server_info=False,
+            max_retries=2,
+            timeout=(5, 30),
+        )
+        issue_sets = {
+            name: list(
+                client.search_issues(
+                    jql,
+                    maxResults=False,
+                    fields=JIRA_METRIC_FIELDS,
+                )
+            )
+            for name, jql in _metric_queries(selected_range).items()
+        }
+        all_issues = issue_sets["all"]
+        return {
+            "priority": [_metric_row(issue) for issue in issue_sets["priority"]],
+            "invalid": [_metric_row(issue) for issue in issue_sets["invalid"]],
+            "mailer": [_metric_row(issue) for issue in issue_sets["mailer"]],
+            "products": _product_breakdown(all_issues),
+            "customers": _high_volume_customers(all_issues),
+            "date_range": selected_range,
+        }
+    except (JIRAError, OSError, ValueError, TypeError, AttributeError) as exc:
+        raise JiraMetricsError("Unable to retrieve Jira Metrics from COG Requests.") from exc
 
 # search the various jira q's for any related tickets
 def search(queue,qry):

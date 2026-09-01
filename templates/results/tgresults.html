@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#1f1f21">
-      <title>MA</title>
+      <title>Malware Analytics Results</title>
       <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
       <!-- menu bar -->
 
@@ -12,94 +12,55 @@
     <!--end menu bar-->
    <body>
 {% include "partials/navigation.html" %}
-<h1>Malware Analytics Results</h1>
+<main class="results-layout">
+    <header class="results-heading">
+        <p class="replay-eyebrow">Threat Grid search</p>
+        <h1>Malware Analytics Results</h1>
+        <p class="results-query"><strong>SHA256:</strong> <code>{{ sha }}</code></p>
+    </header>
 
-        <br><br>
-        <main class="results-layout results-layout--threat-grid">
-        <section class="result-panel">
-            <table border="2">
+    <section class="result-panel result-panel--wide">
+        <div class="table-scroll" role="region" aria-label="Malware Analytics results" tabindex="0">
+            <table>
                 <thead>
-                    <th>Sample ID</th>
+                    <tr>
+                        <th scope="col">Record Type</th>
+                        <th scope="col">Sample / Indicator</th>
+                        <th scope="col">Score</th>
+                        <th scope="col">Details</th>
+                        <th scope="col">Date Submitted</th>
+                    </tr>
                 </thead>
                 <tbody>
-                {%for x in r1.sid%}
-                <tr>
-                    <!--https://panacea.threatgrid.com/mask/submission/361ffc7f8f208a4eeccdbe7c99a35024?region=US-->
-
-                    <td><a href="https://panacea.threatgrid.com/mask/samples/{{x}}?region=US">{{x}}</a></td>
-                    {%endfor%}
-                </tr>
+                    {% for submission in submissions %}
+                    <tr>
+                        <td>Submission</td>
+                        <td><a href="https://panacea.threatgrid.com/mask/samples/{{ submission.sample_id }}?region=US" target="_blank" rel="noopener noreferrer">{{ submission.sample_id }}</a></td>
+                        <td>{{ submission.score }}</td>
+                        <td>{{ submission.filename }}</td>
+                        <td>{{ submission.date }}</td>
+                    </tr>
+                    {% endfor %}
+                    {% for behavior in behaviors %}
+                    <tr>
+                        <td>Behavioral Indicator</td>
+                        <td>{{ behavior.name }}</td>
+                        <td>{{ behavior.score }}</td>
+                        <td>{{ behavior.description }}</td>
+                        <td aria-label="Not applicable">—</td>
+                    </tr>
+                    {% endfor %}
+                    {% if not submissions and not behaviors %}
+                    <tr>
+                        <td colspan="5">No Malware Analytics results were found for this SHA256.</td>
+                    </tr>
+                    {% endif %}
                 </tbody>
             </table>
-        </section>
-        <section class="result-panel">
-            <table border="2">
-                <thead>
-                    <th>Score</th>
-                </thead>
-                <tbody>
-                {%for s in r1.score%}
-                <tr>
-                    <td>{{s}}</td>{%endfor%}
-                </tr>
-                </tbody>
-            </table>
-        </section>
+        </div>
+    </section>
+</main>
 
-        <section class="result-panel">
-            <table border="2">
-                <thead>
-                    <th>Date</th>
-                </thead>
-                <tbody>
-                {%for d in r1.date%}
-                <tr>
-                    <td>{{d}}</td>{%endfor%}
-                </tr>
-                </tbody>
-            </table>
-        </section>
-
-        <section class="result-panel">
-            <table border="2">
-                <title>Behavioral Indicator > 80</title>
-                <thead>
-                    <th>BI SCORE</th>
-                </thead>
-                <tbody>
-                        {%for s in r2.score%}
-                        <tr>
-                            <td>{{s}}</td>
-                        </tr>{%endfor%}
-                </tbody>
-            </table>
-        </section>
-
-        <section class="result-panel result-panel--wide">
-            <table border="2">
-                <thead>
-                    <th>BI Name</th>
-                </thead>
-                <tbody>
-                        {%for n in r2.name%}
-                        <tr>
-                            <td>{{n}}</td>
-                        </tr>{%endfor%}
-                </tbody>
-            </table>
-        </section>
-        </main>
-
-    <br><br>
-    <!--a href="https://panacea.threatgrid.com/login">Malware Analytics Login</a-->
-    <!--Malware Analytics login TILE-->
-      <div class="tiles tile thover">
-          <a href="https://panacea.threatgrid.com/login" target="_blank">
-          <img loading="lazy" decoding="async" alt="s3r" src="../static/imgs/malan.jpeg" height="200" width="280"></a>
-          <div class="caption">Malware Analytics</div>
-      </div>
-
-   <br><br>
         <div class="footer">
             <p>Copyright (c) 2022 wikoeste, Cisco Internal Use Only</p>
         </div>

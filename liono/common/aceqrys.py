@@ -1,69 +1,134 @@
 from liono.common import settings
+from html import escape
+import os
 import mysql.connector
 
-def htmltable(data):
-    homelink = ''
-    #print(data)
-    fileout = open(settings.acehtml, "w")
-    table = "<table>\n"
-    # add css
-    css = "<!DOCTYPE html>\n" \
-          "<html lang='en'>\n" \
-          "<head>\n" \
-          "<meta charset='utf-8'>\n" \
-          "<meta name='viewport' content='width=device-width, initial-scale=1'>\n" \
-          "<meta name='theme-color' content='#1f1f21'>\n" \
-          "<title>Analyst Console Tickets | Talos TE Toolbox</title>\n" \
-          "<link rel='stylesheet' href = '{{ url_for('static', filename='css/main.css') }}'>\n" \
-          "</head>\n" \
-          "<body>\n" \
-          "{% include \"partials/navigation.html\" %}\n" \
-          "<h1 class='logo'>Analyst Console Assigned Tickets</h1>\n"
-    table = css
-    ticket_count = sum("<a " in item for item in data)
-    table += "<details class='ticket-list' open>\n" \
-             "<summary><span>Analyst Console tickets</span>" \
-             "<span class='ticket-list-hint'>" + str(ticket_count) + " ticket links</span></summary>\n" \
-             "<div class='ticket-list-content'>\n" \
-             "<table>\n"
+def _ticket_groups(data):
+    """Split the flat ACE result stream into collapsible ticket categories."""
+    groups = []
+    current = None
 
-    # Add links for menu
-    table += homelink
-    # Create the table's column headers
-    header = ['ACE-Links']
-    table += "  <tr>\n"
-    for column in header:
-        table += "    <th>{0}</th>\n".format(column.strip())
-    # Create the table's row data
-    for line in data:
-        row = line.split(",")
-        table += " <tr>\n"
-        for column in row:
-            if "Unassigned" in column:
-                table += "    <td>"+column+"</td>\n"
-                #table += "    <td>{0}</td>\n".format(column.strip())
-            elif "Tickets" in column:
-                table += "    <td>{0}</td>\n".format(column.strip())
-            else:
-                table += "    <td>{0}</td>\n".format(column.strip())
-                #pass
-        table += "  </tr>\n"
-    table += "</table>\n</div>\n</details>\n"
-    table += "<br><br>"
-    # add footer to webpage
-    footer = "<div class=footer>\n" \
-             "<p>Copyright (c) 2022 wikoeste, Cisco Internal Use Only</p>\n" \
-             "</div>\n"
-    table += footer
-    table += "</body>\n</html>"
-    fileout.writelines(table)
-    fileout.close()
+    for raw_value in data:
+        value = str(raw_value).strip()
+        lower_value = value.lower()
+        is_link = "<a " in lower_value
+        is_header = (
+            not is_link
+            and ":" in value
+            and ("ticket" in lower_value or "unassigned" in lower_value)
+        )
+
+        if is_header:
+            title, _, count = value.rpartition(":")
+            if title.strip().casefold() == "all unassigned ace tickets":
+                current = None
+                continue
+            current = {"title": title.strip(), "count": count.strip(), "items": []}
+            groups.append(current)
+        else:
+            if current is None:
+                current = {"title": "Other tickets", "count": "", "items": []}
+                groups.append(current)
+            current["items"].append(value)
+
+    return groups
+
+def _render_ticket_group(output, group):
+    """Append one collapsible ticket category to an HTML output list."""
+    title = escape(group["title"])
+    count = escape(group["count"])
+    count_label = f"{count} tickets" if count else f"{len(group['items'])} items"
+    output.extend([
+        "<details class='ticket-group' open>\n",
+        f"<summary><span>{title}</span><span class='ticket-group-count'>{count_label}</span></summary>\n",
+        "<div class='ticket-group-content'>\n",
+        f"<table aria-label='{title}'>\n",
+        "<thead><tr><th>Ticket link</th></tr></thead>\n",
+        "<tbody>\n",
+    ])
+    if group["items"]:
+        for item in group["items"]:
+            output.append(f"<tr><td>{item}</td></tr>\n")
+    else:
+        output.append("<tr><td class='ticket-empty'>No tickets in this category.</td></tr>\n")
+    output.extend(["</tbody>\n</table>\n</div>\n</details>\n"])
+
+def htmltable(data):
+    groups = _ticket_groups(data)
+    ticket_count = sum("<a " in item.lower() for group in groups for item in group["items"])
+    assigned_groups = [group for group in groups if "unassigned" not in group["title"].lower()]
+    unassigned_groups = [group for group in groups if "unassigned" in group["title"].lower()]
+    assigned_count = sum("<a " in item.lower() for group in assigned_groups for item in group["items"])
+    unassigned_count = sum("<a " in item.lower() for group in unassigned_groups for item in group["items"])
+    output = [
+        "<!DOCTYPE html>\n",
+        "<html lang='en'>\n",
+        "<head>\n",
+        "<meta charset='utf-8'>\n",
+        "<meta name='viewport' content='width=device-width, initial-scale=1'>\n",
+        "<meta name='theme-color' content='#1f1f21'>\n",
+        "<title>Analyst Console Tickets | Talos TE Toolbox</title>\n",
+        "<link rel='stylesheet' href='{{ url_for('static', filename='css/main.css') }}'>\n",
+        "<script defer src='{{ url_for('static', filename='js/ticket-tabs.js') }}'></script>\n",
+        "</head>\n",
+        "<body>\n",
+        "{% include \"partials/navigation.html\" %}\n",
+        "<h1 class='logo'>Analyst Console Tickets</h1>\n",
+        "<details class='ticket-list' open>\n",
+        "<summary><span>All Analyst Console tickets</span>",
+        f"<span class='ticket-list-hint'>{ticket_count} ticket links</span></summary>\n",
+        "<div class='ticket-list-content'>\n",
+        "<div class='ticket-tabs' data-ticket-tabs>\n",
+        "<div class='ticket-tab-list' role='tablist' aria-label='Ticket assignment status'>\n",
+        "<button class='ticket-tab' id='assigned-tab' type='button' role='tab' "
+        "aria-selected='true' aria-controls='assigned-panel'>Assigned tickets "
+        f"<span>{assigned_count}</span></button>\n",
+        "<button class='ticket-tab' id='unassigned-tab' type='button' role='tab' "
+        "aria-selected='false' aria-controls='unassigned-panel' tabindex='-1'>Unassigned tickets "
+        f"<span>{unassigned_count}</span></button>\n",
+        "</div>\n",
+        "<section class='ticket-tab-panel' id='assigned-panel' role='tabpanel' "
+        "aria-labelledby='assigned-tab' tabindex='0'>\n",
+    ]
+
+    for group in assigned_groups:
+        _render_ticket_group(output, group)
+
+    output.extend([
+        "</section>\n",
+        "<section class='ticket-tab-panel' id='unassigned-panel' role='tabpanel' "
+        "aria-labelledby='unassigned-tab' tabindex='0' hidden>\n",
+    ])
+
+    for group in unassigned_groups:
+        _render_ticket_group(output, group)
+
+    output.extend([
+        "</section>\n",
+        "</div>\n",
+        "</div>\n</details>\n",
+        "<div class='footer'>\n",
+        "<p>Copyright (c) 2022 wikoeste, Cisco Internal Use Only</p>\n",
+        "</div>\n",
+        "</body>\n</html>",
+    ])
+
+    with open(settings.acehtml, "w", encoding="utf-8") as fileout:
+        fileout.writelines(output)
 
 def get_ace_dispute():
     cecuser    = settings.uname
     uid        = ''
     data,links = ([],[])
-    connection = mysql.connector.connect(host=settings.acedbhost,database=settings.acedatabase,user='ace_ro',password='WU3icQds+U9LXnQsJ')
+    password = os.getenv("ACE_DB_PASSWORD", "").strip()
+    if not password:
+        raise RuntimeError("ACE_DB_PASSWORD is not configured.")
+    connection = mysql.connector.connect(
+        host=os.getenv("ACE_DB_HOST", settings.acedbhost),
+        database=os.getenv("ACE_DB_NAME", settings.acedatabase),
+        user=os.getenv("ACE_DB_USER", "ace_ro"),
+        password=password,
+    )
     if connection.is_connected():
         db_Info = connection.get_server_info()
         print("Connected to MySQL Server version ", db_Info)
@@ -192,7 +257,6 @@ def get_ace_dispute():
         print("Unassigned Snort: {}".format(len(snrtrecords)))
         print("Total Unassigned: {}".format(unassigned))
         print("========================================")
-        data.append("ALL Unassigned ACE tickets:{}".format(unassigned))
         data.append("Snort Unassigned:{}".format(len(snrtrecords)))
         for row in snrtrecords:
             sid = row[0]

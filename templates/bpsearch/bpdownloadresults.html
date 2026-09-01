@@ -1,24 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#1f1f21">
-    <title>BP Download</title>
-    <link rel='stylesheet' href = "../../static/css/main.css">
-    <meta charset="UTF-8">
-    <!-- Drop down navigation bar -->
-
+    <title>BP Signature Refresh</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bp-search.css') }}">
 </head>
-<body>
+<body class="bp-search-page">
 {% include "partials/navigation.html" %}
-<h1>Secure Endpoint BP Download Results</h1>
-
-
-{{res}}
-
+<main class="bp-shell">
+    <section class="bp-form-panel">
+        <p class="bp-eyebrow">Signature repository</p>
+        <h1>BP signature refresh complete</h1>
+        <p>{{ res }}</p>
+        <div class="bp-results-actions"><a class="bp-button bp-button-primary" href="{{ url_for('bpSearch', tool='signature') }}">Search signatures</a><a class="bp-button" href="{{ url_for('bpSearch') }}">All BP tools</a></div>
+    </section>
+</main>
 </body>
-<!--Footer section-->
-    <div class="footer">
-      <p>Copyright (c) 2023 wikoeste, Cisco Internal Use Only</p>
-    </div>
 </html>

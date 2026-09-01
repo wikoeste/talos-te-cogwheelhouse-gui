@@ -1,6 +1,6 @@
 <nav class="navbar" aria-label="Primary navigation">
   <a class="nav-brand" href="{{ url_for('layout') }}">Talos Escalations | COG Toolbox</a>
-  <a href="https://confluence.vrt.sourcefire.com/calendar/mycalendar.action" target="_blank" rel="noopener noreferrer">Team Calendar</a>
+  <a href="{{ url_for('team_calendar') }}" target="_blank" rel="noopener noreferrer">Team Calendar</a>
 
   <div class="dropdown">
     <button class="dropbtn" type="button" aria-haspopup="true">Tickets <span aria-hidden="true">▾</span></button>
@@ -13,15 +13,7 @@
       <a href="{{ url_for('talosjiraops') }}">Jira TalosOps</a>
       <a href="{{ url_for('talosjirathr') }}">Jira THR</a>
       <a href="{{ url_for('talosjiraresbz') }}">Jira RESBZ</a>
-      <a href="{{ url_for('last7') }}">Metrics: Last 7 Days</a>
-    </div>
-  </div>
-
-  <div class="dropdown">
-    <button class="dropbtn" type="button" aria-haspopup="true">Umbrella Tools <span aria-hidden="true">▾</span></button>
-    <div class="dropdown-content">
-      <a href="https://editor.securityresearch.umbrella.com/editor" target="_blank" rel="noopener noreferrer">Research Editor</a>
-      <a href="{{ url_for('intelproxysearchform') }}">Proxy Script Search</a>
+      <a href="{{ url_for('jira_metrics') }}">Jira Metrics</a>
     </div>
   </div>
 
@@ -30,18 +22,17 @@
     <div class="dropdown-content">
       <a href="{{ url_for('clamsearch') }}">ClamAV Search</a>
       <a href="https://scripts.cisco.com/app/quicker_csone/" target="_blank" rel="noopener noreferrer">CSONE Search</a>
-      <a href="{{ url_for('elasticqueries') }}">Elastic Queries</a>
+      <a href="{{ url_for('elasticqueries') }}">Elastic Queries Search</a>
       <a href="{{ url_for('jirasearch') }}">Jira Search</a>
       <a href="{{ url_for('tg') }}">Malware Analytics</a>
-      <a href="{{ url_for('bpSearch') }}">BP Search</a>
+      <a href="{{ url_for('bpSearch', tool='cloud_ioc') }}">Cloud IOC Sig Search</a>
+      <a href="{{ url_for('bpSearch', tool='bpfps') }}">BP MOAEC Queries</a>
     </div>
   </div>
 
   <div class="dropdown">
     <button class="dropbtn" type="button" aria-haspopup="true">Scripts <span aria-hidden="true">▾</span></button>
     <div class="dropdown-content">
-      <a href="{{ url_for('reinjection') }}">Reinjection</a>
-      <a href="{{ url_for('etd') }}">ETD</a>
       <a href="{{ url_for('backlogbuddy') }}">Backlog Buddy</a>
       <a href="{{ url_for('langs') }}">IPAS Language Acronyms</a>
       <a href="{{ url_for('wbrsfeeds') }}">WBRS Feeds</a>
@@ -52,11 +43,24 @@
     <button class="dropbtn" type="button" aria-haspopup="true">Replay Tools <span aria-hidden="true">▾</span></button>
     <div class="dropdown-content">
       <a href="{{ url_for('pigreplay') }}">Pig Replay</a>
+      <a href="{{ url_for('analyzepcap') }}">Analyze PCAP</a>
       <a href="{{ url_for('uploadpcap') }}">Upload PCAP</a>
       <a href="{{ url_for('dlpcap') }}">Download PCAP</a>
       <a href="{{ url_for('delpcap') }}">Delete PCAP</a>
       <a href="{{ url_for('rulesearch') }}">Rule Search</a>
+      <a href="{{ url_for('crlookup') }}">CVE CR Analysis</a>
       <a href="{{ url_for('ruledl') }}">Rule Download</a>
+      <a href="http://127.0.0.1:8000/replay">PcapAnalysis</a>
+    </div>
+  </div>
+
+  <div class="dropdown">
+    <button class="dropbtn" type="button" aria-haspopup="true">Reports <span aria-hidden="true">▾</span></button>
+    <div class="dropdown-content">
+      <a href="http://127.0.0.1:8810/" target="_blank" rel="noopener noreferrer">Report Generator</a>
+      <a href="http://127.0.0.1:8810/generator?report=executive" target="_blank" rel="noopener noreferrer">Executive Summary</a>
+      <a href="http://127.0.0.1:8810/generator?report=rca" target="_blank" rel="noopener noreferrer">Root Cause Analysis</a>
+      <a href="http://127.0.0.1:8810/generator?report=sitrep" target="_blank" rel="noopener noreferrer">Situational Report</a>
     </div>
   </div>
 
@@ -64,6 +68,7 @@
     <button class="dropbtn" type="button" aria-haspopup="true">Staging Servers <span aria-hidden="true">▾</span></button>
     <div class="dropdown-content">
       <a href="https://analyst-console-staging.vrt.sourcefire.com/escalations" target="_blank" rel="noopener noreferrer">ACE</a>
+      <a href="https://analysis-api.vrt.sourcefire.com/docs#/" target="_blank" rel="noopener noreferrer">Analysis API Docs</a>
       <a href="https://fmd-tepot-01tst.vrt.sourcefire.com" target="_blank" rel="noopener noreferrer">TEA</a>
       <a href="https://talosintelligence-staging.herokuapp.com/reputation_center/" target="_blank" rel="noopener noreferrer">Talos Intelligence</a>
     </div>

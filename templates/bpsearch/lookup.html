@@ -1,32 +1,81 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#1f1f21">
-    <title>SE:BP-Search</title>
-    <link rel='stylesheet' href = "../../static/css/main.css">
-    <meta charset="UTF-8">
-    <!-- Drop down navigation bar -->
-
+    <title>Secure Endpoint BP Search</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bp-search.css') }}">
 </head>
-<body>
+<body class="bp-search-page">
 {% include "partials/navigation.html" %}
-<h1>Secure Endpoint BP Signature Search</h1>
-
-<br><br>
-
-    <div class="elasticform">
-        <form action="/getbp" method="POST">
-
-            <p>BP Signature ID: <input type="number" name="bpid"/>
-            <p>BP Signature Name: <input type="text" name="name"/>
-            <br><br>
-            <button type="submit">Submit</button>
-            <p><input type="submit" formaction="/bpdownload" value="Download BP Sigs"></p>
+<main class="bp-shell">
+    <header class="bp-hero">
+        <div>
+            <p class="bp-eyebrow">Secure Endpoint investigations</p>
+            <h1>BP Signature &amp; MOAEC Search</h1>
+            <p>Web access to the signature, Cloud IOC, and MOAEC menu from talos-te-bpsearch.</p>
+        </div>
+        <form action="{{ url_for('bpdownload') }}" method="post">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+            <button class="bp-button" type="submit">Refresh BP signatures</button>
         </form>
-    </div>
-<div class="footer">
-  <p>Copyright (c) 2022 wikoeste, Cisco Internal Use Only</p>
-</div>
+    </header>
+
+    <nav class="bp-menu" aria-label="BP Search menu options">
+        {% for key, option in menu_options.items() %}
+        <a class="bp-menu-card{% if key == selected_tool %} is-active{% endif %}" href="{{ url_for('bpSearch', tool=key) }}"{% if key == selected_tool %} aria-current="page"{% endif %}>
+            <span>{{ option.group }}</span>
+            <strong>{{ option.label }}</strong>
+            <small>{{ option.description }}</small>
+        </a>
+        {% endfor %}
+    </nav>
+
+    {% set selected = menu_options[selected_tool] %}
+    <section class="bp-form-panel" aria-labelledby="bp-form-title">
+        <div class="bp-panel-heading">
+            <p class="bp-eyebrow">{{ selected.group }}</p>
+            <h2 id="bp-form-title">{{ selected.label }}</h2>
+            <p>{{ selected.description }}</p>
+        </div>
+        {% if form_error %}<div class="bp-notice bp-notice-error" role="alert">{{ form_error }}</div>{% endif %}
+        <form action="{{ url_for('getbp') if selected_tool == 'signature' else url_for('bpsearch_query') }}" method="post">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+            {% if selected_tool != 'signature' %}<input type="hidden" name="option" value="{{ selected_tool }}">{% endif %}
+
+            {% if 'query' in selected.fields %}
+            <label for="bp-query">{{ 'BP name, SigID, MITRE tactic, CVE, or text' if selected_tool == 'signature' else 'Cloud IOC name or GUID' }}</label>
+            <input id="bp-query" type="text" name="query" maxlength="200" autocomplete="off" required>
+            {% endif %}
+            {% if 'business_guid' in selected.fields %}
+            <label for="bp-business-guid">Company / business GUID</label>
+            <input id="bp-business-guid" type="text" name="business_guid" maxlength="36" pattern="[0-9A-Fa-f]{8}(-[0-9A-Fa-f]{4}){3}-[0-9A-Fa-f]{12}" placeholder="00000000-0000-0000-0000-000000000000" autocomplete="off" required>
+            {% endif %}
+            {% if 'agent_guid' in selected.fields %}
+            <label for="bp-agent-guid">Connector / agent GUID</label>
+            <input id="bp-agent-guid" type="text" name="agent_guid" maxlength="36" pattern="[0-9A-Fa-f]{8}(-[0-9A-Fa-f]{4}){3}-[0-9A-Fa-f]{12}" placeholder="00000000-0000-0000-0000-000000000000" autocomplete="off" required>
+            {% endif %}
+            {% if 'bp_sig_id' in selected.fields %}
+            <label for="bp-sig-id">Behavioral Protection Signature ID</label>
+            <input id="bp-sig-id" type="text" inputmode="numeric" name="bp_sig_id" maxlength="14" pattern="[0-9]{14}" placeholder="12345678901234" autocomplete="off" required>
+            {% endif %}
+            {% if 'sha256' in selected.fields %}
+            <label for="bp-sha256">SHA256</label>
+            <input id="bp-sha256" type="text" name="sha256" minlength="64" maxlength="64" pattern="[0-9A-Fa-f]{64}" autocomplete="off" spellcheck="false" required>
+            {% endif %}
+            {% if 'company_name' in selected.fields %}
+            <label for="bp-company-name">Company / business name</label>
+            <input id="bp-company-name" type="text" name="company_name" maxlength="150" autocomplete="organization" required>
+            {% endif %}
+            {% if 'days' in selected.fields %}
+            <label for="bp-days">Search period</label>
+            <select id="bp-days" name="days" required>{% for value, label in day_options.items() %}<option value="{{ value }}"{% if value == '7' %} selected{% endif %}>{{ label }}</option>{% endfor %}</select>
+            {% endif %}
+            <button class="bp-button bp-button-primary" type="submit">Run {{ selected.label }}</button>
+        </form>
+    </section>
+</main>
 </body>
 </html>

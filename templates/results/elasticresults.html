@@ -1,35 +1,64 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#1f1f21">
-    <title>Talos TE Toolbox</title>
-<link rel='stylesheet' href = "{{ url_for('static', filename='css/main.css') }}">
-<h1 class='logo'>Juno Elastic Query API Results</h1>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1f1f21">
+  <meta name="description" content="Juno Elastic query results for the COG Wheelhouse.">
+  <title>{{ result.label }} Results | COG Wheelhouse</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/elastic-queries.css') }}">
 </head>
-<body>
+<body class="elastic-page">
 {% include "partials/navigation.html" %}
-<style>
-table, th, td {
-border: 1px solid black;
-border-collapse: collapse;
-}
-</style>
-<table style='width:100%'>
-<p><a href="/layout">Home | </a><a href="/elasticq">Elastic Qrys</a></p>
-  <tr>
-    <th>CIDS</th>
-    <th>Dates</th>
-  </tr>
-  <tr>
-    <td>None</td>
-    <td>--</td>
-  </tr>
-</table>
-</div>
-<br><br><div class=footer>
-<p>Copyright (c) 2022 wikoeste, Cisco Internal Use Only</p>
-</div>
+
+<main class="elastic-shell elastic-results-shell">
+  <header class="elastic-results-hero">
+    <div>
+      <p class="elastic-eyebrow">JUNO ELASTIC QUERY RESULTS</p>
+      <h1>{{ result.label }}</h1>
+      <p class="elastic-query-summary"><span>{{ result.period }}</span><strong>{{ result.search_value }}</strong></p>
+    </div>
+    <div class="elastic-result-count"><strong>{{ result.total }}</strong><span>Total matches</span><small>Showing {{ result.rows|length }} result{% if result.rows|length != 1 %}s{% endif %}</small></div>
+  </header>
+
+  <div class="elastic-results-actions">
+    <a class="elastic-back-button" href="{{ url_for('elasticqueries') }}">← New search</a>
+    <p>Results are returned directly from Juno and are not persisted by COG Wheelhouse.</p>
+  </div>
+
+  <section class="elastic-results-panel" aria-labelledby="results-title">
+    <div class="elastic-panel-heading"><span id="results-title">MATCHED MESSAGE TELEMETRY</span><span>{{ result.query_type|replace('_', ' ')|upper }}</span></div>
+    {% if result.rows %}
+    <div class="elastic-table-wrap">
+      <table>
+        <thead>
+          <tr>{% for column in result.columns %}<th scope="col">{{ column.label }}</th>{% endfor %}</tr>
+        </thead>
+        <tbody>
+          {% for row in result.rows %}
+          <tr>
+            {% for column in result.columns %}
+            <td data-label="{{ column.label }}">{{ row[column.key] or "—" }}</td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <div class="elastic-no-results">
+      <strong>No matching messages</strong>
+      <p>Juno returned no records for this value and time period.</p>
+      <a href="{{ url_for('elasticqueries') }}">Try another query</a>
+    </div>
+    {% endif %}
+  </section>
+</main>
+
+<footer class="elastic-footer">
+  <a href="{{ url_for('layout') }}">← Return to COG Wheelhouse</a>
+  <p>Cisco/Talos internal use only</p>
+</footer>
 </body>
 </html>

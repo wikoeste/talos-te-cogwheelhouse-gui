@@ -4,22 +4,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#1f1f21">
     <meta charset="UTF-8">
-    <title>Delete Pcap</title>
-        <link rel='stylesheet' href = "../static/css/main.css">
+    <title>Delete PCAP | Talos TE COG Wheelhouse</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 
 </head>
 <body>
 {% include "partials/navigation.html" %}
 <h1>Select the Packet Capture to Delete</h1>
 
-<ul>
-    <ol>
-      {% for file in files %}
-        <li><a href="{{ url_for('delete', filename=file) }}">{{ file }}</a></li>
-      {% endfor %}
-    </ol>
-        <li><a href="{{ url_for('delete_all_files')}}">Delete All Files</a></li>
-</ul>
-
+{% if files %}
+<div class="pcap-file-list">
+  {% for file in files %}
+  <form action="{{ url_for('delete', filename=file) }}" method="post">
+    <span>{{ file }}</span>
+    <button type="submit">Delete</button>
+  </form>
+  {% endfor %}
+  <form action="{{ url_for('delete_all_files') }}" method="post">
+    <button type="submit">Delete All PCAPs</button>
+  </form>
+</div>
+{% else %}
+<div class="elasticform ticket-empty">
+  <p>No PCAP files are available to delete.</p>
+  <a class="button" href="{{ url_for('uploadpcap') }}">Upload PCAPs</a>
+</div>
+{% endif %}
+<div class="footer">
+  <p>Copyright © 2026 Cisco · Talos Internal Use Only</p>
+</div>
 </body>
 </html>

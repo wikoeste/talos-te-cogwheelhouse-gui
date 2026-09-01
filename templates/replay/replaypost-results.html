@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#1f1f21">
+    <title>Replay Results Posted</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/replay-results.css') }}">
+</head>
+<body class="replay-results-page">
+{% include "partials/navigation.html" %}
+<main class="replay-results-shell">
+    <section class="replay-result-panel replay-jira-panel">
+        <p class="replay-eyebrow">COG ticket updated</p>
+        <h1>Replay results posted successfully</h1>
+        <p>The capture summary, runtime, and alerts were added to {{ ticket }} as a private Project Developer comment.</p>
+        <div class="replay-results-actions">
+            <a class="replay-button replay-button-primary" href="{{ jira_url }}/browse/{{ ticket }}" target="_blank" rel="noopener noreferrer">Open {{ ticket }} ↗</a>
+            <a class="replay-button" href="{{ url_for('replay') }}">Run another replay</a>
+        </div>
+    </section>
+</main>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1f1f21">
+  <title>Team Calendar | Talos TE COG Wheelhouse</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body>
+{% include "partials/navigation.html" %}
+<main class="team-calendar-page">
+  <header class="team-calendar-hero">
+    <div>
+      <p class="replay-eyebrow">Talos Escalations</p>
+      <h1>Team Calendar</h1>
+      <p>Read-only events synchronized securely from Confluence Team Calendars.</p>
+    </div>
+    <a class="button" href="{{ calendar.source_url if calendar else source_url }}" target="_blank" rel="noopener noreferrer">Open in Confluence</a>
+  </header>
+
+  {% if calendar_error %}
+  <section class="team-calendar-message" role="alert">
+    <h2>{{ 'Configuration required' if configuration_error else 'Calendar unavailable' }}</h2>
+    <p>{{ calendar_error }}</p>
+    {% if configuration_error %}
+    <p>Add the documented calendar environment values, then restart COG Wheelhouse.</p>
+    {% else %}
+    <p>Try again shortly or use the Confluence link above.</p>
+    {% endif %}
+  </section>
+  {% else %}
+  <nav class="calendar-month-nav" aria-label="Calendar month">
+    <a href="{{ url_for('team_calendar', month=calendar.previous_month) }}" aria-label="Previous month">← Previous</a>
+    <div>
+      <h2>{{ calendar.title }}</h2>
+      <span>{{ calendar.event_count }} event{{ '' if calendar.event_count == 1 else 's' }}</span>
+    </div>
+    <a href="{{ url_for('team_calendar', month=calendar.next_month) }}" aria-label="Next month">Next →</a>
+  </nav>
+
+  <section class="team-calendar-grid" aria-label="{{ calendar.title }}">
+    {% for weekday in ('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday') %}
+    <div class="calendar-weekday">{{ weekday }}</div>
+    {% endfor %}
+    {% for week in calendar.weeks %}
+      {% for day in week %}
+      <article class="calendar-day{% if not day.in_month %} calendar-day--outside{% endif %}{% if day.is_today %} calendar-day--today{% endif %}">
+        <time datetime="{{ day.value.isoformat() }}">{{ day.value.day }}</time>
+        {% if day.events %}
+        <ul>
+          {% for event in day.events %}
+          <li title="{{ event.location }}">
+            {% if not event.all_day %}<span>{{ event.start.strftime('%-I:%M %p') }}</span>{% endif %}
+            <strong>{{ event.summary }}</strong>
+            {% if event.location %}<small>{{ event.location }}</small>{% endif %}
+          </li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      </article>
+      {% endfor %}
+    {% endfor %}
+  </section>
+  {% endif %}
+</main>
+<div class="footer"><p>Copyright © 2026 Cisco · Talos Internal Use Only</p></div>
+</body>
+</html>

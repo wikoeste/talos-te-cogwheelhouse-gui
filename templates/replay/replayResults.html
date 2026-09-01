@@ -5,24 +5,36 @@
     <meta name="theme-color" content="#1f1f21">
     <meta charset="UTF-8">
     <title>Replay Results</title>
-    <link rel='stylesheet' href = "../static/css/main.css">
-
-
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/replay-results.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pcap-analyzer.css') }}">
+    <script src="{{ url_for('static', filename='js/replay-results.js') }}" defer></script>
 </head>
-<body>
+<body class="replay-results-page">
 {% include "partials/navigation.html" %}
-<h1>Snort Replay Results</h1>
+<main class="replay-results-shell">
+    <header class="replay-results-heading">
+        <p class="replay-eyebrow">Replay complete</p>
+        <h1>Snort replay results</h1>
+        <p class="replay-results-summary">Snort {{snortversion}} <span aria-hidden="true">·</span> {{pol}}</p>
+    </header>
 
+    <section class="replay-result-panel replay-rule-panel" aria-labelledby="original-rule-heading">
+        <div class="replay-panel-heading">
+            <p class="replay-eyebrow">Rule under test</p>
+            <h2 id="original-rule-heading">Original rule</h2>
+        </div>
+        <pre class="replay-code-block"><code>{{rule}}</code></pre>
+    </section>
 
-<!-- Snort version and original rule-->
-    <div align="left">
-        <p>Snort {{snortversion}}</p>
-        <p>Original Rule: {{rule}}</p>
-    </div>
-
-<br><br>
-<!-- Pcap table data results-->
-<div align="left">
+    <div class="replay-results-grid">
+    <section class="replay-result-panel" aria-labelledby="capture-summary-heading">
+        <div class="replay-panel-heading">
+            <p class="replay-eyebrow">Packet capture</p>
+            <h2 id="capture-summary-heading">Capture summary</h2>
+        </div>
+        <!-- Pcap table data results-->
+        <div align="left" class="replay-table-wrap">
         <table border="1px solid black;">
             <thead>
                 <th>PCAP DATA</th>
@@ -35,27 +47,82 @@
             {% endfor %}
             </tbody>
         </table>
-</div>
-<br><br>
-<!--Snort log data results-->
-<div class="divScroll">
+        </div>
+    </section>
+
+    <section class="replay-result-panel replay-runtime-panel" aria-labelledby="runtime-alerts-heading">
+        <div class="replay-panel-heading">
+            <p class="replay-eyebrow">Snort output</p>
+            <h2 id="runtime-alerts-heading">Runtime and alerts</h2>
+        </div>
+        <!--Snort log data results-->
+        <div class="divScroll replay-runtime-scroll">
     <table border="5px gray">
         <tr>
             <th>Policy: {{pol}}</th>
         </tr>
-        {% for r in results[:5] %}
-        <tr>
-            <td><font color="orange">{{r}}</font></td>
-        </tr>
-        {% endfor %}
-        {% for r in results[7:] %}
-        <tr>
+        {% set alert_block = namespace(active=false) %}
+        {% for r in results %}
+        {% set alert_delimiter = r.strip().startswith('#####') %}
+        {% set runtime_log = r.strip() == '====SNORT3 RUNTIME LOG DATA====' or r.strip().startswith('CompletedProcess(') %}
+        <tr{% if alert_block.active or alert_delimiter %} class="replay-alert-row"{% elif runtime_log %} class="replay-runtime-log-row"{% endif %}>
             <td>{{r}}</td>
         </tr>
+        {% if alert_delimiter %}{% set alert_block.active = not alert_block.active %}{% endif %}
         {% endfor %}
     </table>
-</div>
-<br>
+        </div>
+    </section>
+    </div>
+
+    {% if analyzer_results %}
+    <section class="replay-analyzer-results" aria-labelledby="pcap-analyzer-heading">
+        <div class="replay-panel-heading"><p class="replay-eyebrow">Packet inspection</p><h2 id="pcap-analyzer-heading">PCAP analyzer summary</h2><p class="replay-field-help">Matches the Analyze PCAP results layout; packet-sample inventory is omitted.</p></div>
+        {% for analyzer_result in analyzer_results %}
+            <section class="replay-result-panel"><h2>{{ analyzer_result.filename }}</h2></section>
+            {% if analyzer_result.analysis %}{% with analysis=analyzer_result.analysis %}{% include 'replay/pcap-analysis-summary.html' %}{% endwith %}{% else %}<section class="replay-result-panel replay-warning-panel"><p>{{ analyzer_result.error }}</p></section>{% endif %}
+        {% endfor %}
+    </section>
+    {% endif %}
+
+    <div class="replay-results-actions">
+        <button class="replay-button replay-button-primary" type="button" data-copy-target="replay-jira-copy">Copy results for Jira</button>
+        <a class="replay-button" href="{{ url_for('replay') }}">Run another replay</a>
+        <a class="replay-button" href="{{ url_for('pigreplay') }}">Replay tools</a>
+    </div>
+
+    <textarea id="replay-jira-copy" class="replay-clipboard-source" hidden readonly>{{ replay_jira_copy }}</textarea>
+    {% if replay_post_token %}
+    <section class="replay-result-panel replay-jira-panel" aria-labelledby="replay-jira-heading">
+        <div class="replay-panel-heading">
+            <p class="replay-eyebrow">Optional COG update</p>
+            <h2 id="replay-jira-heading">Post these replay results to a COG ticket?</h2>
+        </div>
+        <form action="{{ url_for('testpcap_results_jira') }}" method="post" data-jira-post-form>
+            <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+            <input type="hidden" name="replay_post_token" value="{{ replay_post_token }}">
+            <fieldset class="replay-choice-fieldset">
+                <legend>Post results?</legend>
+                <div class="replay-choice-grid">
+                    <label class="replay-choice"><input type="radio" name="post_to_jira" value="no" checked><span><strong>No</strong><small>Leave Jira unchanged.</small></span></label>
+                    <label class="replay-choice"><input type="radio" name="post_to_jira" value="yes"><span><strong>Yes</strong><small>Add the capture summary, PCAP analysis, runtime, and alerts as a private comment.</small></span></label>
+                </div>
+            </fieldset>
+            <div data-jira-ticket-fields hidden>
+                <label for="replay-jira-ticket">COG ticket</label>
+                <input id="replay-jira-ticket" type="text" name="jira_ticket" maxlength="14" pattern="[Cc][Oo][Gg]-[1-9][0-9]{0,9}" placeholder="COG-12345" autocomplete="off" spellcheck="false" disabled>
+                <p class="replay-field-help">Only COG tickets are accepted. Replay output and Jira credentials remain server-side.</p>
+            </div>
+            <button class="replay-button replay-button-primary" type="submit" data-jira-post-submit disabled>Post replay results to Jira</button>
+        </form>
+    </section>
+    {% elif replay_post_error %}
+    <section class="replay-result-panel replay-jira-panel replay-warning-panel">
+        <h2>Jira posting unavailable</h2>
+        <p>{{ replay_post_error }}</p>
+    </section>
+    {% endif %}
+</main>
 
 </body>
 </html>

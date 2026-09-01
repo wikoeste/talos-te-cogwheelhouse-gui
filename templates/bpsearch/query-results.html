@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#1f1f21">
+    <title>{{ result.label }} Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bp-search.css') }}">
+</head>
+<body class="bp-search-page">
+{% include "partials/navigation.html" %}
+<main class="bp-shell">
+    <header class="bp-results-heading">
+        <div><p class="bp-eyebrow">BP Search complete</p><h1>{{ result.label }}</h1><p>{{ result.summary }}</p></div>
+        <div class="bp-result-count"><strong>{{ result.total }}</strong><span>Total matches</span><small>Showing {{ result.rows|length }}</small></div>
+    </header>
+    <div class="bp-results-actions"><a class="bp-button bp-button-primary" href="{{ url_for('bpSearch', tool=result.option) }}">Run another search</a><a class="bp-button" href="{{ url_for('bpSearch') }}">All BP tools</a></div>
+    <section class="bp-results-panel" aria-label="BP Search results">
+        {% if result.rows %}
+        <div class="bp-table-scroll" role="region" aria-label="Search result table" tabindex="0">
+            <table class="bp-results-table">
+                <thead><tr>{% for key, label in result.columns %}<th scope="col">{{ label }}</th>{% endfor %}</tr></thead>
+                <tbody>{% for row in result.rows %}<tr>{% for key, label in result.columns %}<td>{{ row.get(key, '') }}</td>{% endfor %}</tr>{% endfor %}</tbody>
+            </table>
+        </div>
+        {% else %}<div class="bp-empty-state"><strong>No matching results</strong><p>Adjust the search value or period and try again.</p></div>{% endif %}
+    </section>
+</main>
+</body>
+</html>

@@ -1,127 +1,16 @@
 <!DOCTYPE html>
-<html lang='en'>
+<html lang="en">
 <head>
-<meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'>
-<meta name='theme-color' content='#1f1f21'>
-<title>Assigned | Talos TE Toolbox</title>
-<link rel='stylesheet' href = "{{ url_for('static', filename='css/main.css') }}">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Assigned | Talos TE COG Wheelhouse</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 </head>
 <body>
 {% include "partials/navigation.html" %}
-<h1 class='logo'>Assigned</h1>
-<style>
-table, th, td {
-border: 1px solid black;
-border-collapse: collapse;
-}
-</style>
-<table style='width:100%'>
-  <tr>
-    <th>Link</th>
-    <th>Description</th>
-    <th>DateOpened</th>
-    <th>LastModified</th>
-    <th>Bulk Resolve</th>
-  </tr>
-  <tr>
-    <td><a href =https://jira.talos.cisco.com/browse/COG-87213 target=_blank>COG-87213</a></td>
-    <td>[FP] DATA MANAGEMENT SYSTEMS LTD – WBRS - Good URL blocked</td>
-    <td>2026-08-05</td>
-    <td>2026-08-05 12:47:18</td>
-    <td><form action=/bulkresolve method=POST><input type=checkbox name=resolve value=COG-87213><label for=COG-87213>COG-87213</label><br></td>
-  </tr>
-  <tr>
-    <td><a href =https://jira.talos.cisco.com/browse/COG-87211 target=_blank>COG-87211</a></td>
-    <td>[FP] Boursorama - IPAS - False Positive (HAM) - 701172456</td>
-    <td>2026-08-05</td>
-    <td>2026-08-05 12:47:16</td>
-    <td><form action=/bulkresolve method=POST><input type=checkbox name=resolve value=COG-87211><label for=COG-87211>COG-87211</label><br></td>
-  </tr>
-  <tr>
-    <td><a href =https://jira.talos.cisco.com/browse/COG-87214 target=_blank>COG-87214</a></td>
-    <td>[CR] HYNIX SEMICONDUCTOR INC - SNORT2/3 - Create Coverage for CVE-2026-18574</td>
-    <td>2026-08-05</td>
-    <td>2026-08-05 12:47:15</td>
-    <td><form action=/bulkresolve method=POST><input type=checkbox name=resolve value=COG-87214><label for=COG-87214>COG-87214</label><br></td>
-  </tr>
-  <tr>
-    <td><a href =https://jira.talos.cisco.com/browse/COG-87166 target=_blank>COG-87166</a></td>
-    <td>[FP] SCOTCH COLLEGE - AMP - Safe file blocked by AMP d2ac1a96fa52dd3fc784946ad621caac4f3577e39721f1763c9d1e84d2e7cdb8</td>
-    <td>2026-08-03</td>
-    <td>2026-08-05 06:32:08</td>
-    <td><form action=/bulkresolve method=POST><input type=checkbox name=resolve value=COG-87166><label for=COG-87166>COG-87166</label><br></td>
-  </tr>
-  <tr>
-    <td><a href =https://jira.talos.cisco.com/browse/COG-87169 target=_blank>COG-87169</a></td>
-    <td>[FP]- BAR ILAN UNIVERSITY - SBRS - Good sender with none reputation</td>
-    <td>2026-08-03</td>
-    <td>2026-08-05 03:53:01</td>
-    <td><form action=/bulkresolve method=POST><input type=checkbox name=resolve value=COG-87169><label for=COG-87169>COG-87169</label><br></td>
-  </tr>
-  <tr>
-    <td><a href =https://jira.talos.cisco.com/browse/COG-87182 target=_blank>COG-87182</a></td>
-    <td>[FN] COMANDO CONJUNTO DE LAS FUERZAS ARMADAS - Phish message were not caught</td>
-    <td>2026-08-03</td>
-    <td>2026-08-04 18:25:52</td>
-    <td><form action=/bulkresolve method=POST><input type=checkbox name=resolve value=COG-87182><label for=COG-87182>COG-87182</label><br></td>
-  </tr>
-  <tr>
-    <td><a href =https://jira.talos.cisco.com/browse/COG-86989 target=_blank>COG-86989</a></td>
-    <td>[FP] ALLIANZ TECHNOLOGY SE -SBRS-Poor IP reputation</td>
-    <td>2026-07-23</td>
-    <td>2026-08-04 13:18:19</td>
-    <td><form action=/bulkresolve method=POST><input type=checkbox name=resolve value=COG-86989><label for=COG-86989>COG-86989</label><br></td>
-  </tr>
-  <tr>
-    <td><a href =https://jira.talos.cisco.com/browse/COG-87170 target=_blank>COG-87170</a></td>
-    <td>SK HYNIX - SNORT2 or SNORT3 - Create Coverage for CVE-2025-23211</td>
-    <td>2026-08-03</td>
-    <td>2026-08-04 13:12:03</td>
-    <td><form action=/bulkresolve method=POST><input type=checkbox name=resolve value=COG-87170><label for=COG-87170>COG-87170</label><br></td>
-  </tr>
-  <tr>
-    <td><a href =https://jira.talos.cisco.com/browse/COG-87180 target=_blank>COG-87180</a></td>
-    <td>[FP] PATRIOT FEDERAL CREDIT UNION - Umbrella - Domain variphy.cloud being blocked for phishing and untrusted</td>
-    <td>2026-08-03</td>
-    <td>2026-08-04 12:46:34</td>
-    <td><form action=/bulkresolve method=POST><input type=checkbox name=resolve value=COG-87180><label for=COG-87180>COG-87180</label><br></td>
-  </tr>
-  <tr>
-    <td><a href =https://jira.talos.cisco.com/browse/COG-87159 target=_blank>COG-87159</a></td>
-    <td>[Other] AMTRAK - SBRS - score incorrectly lowered as 'None' for specific domain.</td>
-    <td>2026-07-31</td>
-    <td>2026-08-04 12:42:44</td>
-    <td><form action=/bulkresolve method=POST><input type=checkbox name=resolve value=COG-87159><label for=COG-87159>COG-87159</label><br></td>
-  </tr>
-  <tr>
-    <td><a href =https://jira.talos.cisco.com/browse/COG-87168 target=_blank>COG-87168</a></td>
-    <td>[FP] Blue Yonder - Umbrella - Good URL Blocked</td>
-    <td>2026-08-03</td>
-    <td>2026-08-03 12:42:00</td>
-    <td><form action=/bulkresolve method=POST><input type=checkbox name=resolve value=COG-87168><label for=COG-87168>COG-87168</label><br></td>
-  </tr>
-  <tr>
-    <td><a href =https://jira.talos.cisco.com/browse/COG-80026 target=_blank>COG-80026</a></td>
-    <td>[CR] AVODAQ - AMP - Atomic Red Team Tests</td>
-    <td>2025-06-19</td>
-    <td>2026-07-29 13:21:25</td>
-    <td><form action=/bulkresolve method=POST><input type=checkbox name=resolve value=COG-80026><label for=COG-80026>COG-80026</label><br></td>
-  </tr>
-  <tr>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td><button type=submit>Resolve Tickets</button></form></td>
-  </tr>
-  <tr>
-    <td>Total Opened</td>
-    <td>12</td>
-  </tr>
-</table>
-<br><br><div class=footer>
-<p>Copyright (c) 2022 wikoeste, Cisco Internal Use Only</p>
-</div>
+<main>
+  <h1 class="logo">Assigned</h1>
+  <p>No assigned-ticket snapshot has been generated. Refresh ticket data from the application.</p>
+</main>
 </body>
 </html>

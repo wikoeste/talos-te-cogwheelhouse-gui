@@ -1,49 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#1f1f21">
-    <title>BP Results</title>
-    <link rel='stylesheet' href = "../../static/css/main.css">
-    <meta charset="UTF-8">
-    <!-- Drop down navigation bar -->
-
+    <title>BP Signature Search Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bp-search.css') }}">
 </head>
-<body>
+<body class="bp-search-page">
 {% include "partials/navigation.html" %}
-<h1>Secure Endpoint BP Search Results</h1>
-
-<br><br>
-
-<main class="results-layout results-layout--two-column">
-<section class="result-panel">
-    {%for d in data%}
-        {{d}}
-    <br>
-    {%endfor%}
-</section>
-
-<br><br>
-
-<section class="result-panel">
-    <table border="1">
-        <thead>
-            <th>Jira THR related tickets</th>
-        </thead>
-            <tbody>
-            {%for r in res%}
-            <tr>
-                <td>{{r}}</td>
-            </tr>
-            {%endfor%}
-        </tbody>
-    </table>
-</section>
+<main class="bp-shell">
+    <header class="bp-results-heading"><div><p class="bp-eyebrow">Signature search complete</p><h1>BP Signature Search Results</h1><p>Query: {{ query }}</p></div></header>
+    <div class="bp-results-actions"><a class="bp-button bp-button-primary" href="{{ url_for('bpSearch', tool='signature') }}">Search again</a><a class="bp-button" href="{{ url_for('bpSearch') }}">All BP tools</a></div>
+    <div class="results-layout results-layout--two-column">
+        <section class="result-panel"><h2>Signature files</h2><pre>{% for line in data %}{{ line }}
+{% else %}No matching signature file results were returned.{% endfor %}</pre></section>
+        <section class="result-panel"><h2>Related THR tickets</h2>
+            {% if res %}<ul>{% for ticket in res %}<li><a href="https://jira.talos.cisco.com/browse/{{ ticket }}" target="_blank" rel="noopener noreferrer">{{ ticket }}</a></li>{% endfor %}</ul>{% else %}<p>No related THR tickets were found.</p>{% endif %}
+        </section>
+    </div>
 </main>
-<br><br>
-
-<div class="footer">
-  <p>Copyright (c) 2022 wikoeste, Cisco Internal Use Only</p>
-</div>
 </body>
 </html>

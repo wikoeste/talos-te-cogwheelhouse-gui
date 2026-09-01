@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CVE CR Jira Post | Talos TE Toolbox</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/cve-cr.css') }}">
+</head>
+<body>
+{% include "partials/navigation.html" %}
+<main class="cr-shell"><section class="cr-panel cr-success">
+    <p class="cr-eyebrow">Jira updated</p><h1>Results posted privately</h1>
+    <p>The CVE CR analysis was added to <strong>{{ issue_key }}</strong> for Project Developer visibility.</p>
+    <div class="cr-actions"><a class="cr-button cr-button--primary" href="{{ jira_url }}" target="_blank" rel="noopener noreferrer">Open {{ issue_key }}</a><a class="cr-button" href="{{ url_for('crlookup') }}">Analyze more CVEs</a></div>
+</section></main>
+</body>
+</html>

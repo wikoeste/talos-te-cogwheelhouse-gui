@@ -1,16 +1,99 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Assigned | Talos TE COG Wheelhouse</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+<meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<meta name='theme-color' content='#1f1f21'>
+<title>Assigned | Talos TE Toolbox</title>
+<link rel='stylesheet' href = "{{ url_for('static', filename='css/main.css') }}">
 </head>
 <body>
 {% include "partials/navigation.html" %}
-<main>
-  <h1 class="logo">Assigned</h1>
-  <p>No assigned-ticket snapshot has been generated. Refresh ticket data from the application.</p>
-</main>
+<h1 class='logo'>Assigned</h1>
+<style>
+table, th, td {
+border: 1px solid black;
+border-collapse: collapse;
+}
+</style>
+<table style='width:100%'>
+  <tr>
+    <th>Link</th>
+    <th>Description</th>
+    <th>DateOpened</th>
+    <th>LastModified</th>
+    <th>Bulk Resolve</th>
+  </tr>
+  <tr>
+    <td><a href =https://jira.talos.cisco.com/browse/COG-87728 target=_blank>COG-87728</a></td>
+    <td>[FP] BROWARD COUNTY AVIATION DEPT - SNORT - sid:65229 matches substring within OAuth profile</td>
+    <td>2026-09-01</td>
+    <td>2026-09-01 18:14:42</td>
+    <td><form action=/bulkresolve method=POST><input type=checkbox name=resolve value=COG-87728><label for=COG-87728>COG-87728</label><br></td>
+  </tr>
+  <tr>
+    <td><a href =https://jira.talos.cisco.com/browse/COG-87737 target=_blank>COG-87737</a></td>
+    <td>[FP] VIC POLICE - WBRS -SWA review app.au.auror.co scored -6 and blocked while Talos public lookup reported Neutral</td>
+    <td>2026-09-01</td>
+    <td>2026-09-01 18:12:40</td>
+    <td><form action=/bulkresolve method=POST><input type=checkbox name=resolve value=COG-87737><label for=COG-87737>COG-87737</label><br></td>
+  </tr>
+  <tr>
+    <td><a href =https://jira.talos.cisco.com/browse/COG-87423 target=_blank>COG-87423</a></td>
+    <td>[Testing][TE] Team Training - Snort - Codex enhanced UI</td>
+    <td>2026-08-14</td>
+    <td>2026-09-01 18:12:08</td>
+    <td><form action=/bulkresolve method=POST><input type=checkbox name=resolve value=COG-87423><label for=COG-87423>COG-87423</label><br></td>
+  </tr>
+  <tr>
+    <td><a href =https://jira.talos.cisco.com/browse/COG-87150 target=_blank>COG-87150</a></td>
+    <td>[FP] AIR FRANCE - IPAS - legitimate emails were quarantined by outbreak</td>
+    <td>2026-07-31</td>
+    <td>2026-09-01 12:35:21</td>
+    <td><form action=/bulkresolve method=POST><input type=checkbox name=resolve value=COG-87150><label for=COG-87150>COG-87150</label><br></td>
+  </tr>
+  <tr>
+    <td><a href =https://jira.talos.cisco.com/browse/COG-87742 target=_blank>COG-87742</a></td>
+    <td>[FP] - ATOS WORLDLINE –IPAS–  Legit mail marked as Outbreak filter positive</td>
+    <td>2026-09-01</td>
+    <td>2026-09-01 12:21:46</td>
+    <td><form action=/bulkresolve method=POST><input type=checkbox name=resolve value=COG-87742><label for=COG-87742>COG-87742</label><br></td>
+  </tr>
+  <tr>
+    <td><a href =https://jira.talos.cisco.com/browse/COG-80026 target=_blank>COG-80026</a></td>
+    <td>[CR] AVODAQ - AMP - Atomic Red Team Tests</td>
+    <td>2025-06-19</td>
+    <td>2026-09-01 12:12:48</td>
+    <td><form action=/bulkresolve method=POST><input type=checkbox name=resolve value=COG-80026><label for=COG-80026>COG-80026</label><br></td>
+  </tr>
+  <tr>
+    <td><a href =https://jira.talos.cisco.com/browse/COG-87480 target=_blank>COG-87480</a></td>
+    <td>[FP] TECNOROUTE SL - IPAS - Legit email caught</td>
+    <td>2026-08-19</td>
+    <td>2026-09-01 12:09:19</td>
+    <td><form action=/bulkresolve method=POST><input type=checkbox name=resolve value=COG-87480><label for=COG-87480>COG-87480</label><br></td>
+  </tr>
+  <tr>
+    <td><a href =https://jira.talos.cisco.com/browse/COG-87238 target=_blank>COG-87238</a></td>
+    <td>[Other] CAPGEMINI SERVICE- Email Submission Portal hourly notification - Notification not received</td>
+    <td>2026-08-06</td>
+    <td>2026-09-01 12:05:41</td>
+    <td><form action=/bulkresolve method=POST><input type=checkbox name=resolve value=COG-87238><label for=COG-87238>COG-87238</label><br></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td><button type=submit>Resolve Tickets</button></form></td>
+  </tr>
+  <tr>
+    <td>Total Opened</td>
+    <td>8</td>
+  </tr>
+</table>
+<br><br><div class=footer>
+<p>Copyright (c) 2022 wikoeste, Cisco Internal Use Only</p>
+</div>
 </body>
 </html>
